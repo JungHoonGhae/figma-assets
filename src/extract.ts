@@ -6,7 +6,7 @@
 
 import { mkdirSync, writeFileSync, copyFileSync, existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { fetchNode, fetchImageUrls, parseFigmaUrl, type FigmaNode } from "./figma.js";
+import { fetchNode, fetchImageUrls, fetchLastModified, parseFigmaUrl, type FigmaNode } from "./figma.js";
 import { collectAssetIds, isRasterSvg } from "./collect.js";
 
 export interface ExtractOptions {
@@ -57,6 +57,17 @@ export async function extract(options: ExtractOptions): Promise<ExtractResult> {
 
   mkdirSync(options.outDir, { recursive: true });
 
+  // 0. Auto-invalidate cache if Figma file has changed
+  let useCache = !options.refresh;
+  if (useCache) {
+    const cachedTimestamp = readCache(cacheDir, "meta", fileKey);
+    const currentTimestamp = await fetchLastModified(fileKey, options.token);
+    if (cachedTimestamp !== currentTimestamp) {
+      useCache = false; // file changed — bypass cache
+      writeCache(cacheDir, "meta", fileKey, currentTimestamp);
+    }
+  }
+
   // 1. Fetch node tree
   const root = await fetchNode(fileKey, nodeId, options.token);
 
@@ -68,7 +79,7 @@ export async function extract(options: ExtractOptions): Promise<ExtractResult> {
   const uncachedIds: string[] = [];
 
   for (const id of uniqueIds) {
-    if (!options.refresh) {
+    if (useCache) {
       const cached = readCache(cacheDir, "svg", id);
       if (cached) { svgs[id] = cached; continue; }
     }
@@ -180,6 +191,12 @@ export async function extract(options: ExtractOptions): Promise<ExtractResult> {
         rasterScale,
       });
     }
+  }
+
+  // Save timestamp for future cache checks
+  if (!options.refresh) {
+    const ts = await fetchLastModified(fileKey, options.token).catch(() => "");
+    if (ts) writeCache(cacheDir, "meta", fileKey, ts);
   }
 
   return {
