@@ -38,6 +38,7 @@ program.command("extract <figma-url>")
   .option("--compact", "Compact tree for AI agents — prunes empty nodes, collapses pass-throughs", false)
   .option("--raster-scale <n>", "Scale for raster-embedded SVGs (default: 2)", "2")
   .option("--raster-format <fmt>", "Format for raster exports: png or jpg (default: png)", "png")
+  .option("--out-dir <dir>", "Save SVGs and rasters as files to this directory")
   .action(extractCommand);
 
 program.command("cache <action> [page]")

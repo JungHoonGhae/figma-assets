@@ -1,5 +1,8 @@
 import { parseFigmaUrl, extract, loadConfig } from "@figma-doctor/core";
+import type { ExtractResult } from "@figma-doctor/core";
 import { formatJson } from "../formatters/json.js";
+import { mkdirSync, writeFileSync, copyFileSync, existsSync } from "node:fs";
+import { join } from "node:path";
 
 interface ExtractCommandOptions {
   format?: "table" | "json";
@@ -8,6 +11,7 @@ interface ExtractCommandOptions {
   compact?: boolean;
   rasterScale?: string;
   rasterFormat?: string;
+  outDir?: string;
 }
 
 export async function extractCommand(figmaUrl: string, options: ExtractCommandOptions): Promise<void> {
@@ -32,6 +36,13 @@ export async function extractCommand(figmaUrl: string, options: ExtractCommandOp
     rasterScale,
     rasterFormat,
   });
+
+  // --out-dir: save assets as files and return file paths
+  if (options.outDir) {
+    const assetPaths = await saveAssets(result, options.outDir);
+    console.log(formatJson(assetPaths));
+    return;
+  }
 
   // --svgs-only: output SVGs + rasters with node metadata
   if (options.svgsOnly) {
@@ -157,4 +168,74 @@ function cleanStyles(node: FigmaNode): Record<string, string> {
   }
 
   return result;
+}
+
+function safeName(name: string): string {
+  return name.replace(/[^a-zA-Z0-9가-힣_-]/g, "_").replace(/_+/g, "_").substring(0, 60);
+}
+
+interface AssetEntry {
+  id: string;
+  name: string;
+  type: string;
+  width?: string;
+  height?: string;
+  filePath: string;
+  hint?: string;
+}
+
+async function saveAssets(result: ExtractResult, outDir: string): Promise<AssetEntry[]> {
+  mkdirSync(outDir, { recursive: true });
+
+  const entries: AssetEntry[] = [];
+  const nameCount = new Map<string, number>();
+
+  for (const node of result.nodes) {
+    if (!node.svg && !node.raster) continue;
+
+    // Generate unique filename
+    const baseName = safeName(node.name);
+    const count = nameCount.get(baseName) ?? 0;
+    nameCount.set(baseName, count + 1);
+    const suffix = count > 0 ? `-${count}` : "";
+
+    if (node.svg) {
+      const fileName = `${baseName}${suffix}.svg`;
+      const filePath = join(outDir, fileName);
+      writeFileSync(filePath, node.svg);
+      entries.push({
+        id: node.id,
+        name: node.name,
+        type: node.type,
+        width: node.styles.width,
+        height: node.styles.height,
+        filePath: fileName,
+      });
+    }
+
+    if (node.raster) {
+      const ext = node.raster.format;
+      const scale = node.raster.scale;
+      const fileName = `${baseName}${suffix}@${scale}x.${ext}`;
+      const filePath = join(outDir, fileName);
+
+      // Copy from cache to outDir
+      if (existsSync(node.raster.filePath)) {
+        copyFileSync(node.raster.filePath, filePath);
+      }
+
+      entries.push({
+        id: node.id,
+        name: node.name,
+        type: node.type,
+        width: node.styles.width,
+        height: node.styles.height,
+        filePath: fileName,
+        hint: "Raster — use <img src=\"" + fileName + "\"> directly, no container styling needed.",
+      });
+    }
+  }
+
+  console.error(`✓ Saved ${entries.length} assets to ${outDir}/`);
+  return entries;
 }
