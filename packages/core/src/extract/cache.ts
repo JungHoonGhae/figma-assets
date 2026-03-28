@@ -2,9 +2,11 @@ import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from "node
 import { join } from "node:path";
 
 export class NodeCache {
+  private cacheDir: string;
   private nodesDir: string;
 
   constructor(cacheDir: string) {
+    this.cacheDir = cacheDir;
     this.nodesDir = join(cacheDir, "nodes");
   }
 
@@ -30,8 +32,25 @@ export class NodeCache {
     }
   }
 
+  getSvg(nodeId: string): string | null {
+    const filePath = this.svgFilePath(nodeId);
+    if (!existsSync(filePath)) return null;
+    return readFileSync(filePath, "utf-8");
+  }
+
+  setSvg(nodeId: string, svg: string): void {
+    const dir = join(this.cacheDir, "icons");
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(this.svgFilePath(nodeId), svg);
+  }
+
   private filePath(nodeId: string): string {
     const safeName = nodeId.replace(/:/g, "-");
     return join(this.nodesDir, `${safeName}.json`);
+  }
+
+  private svgFilePath(nodeId: string): string {
+    const safeName = nodeId.replace(/:/g, "-");
+    return join(this.cacheDir, "icons", `${safeName}.svg`);
   }
 }

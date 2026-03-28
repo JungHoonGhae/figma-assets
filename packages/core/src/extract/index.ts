@@ -2,6 +2,7 @@ import type { FigmaNode } from "../types.js";
 import { fetchFigmaNode, parseFigmaUrl } from "./client.js";
 import { normalizeNode } from "./normalizer.js";
 import { NodeCache } from "./cache.js";
+import { collectSvgNodeIds, fetchSvgs } from "./svg.js";
 
 export interface ExtractOptions {
   figmaUrl?: string;
@@ -14,6 +15,7 @@ export interface ExtractOptions {
 
 export interface ExtractResult {
   nodes: FigmaNode[];
+  svgs: Record<string, string>;  // nodeId → SVG string
   count: number;
 }
 
@@ -35,26 +37,67 @@ export async function extract(options: ExtractOptions): Promise<ExtractResult> {
   const cache = options.cacheDir ? new NodeCache(options.cacheDir) : null;
 
   // Check cache
+  let raw: any;
   if (cache && !options.refresh) {
     const cached = cache.get(nodeId);
     if (cached) {
-      const node = normalizeNode(cached as any);
-      const nodes = flattenNodes(node);
-      return { nodes, count: nodes.length };
+      raw = cached;
     }
   }
 
-  // Fetch from API
-  const raw = await fetchFigmaNode(fileKey, nodeId, options.token);
+  if (!raw) {
+    // Fetch from API
+    raw = await fetchFigmaNode(fileKey, nodeId, options.token);
 
-  // Cache the raw response
-  if (cache) {
-    cache.set(nodeId, raw);
+    // Cache the raw response
+    if (cache) {
+      cache.set(nodeId, raw);
+    }
+  }
+
+  // Collect SVG node IDs
+  const svgNodeIds = collectSvgNodeIds(raw);
+
+  // Resolve SVGs from cache or fetch
+  const svgs: Record<string, string> = {};
+  const missingIds: string[] = [];
+
+  for (const id of svgNodeIds) {
+    if (cache && !options.refresh) {
+      const cached = cache.getSvg(id);
+      if (cached) {
+        svgs[id] = cached;
+        continue;
+      }
+    }
+    missingIds.push(id);
+  }
+
+  if (missingIds.length > 0) {
+    const fetched = await fetchSvgs(fileKey, missingIds, options.token);
+    for (const [id, svg] of Object.entries(fetched)) {
+      svgs[id] = svg;
+      if (cache) {
+        cache.setSvg(id, svg);
+      }
+    }
   }
 
   const node = normalizeNode(raw);
+  attachSvgs(node, svgs);
   const nodes = flattenNodes(node);
-  return { nodes, count: nodes.length };
+  return { nodes, svgs, count: nodes.length };
+}
+
+function attachSvgs(node: FigmaNode, svgs: Record<string, string>): void {
+  if (svgs[node.id]) {
+    node.svg = svgs[node.id];
+  }
+  if (node.children) {
+    for (const child of node.children) {
+      attachSvgs(child, svgs);
+    }
+  }
 }
 
 function flattenNodes(node: FigmaNode): FigmaNode[] {

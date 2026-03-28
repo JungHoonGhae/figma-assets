@@ -35,11 +35,14 @@ export interface CacheConfig {
 export interface FigmaNode {
   id: string;
   name: string;
-  type: "TEXT" | "FRAME" | "INSTANCE" | "COMPONENT" | "GROUP" | "RECTANGLE" | "VECTOR" | "ELLIPSE";
+  type: "TEXT" | "FRAME" | "INSTANCE" | "COMPONENT" | "GROUP" | "RECTANGLE" | "VECTOR" | "ELLIPSE" | "BOOLEAN_OPERATION" | "LINE";
   characters?: string; // TEXT 노드의 텍스트 내용
+  svg?: string;        // SVG markup for icon nodes
   styles: NormalizedStyles;
   children?: FigmaNode[];
 }
+
+export type SVGMap = Record<string, string>; // nodeId → SVG string
 
 export interface NormalizedStyles {
   width?: string;

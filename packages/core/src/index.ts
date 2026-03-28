@@ -11,6 +11,7 @@ export type {
   CacheConfig,
   FigmaNode,
   NormalizedStyles,
+  SVGMap,
   AuditSeverity,
   AuditIssue,
   AuditResult,
@@ -21,6 +22,7 @@ export type {
 
 export { extract, parseFigmaUrl, NodeCache } from "./extract/index.js";
 export { fetchFigmaNode } from "./extract/client.js";
+export { collectSvgNodeIds, fetchSvgs } from "./extract/svg.js";
 export type { ExtractOptions, ExtractResult } from "./extract/index.js";
 
 export { auditNode } from "./audit/index.js";
