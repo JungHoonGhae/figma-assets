@@ -21,8 +21,8 @@ export type {
 } from "./types.js";
 
 export { extract, parseFigmaUrl, NodeCache } from "./extract/index.js";
-export { fetchFigmaNode } from "./extract/client.js";
-export { collectSvgNodeIds, fetchSvgs } from "./extract/svg.js";
+export { fetchFigmaNode, fetchFileLastModified } from "./extract/client.js";
+export { collectSvgNodeIds, collectSvgNodeIdsWithDedup, fetchSvgs } from "./extract/svg.js";
 export type { ExtractOptions, ExtractResult } from "./extract/index.js";
 
 export { auditNode } from "./audit/index.js";

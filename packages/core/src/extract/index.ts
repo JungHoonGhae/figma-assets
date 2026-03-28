@@ -1,8 +1,8 @@
 import type { FigmaNode } from "../types.js";
-import { fetchFigmaNode, parseFigmaUrl } from "./client.js";
+import { fetchFigmaNode, fetchFileLastModified, parseFigmaUrl } from "./client.js";
 import { normalizeNode } from "./normalizer.js";
 import { NodeCache } from "./cache.js";
-import { collectSvgNodeIds, fetchSvgs } from "./svg.js";
+import { collectSvgNodeIds, collectSvgNodeIdsWithDedup, fetchSvgs } from "./svg.js";
 
 export interface ExtractOptions {
   figmaUrl?: string;
@@ -36,7 +36,45 @@ export async function extract(options: ExtractOptions): Promise<ExtractResult> {
 
   const cache = options.cacheDir ? new NodeCache(options.cacheDir) : null;
 
-  // Check cache
+  // Check file version cache: if lastModified matches, skip heavy API calls
+  if (cache && !options.refresh) {
+    const cachedLastModified = cache.getLastModified(fileKey);
+    if (cachedLastModified) {
+      const currentLastModified = await fetchFileLastModified(fileKey, options.token);
+      if (cachedLastModified === currentLastModified) {
+        const cached = cache.get(nodeId);
+        if (cached) {
+          const { uniqueIds, duplicateMap } = collectSvgNodeIdsWithDedup(cached as any);
+          const allIds = [...uniqueIds, ...Object.keys(duplicateMap)];
+          const svgs: Record<string, string> = {};
+          let allCached = true;
+          for (const id of uniqueIds) {
+            const svg = cache.getSvg(id);
+            if (svg) {
+              svgs[id] = svg;
+            } else {
+              allCached = false;
+              break;
+            }
+          }
+          if (allCached) {
+            // Copy duplicate SVGs from their originals
+            for (const [dupId, origId] of Object.entries(duplicateMap)) {
+              if (svgs[origId]) {
+                svgs[dupId] = svgs[origId];
+              }
+            }
+            const node = normalizeNode(cached as any);
+            attachSvgs(node, svgs);
+            const nodes = flattenNodes(node);
+            return { nodes, svgs, count: nodes.length };
+          }
+        }
+      }
+    }
+  }
+
+  // Check node data cache (when no version cache available or version changed)
   let raw: any;
   if (cache && !options.refresh) {
     const cached = cache.get(nodeId);
@@ -55,14 +93,14 @@ export async function extract(options: ExtractOptions): Promise<ExtractResult> {
     }
   }
 
-  // Collect SVG node IDs
-  const svgNodeIds = collectSvgNodeIds(raw);
+  // Collect SVG node IDs with deduplication
+  const { uniqueIds, duplicateMap } = collectSvgNodeIdsWithDedup(raw);
 
-  // Resolve SVGs from cache or fetch
+  // Resolve SVGs from cache or fetch (only unique IDs)
   const svgs: Record<string, string> = {};
   const missingIds: string[] = [];
 
-  for (const id of svgNodeIds) {
+  for (const id of uniqueIds) {
     if (cache && !options.refresh) {
       const cached = cache.getSvg(id);
       if (cached) {
@@ -81,6 +119,19 @@ export async function extract(options: ExtractOptions): Promise<ExtractResult> {
         cache.setSvg(id, svg);
       }
     }
+  }
+
+  // Copy duplicate SVGs from their originals (no extra fetch needed)
+  for (const [dupId, origId] of Object.entries(duplicateMap)) {
+    if (svgs[origId]) {
+      svgs[dupId] = svgs[origId];
+    }
+  }
+
+  // Save lastModified for future warm runs
+  if (cache) {
+    const lastModified = await fetchFileLastModified(fileKey, options.token);
+    cache.setLastModified(fileKey, lastModified);
   }
 
   const node = normalizeNode(raw);

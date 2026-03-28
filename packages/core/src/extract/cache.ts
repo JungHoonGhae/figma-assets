@@ -49,6 +49,17 @@ export class NodeCache {
     return join(this.nodesDir, `${safeName}.json`);
   }
 
+  getLastModified(fileKey: string): string | null {
+    const filePath = join(this.cacheDir, `${fileKey}.lastmodified`);
+    if (!existsSync(filePath)) return null;
+    return readFileSync(filePath, "utf-8").trim();
+  }
+
+  setLastModified(fileKey: string, lastModified: string): void {
+    mkdirSync(this.cacheDir, { recursive: true });
+    writeFileSync(join(this.cacheDir, `${fileKey}.lastmodified`), lastModified);
+  }
+
   private svgFilePath(nodeId: string): string {
     const safeName = nodeId.replace(/:/g, "-");
     return join(this.cacheDir, "icons", `${safeName}.svg`);

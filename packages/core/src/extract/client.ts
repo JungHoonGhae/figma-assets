@@ -54,6 +54,7 @@ export interface RawFigmaNode {
   strokeAlign?: string;
   blendMode?: string;
   opacity?: number;
+  componentId?: string;
   children?: RawFigmaNode[];
 }
 
@@ -78,4 +79,20 @@ export async function fetchFigmaNode(
   }
 
   return node;
+}
+
+export async function fetchFileLastModified(
+  fileKey: string,
+  token: string
+): Promise<string> {
+  // Use depth=1 for minimal response — we only need the lastModified field
+  const url = `https://api.figma.com/v1/files/${fileKey}?depth=1`;
+  const response = await fetch(url, {
+    headers: { "X-Figma-Token": token },
+  });
+  if (!response.ok) {
+    throw new Error(`Figma API error: ${response.status} ${response.statusText}`);
+  }
+  const data = await response.json();
+  return data.lastModified ?? "";
 }
