@@ -1,4 +1,10 @@
 <div align="center">
+  <img src="assets/banner-dark.png" alt="figma-assets" width="100%" />
+</div>
+
+<br/>
+
+<div align="center">
   <h1>figma-assets</h1>
   <p>Figma에서 SVG/PNG 에셋을 뽑아서 실제 파일로 저장한다.</p>
 </div>

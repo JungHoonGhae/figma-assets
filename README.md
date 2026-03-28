@@ -1,4 +1,10 @@
 <div align="center">
+  <img src="assets/banner-dark.png" alt="figma-assets" width="100%" />
+</div>
+
+<br/>
+
+<div align="center">
   <h1>figma-assets</h1>
   <p>Extract production-ready SVG and raster assets from Figma.</p>
 </div>
@@ -152,6 +158,16 @@ const result = await extract({
   outDir: "./assets",
 });
 ```
+
+## Star History
+
+<a href="https://star-history.com/#JungHoonGhae/figma-assets&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=JungHoonGhae/figma-assets&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=JungHoonGhae/figma-assets&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=JungHoonGhae/figma-assets&type=Date" />
+ </picture>
+</a>
 
 ## Contributing
 
