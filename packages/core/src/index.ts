@@ -26,3 +26,6 @@ export type { ExtractOptions, ExtractResult } from "./extract/index.js";
 export { auditNode } from "./audit/index.js";
 export { AUDIT_RULES } from "./audit/rules.js";
 export type { AuditOptions } from "./audit/index.js";
+
+export { measure, closeBrowser } from "./measure/index.js";
+export type { MeasureOptions, MeasureResult } from "./measure/index.js";
