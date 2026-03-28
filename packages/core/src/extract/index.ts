@@ -17,6 +17,11 @@ export interface ExtractResult {
   nodes: FigmaNode[];
   svgs: Record<string, string>;  // nodeId → SVG string
   count: number;
+  svgStats: {
+    total: number;       // 전체 SVG 엔트리 수
+    unique: number;      // 유니크 SVG 수 (실제 API 호출 수)
+    deduplicated: number; // 중복 제거로 절약한 수
+  };
 }
 
 export async function extract(options: ExtractOptions): Promise<ExtractResult> {
@@ -67,7 +72,8 @@ export async function extract(options: ExtractOptions): Promise<ExtractResult> {
             const node = normalizeNode(cached as any);
             attachSvgs(node, svgs);
             const nodes = flattenNodes(node);
-            return { nodes, svgs, count: nodes.length };
+            const dupCount = Object.keys(duplicateMap).length;
+            return { nodes, svgs, count: nodes.length, svgStats: { total: Object.keys(svgs).length, unique: uniqueIds.length, deduplicated: dupCount } };
           }
         }
       }
@@ -137,7 +143,8 @@ export async function extract(options: ExtractOptions): Promise<ExtractResult> {
   const node = normalizeNode(raw);
   attachSvgs(node, svgs);
   const nodes = flattenNodes(node);
-  return { nodes, svgs, count: nodes.length };
+  const dupCount = Object.keys(duplicateMap).length;
+  return { nodes, svgs, count: nodes.length, svgStats: { total: Object.keys(svgs).length, unique: uniqueIds.length, deduplicated: dupCount } };
 }
 
 function attachSvgs(node: FigmaNode, svgs: Record<string, string>): void {

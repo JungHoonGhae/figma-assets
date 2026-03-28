@@ -24,8 +24,9 @@ export async function extractCommand(figmaUrl: string, options: ExtractCommandOp
   if (options.format === "json") {
     console.log(formatJson(result));
   } else {
-    const svgCount = Object.keys(result.svgs).length;
-    console.log(`Extracted ${result.count} nodes from ${nodeId} (${svgCount} SVGs extracted)\n`);
+    const { total, unique, deduplicated } = result.svgStats;
+    console.log(`Extracted ${result.count} nodes from ${nodeId}`);
+    console.log(`SVGs: ${total} total (${unique} unique, ${deduplicated} deduplicated)\n`);
     for (const node of result.nodes) {
       const label = node.characters ? `${node.type} "${node.characters}"` : `${node.type} ${node.name}`;
       const svgTag = node.svg ? " [SVG]" : "";
