@@ -116,7 +116,7 @@ Optional `.figma-assets.json`:
 }
 ```
 
-Cache goes to `.figma-assets/cache/`. Second run is instant. `--refresh` when the design changes.
+Cache goes to `.figma-assets/cache/`. Second run is instant — no API calls. When the Figma file is updated, the cache is invalidated automatically (checks `lastModified` via a lightweight API call). `--refresh` forces a full re-download if needed.
 
 ---
 

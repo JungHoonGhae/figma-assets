@@ -116,7 +116,7 @@ Figma URL에 `node-id`가 있어야 한다. 프레임 선택 → 우클릭 → *
 }
 ```
 
-캐시는 `.figma-assets/cache/`에 저장된다. 두 번째부터는 API 안 타고 바로 끝난다. 디자인 바뀌면 `--refresh`.
+캐시는 `.figma-assets/cache/`에 저장된다. 두 번째부터는 API 안 타고 바로 끝난다. Figma에서 디자인이 바뀌면 자동으로 감지해서 새로 받는다 (`lastModified` 체크). `--refresh`는 강제로 전부 다시 받을 때 쓴다.
 
 ---
 
