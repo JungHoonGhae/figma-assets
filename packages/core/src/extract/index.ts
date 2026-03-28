@@ -211,8 +211,19 @@ function attachSvgs(node: FigmaNode, svgs: Record<string, string>): void {
   }
 }
 
+// Styles baked into raster image — remove from node to prevent double-rendering
+const RASTER_BAKED_STYLES = [
+  "backgroundColor", "borderWidth", "borderColor", "borderRadius", "borderStyle", "opacity",
+] as const;
+
 function attachRasters(node: FigmaNode, rasters: Record<string, RasterImage>): void {
-  if (rasters[node.id]) node.raster = rasters[node.id];
+  if (rasters[node.id]) {
+    node.raster = rasters[node.id];
+    // Strip visual styles already baked into the raster
+    for (const prop of RASTER_BAKED_STYLES) {
+      delete node.styles[prop];
+    }
+  }
   if (node.children) {
     for (const child of node.children) attachRasters(child, rasters);
   }

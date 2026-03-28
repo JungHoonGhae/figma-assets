@@ -43,7 +43,10 @@ export async function extractCommand(figmaUrl: string, options: ExtractCommandOp
         width: n.styles.width,
         height: n.styles.height,
         ...(n.svg ? { svg: n.svg } : {}),
-        ...(n.raster ? { raster: n.raster } : {}),
+        ...(n.raster ? {
+          raster: n.raster,
+          hint: "Raster image includes visual styles (border, background, radius). Use <img> directly without container styling.",
+        } : {}),
       }));
     console.log(formatJson(entries));
     return;
