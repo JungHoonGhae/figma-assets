@@ -6,82 +6,13 @@ MCP returns icons as **expiring URLs** (7 days) or **cropped SVG fragments** —
 
 figma-assets extracts icons and images from Figma as **actual files** — complete SVGs with proper viewBox, resolved colors, and auto-detected raster fallback for bitmap-embedded nodes. It deduplicates identical components, batches API calls, parallelizes downloads, and caches results to minimize Figma API usage.
 
-```bash
-npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
-```
-
 [한국어](README.ko.md)
-
-## The Problem in Detail
-
-When you implement a Figma design with MCP, icons come back like this:
-
-```javascript
-const imgIcon = "https://www.figma.com/api/mcp/asset/db4e7bc7-...";
-```
-
-An external URL that expires in 7 days. You can't ship this.
-
-So you download it. Here's what you get:
-
-```xml
-<!-- Downloaded from MCP asset URL -->
-<svg preserveAspectRatio="none" width="100%" height="100%"
-     viewBox="0 0 13.83 9.67">
-  <path d="M12.33 1.5L5.67 8.17L1.5 4"
-        stroke="var(--stroke-0, #2D7FF9)" stroke-width="3"/>
-</svg>
-```
-
-This is not an icon. It's a **path fragment**.
-
-- `viewBox="0 0 13.83 9.67"` — cropped to the bounding box, not the 24×24 canvas
-- `width="100%" height="100%"` — no intrinsic size. Stretches to whatever parent gives it
-- `preserveAspectRatio="none"` — aspect ratio will break
-- `stroke="var(--stroke-0, #2D7FF9)"` — depends on a CSS variable that doesn't exist outside Figma
-
-The same icon exported via Figma REST API `/v1/images?format=svg`:
-
-```xml
-<!-- Extracted by figma-assets -->
-<svg width="24" height="24" viewBox="0 0 24 24">
-  <path d="M15.92 9.67L9.25 16.33L5.08 12.17"
-        stroke="#2D7FF9" stroke-width="3"/>
-</svg>
-```
-
-24×24 canvas. Resolved colors. A self-contained SVG that works anywhere.
-
----
-
-Raster images are worse.
-
-Some SVG exports come back at 1.1MB — a base64-encoded bitmap embedded inside the SVG. This happens when a Figma node uses image fills.
-
-Hand this to an AI agent and it tries to paste 17,212 characters of base64 into HTML. 1-2 characters will mutate. LLMs don't "copy" — they "regenerate" token by token. One wrong character and the entire image breaks.
-
-figma-assets detects this automatically and re-exports as PNG @2x (13KB). As an actual file.
-
-## Why Not Just Use the REST API Directly?
-
-You can. `/v1/images?format=svg` is a public endpoint. But for a typical Figma frame:
-
-- You need to walk the node tree to find which nodes are icons (not every FRAME is an SVG)
-- A 24×24 INSTANCE with 3 VECTOR children should export as 1 SVG, not 3
-- A logo (93×32 INSTANCE with 20 nested vectors) should export as 1 SVG, not 20
-- 9 identical checkmarks (same componentId) should be 1 API call, not 9
-- A 1.1MB SVG with an embedded bitmap should become a 13KB PNG
-- You need to batch API calls (max 50 per request), parallelize downloads, and cache results
-
-figma-assets handles all of this. One command instead of a script you'll rewrite every project.
 
 ## Prerequisites
 
 ### 1. Figma Personal Access Token
 
-Generate a token at [Figma Settings → Personal Access Tokens](https://www.figma.com/settings) (Account → Security → Personal access tokens → Generate new token).
-
-Set it as an environment variable:
+[Figma Settings → Personal Access Tokens](https://www.figma.com/settings) (Account → Security → Generate new token).
 
 ```bash
 export FIGMA_TOKEN=figd_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -89,66 +20,37 @@ export FIGMA_TOKEN=figd_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ### 2. Figma URL with node-id
 
-Open the frame you want to extract in Figma. The URL looks like:
+Select the frame in Figma → Right-click → **Copy link**. The URL must include `node-id`:
 
 ```
 https://www.figma.com/design/hlN4c1rV2dQCzyEMbowCHX/MyProject?node-id=2912-13356
 ```
 
-You need the full URL including `node-id`. To get it:
-1. Select the frame in Figma
-2. Right-click → **Copy/Paste as** → **Copy link**
-3. Or check the URL bar — `node-id` is in the query string
+### 3. Node.js 18+
 
-### 3. Node.js
+Uses built-in `fetch`. No additional dependencies.
 
-Node.js 18+ (uses built-in `fetch`).
+## Quick Start
 
-## Quick Start (for AI agents)
+```bash
+npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
+```
 
-Copy this to your AI agent (Claude Code, Cursor, etc.):
+Done. Your assets are in `./assets/`.
+
+### For AI agents
+
+Paste this to your agent (Claude Code, Cursor, etc.):
 
 ```
 Extract Figma assets to ./assets using figma-assets:
 
-1. Run: FIGMA_TOKEN=figd_xxx npx figma-assets "PASTE_FIGMA_URL_HERE" -o ./assets
+1. Run: npx figma-assets "PASTE_FIGMA_URL_HERE" -o ./assets
 2. Reference SVGs as: <img src="./assets/icon-name.svg" />
 3. Reference PNGs as: <img src="./assets/image-name@2x.png" />
 
 Do NOT recreate SVG icons manually. Use the extracted files.
 ```
-
-Replace `figd_xxx` with your token and `PASTE_FIGMA_URL_HERE` with the Figma frame URL (must include `node-id`).
-
-## Install
-
-```bash
-npx figma-assets <figma-url> --out-dir ./assets
-```
-
-## Usage
-
-```bash
-export FIGMA_TOKEN=figd_...
-
-# Extract all assets from a Figma frame
-figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
-
-# Custom raster scale
-figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets --scale 3
-
-# JSON manifest for scripting
-figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets --json
-```
-
-## What It Does
-
-1. Walks the Figma node tree to find vector/icon nodes
-2. Groups small containers (≤48px) as single SVGs instead of individual paths
-3. Exports INSTANCE/COMPONENT with all-vector leaves as single SVGs (logos)
-4. Deduplicates identical components (same componentId = one API call)
-5. Detects raster-embedded SVGs (>50KB or base64 content) → exports as PNG
-6. Saves everything as actual files
 
 ## Output
 
@@ -157,13 +59,16 @@ figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets --j
 ├── arrow-narrow-left.svg       # 24×24, self-contained
 ├── menu-01.svg
 ├── check.svg                   # 1 of 9 identical checkmarks (deduplicated)
-├── check-1.svg
 ├── logo.svg                    # 93×32, exported as single unit
 ├── Plan_Icon@2x.png            # raster detected: 1.1MB SVG → 13KB PNG
 └── ...
 ```
 
 ## Options
+
+```bash
+figma-assets <figma-url> -o <dir> [options]
+```
 
 | Flag | Default | Description |
 |------|---------|-------------|
@@ -177,47 +82,82 @@ figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets --j
 
 ## Configuration
 
-All options can be passed as CLI flags. For repeated use, create a `.figma-assets.json` in your project root:
+For repeated use, create `.figma-assets.json` in your project root:
 
 ```json
 {
   "token": "$FIGMA_TOKEN",
   "outDir": "./src/assets",
   "rasterScale": 2,
-  "rasterFormat": "png",
-  "rasterThreshold": 50000,
-  "cacheDir": ".figma-assets/cache"
+  "rasterFormat": "png"
 }
 ```
 
-Then just pass the URL:
+Then just: `figma-assets "https://figma.com/design/..."`
 
-```bash
-figma-assets "https://figma.com/design/abc/File?node-id=123-456"
+**Token resolution order:** `--token` flag → `.figma-assets.json` → `FIGMA_TOKEN` env var
+
+**Cache:** API responses are cached in `.figma-assets/cache/`. Second run is instant. Use `--refresh` when the design changes. Add `.figma-assets/` to `.gitignore`.
+
+---
+
+## Why This Exists
+
+### MCP asset URLs are broken
+
+```javascript
+const imgIcon = "https://www.figma.com/api/mcp/asset/db4e7bc7-...";
 ```
 
-### Token
+Download this URL. Here's what you get:
 
-The token is resolved in this order:
-1. `--token` CLI flag (not recommended — visible in shell history)
-2. `token` field in `.figma-assets.json` — supports `$ENV_VAR` syntax
-3. `FIGMA_TOKEN` environment variable
+```xml
+<svg preserveAspectRatio="none" width="100%" height="100%"
+     viewBox="0 0 13.83 9.67">
+  <path d="M12.33 1.5L5.67 8.17L1.5 4"
+        stroke="var(--stroke-0, #2D7FF9)" stroke-width="3"/>
+</svg>
+```
 
-### Cache
+This is not an icon. It's a **path fragment** — cropped viewBox, no intrinsic size, `preserveAspectRatio="none"`, CSS variable colors.
 
-Figma API responses and downloaded SVGs are cached in `.figma-assets/cache/` by default. This means:
-- Second run is instant (no API calls)
-- `--refresh` bypasses cache when the design has changed
-- Add `.figma-assets/` to `.gitignore`
+Same icon via figma-assets:
 
-### Raster detection
+```xml
+<svg width="24" height="24" viewBox="0 0 24 24">
+  <path d="M15.92 9.67L9.25 16.33L5.08 12.17"
+        stroke="#2D7FF9" stroke-width="3"/>
+</svg>
+```
 
-When an SVG export exceeds `--threshold` bytes (default 50KB) or contains `data:image/` (base64 embedded bitmap), figma-assets automatically:
-1. Skips the bloated SVG
-2. Re-requests the node as PNG via `/v1/images?format=png&scale=N`
-3. Saves the PNG as an actual binary file
+24×24 canvas. Resolved colors. Works anywhere.
 
-Configure the scale with `--scale` (1-4) and format with `--format` (png/jpg).
+### Raster-embedded SVGs
+
+Some SVG exports are 1.1MB — a base64 bitmap inside an SVG wrapper. AI agents try to paste 17,212 characters of base64 into HTML. LLMs don't "copy" — they regenerate token by token. One wrong character breaks the entire image.
+
+figma-assets detects this and re-exports as PNG @2x (13KB). As an actual file.
+
+### Why not just call the REST API directly?
+
+You can. But for a typical Figma frame:
+
+- A 24×24 INSTANCE with 3 VECTOR children → should be 1 SVG, not 3
+- A 93×32 logo with 20 nested vectors → should be 1 SVG, not 20
+- 9 identical checkmarks → should be 1 API call, not 9
+- A 1.1MB SVG with embedded bitmap → should become 13KB PNG
+- API calls need batching (max 50), downloads need parallelization, results need caching
+
+figma-assets handles all of this. One command instead of a script you rewrite every project.
+
+## How It Works
+
+1. Walks the Figma node tree to find vector/icon nodes
+2. Groups small containers (≤48px) as single SVGs instead of individual paths
+3. Exports INSTANCE/COMPONENT with all-vector leaves as single SVGs (logos)
+4. Deduplicates identical components (same componentId = one API call)
+5. Detects raster-embedded SVGs (>50KB or base64) → exports as PNG
+6. Saves everything as actual files
 
 ## Programmatic Usage
 
