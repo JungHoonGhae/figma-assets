@@ -40,8 +40,26 @@ function extractStyles(raw: RawFigmaNode): NormalizedStyles {
   if (raw.paddingBottom !== undefined) styles.paddingBottom = px(raw.paddingBottom);
   if (raw.paddingLeft !== undefined) styles.paddingLeft = px(raw.paddingLeft);
 
-  // Gap
-  if (raw.itemSpacing !== undefined) styles.gap = px(raw.itemSpacing);
+  // Gap — use rowGap/columnGap when counterAxisSpacing differs from itemSpacing
+  if (raw.itemSpacing !== undefined) {
+    if (raw.counterAxisSpacing !== undefined && raw.counterAxisSpacing !== raw.itemSpacing) {
+      // Different spacing on each axis (e.g., wrapped flex layout)
+      if (raw.layoutMode === "HORIZONTAL") {
+        styles.columnGap = px(raw.itemSpacing);
+        styles.rowGap = px(raw.counterAxisSpacing);
+      } else {
+        styles.rowGap = px(raw.itemSpacing);
+        styles.columnGap = px(raw.counterAxisSpacing);
+      }
+    } else {
+      styles.gap = px(raw.itemSpacing);
+    }
+  }
+
+  // Flex wrap
+  if (raw.layoutWrap === "WRAP") {
+    styles.flexWrap = "wrap";
+  }
 
   // Border radius
   if (raw.cornerRadius !== undefined) styles.borderRadius = px(raw.cornerRadius);

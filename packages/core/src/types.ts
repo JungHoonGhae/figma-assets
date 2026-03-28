@@ -90,6 +90,9 @@ export interface NormalizedStyles {
   alignSelf?: string;
   flexGrow?: string;
   flexShrink?: string;
+  flexWrap?: string;
+  rowGap?: string;
+  columnGap?: string;
   // Effects
   boxShadow?: string;
   // Sizing constraints

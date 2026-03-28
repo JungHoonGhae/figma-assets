@@ -61,6 +61,8 @@ export interface RawFigmaNode {
   primaryAxisAlignItems?: "MIN" | "CENTER" | "MAX" | "SPACE_BETWEEN";
   counterAxisAlignItems?: "MIN" | "CENTER" | "MAX" | "BASELINE";
   layoutPositioning?: "AUTO" | "ABSOLUTE";
+  layoutWrap?: "NO_WRAP" | "WRAP";
+  counterAxisSpacing?: number;
   clipsContent?: boolean;
   // Sizing
   minWidth?: number;

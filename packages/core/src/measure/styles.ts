@@ -10,6 +10,7 @@ const MEASURED_PROPERTIES: (keyof NormalizedStyles)[] = [
   "overflow", "position", "boxShadow", "textDecoration",
   "minWidth", "maxWidth", "minHeight", "maxHeight",
   "alignSelf", "flexGrow", "flexShrink",
+  "flexWrap", "rowGap", "columnGap",
 ];
 
 const CSS_PROPERTY_MAP: Record<string, string> = {
@@ -27,6 +28,7 @@ const CSS_PROPERTY_MAP: Record<string, string> = {
   minWidth: "min-width", maxWidth: "max-width",
   minHeight: "min-height", maxHeight: "max-height",
   alignSelf: "align-self", flexGrow: "flex-grow", flexShrink: "flex-shrink",
+  flexWrap: "flex-wrap", rowGap: "row-gap", columnGap: "column-gap",
 };
 
 export async function getComputedStyles(page: Page, selector: string): Promise<NormalizedStyles> {
