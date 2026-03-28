@@ -5,7 +5,7 @@ const MEASURED_PROPERTIES: (keyof NormalizedStyles)[] = [
   "width", "height", "paddingTop", "paddingRight", "paddingBottom", "paddingLeft",
   "fontSize", "fontWeight", "fontFamily", "lineHeight", "letterSpacing",
   "color", "backgroundColor", "borderWidth", "borderColor", "borderRadius",
-  "borderStyle", "opacity", "gap",
+  "borderStyle", "opacity", "gap", "textAlign",
 ];
 
 const CSS_PROPERTY_MAP: Record<string, string> = {
@@ -16,6 +16,7 @@ const CSS_PROPERTY_MAP: Record<string, string> = {
   letterSpacing: "letter-spacing", backgroundColor: "background-color",
   borderWidth: "border-top-width", borderColor: "border-top-color",
   borderRadius: "border-top-left-radius", borderStyle: "border-top-style",
+  textAlign: "text-align",
 };
 
 export async function getComputedStyles(page: Page, selector: string): Promise<NormalizedStyles> {

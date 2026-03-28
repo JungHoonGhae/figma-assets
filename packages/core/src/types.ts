@@ -64,6 +64,7 @@ export interface NormalizedStyles {
   borderRadius?: string;
   borderStyle?: string;
   opacity?: string;
+  textAlign?: string;
 }
 
 // --- Audit ---

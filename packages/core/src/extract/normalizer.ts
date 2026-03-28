@@ -57,6 +57,18 @@ function extractStyles(raw: RawFigmaNode): NormalizedStyles {
     } else if (s.lineHeightPx !== undefined) {
       styles.lineHeight = px(s.lineHeightPx as number);
     }
+
+    // textAlign
+    if (s.textAlignHorizontal !== undefined) {
+      const alignMap: Record<string, string> = {
+        LEFT: "left",
+        CENTER: "center",
+        RIGHT: "right",
+        JUSTIFIED: "justify",
+      };
+      const mapped = alignMap[s.textAlignHorizontal as string];
+      if (mapped) styles.textAlign = mapped;
+    }
   }
 
   // Colors (from fills)

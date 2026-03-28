@@ -16,27 +16,65 @@ export function collectSvgNodeIds(node: RawFigmaNode): string[] {
 }
 
 function collectSvgIds(node: RawFigmaNode, ids: string[]): void {
-  // If this node itself is an SVG-exportable type AND is a leaf or small subtree
-  if (SVG_NODE_TYPES.has(node.type)) {
-    ids.push(node.id);
-  }
-
-  // Check children - but if a parent INSTANCE/FRAME is small (likely an icon container),
-  // export the parent instead of individual children
-  if (node.children) {
-    const bbox = node.absoluteBoundingBox;
-    const isSmallFrame = bbox && bbox.width <= 48 && bbox.height <= 48;
-    const hasVectorChildren = node.children.some(c => SVG_NODE_TYPES.has(c.type));
-
-    if (isSmallFrame && hasVectorChildren && (node.type === "INSTANCE" || node.type === "FRAME" || node.type === "COMPONENT")) {
-      // Export the container as a single SVG instead of individual vectors
+  // Check if this container should be exported as a single SVG
+  if (node.children && isContainerType(node.type)) {
+    if (shouldExportAsUnit(node)) {
       ids.push(node.id);
-    } else {
-      for (const child of node.children) {
-        collectSvgIds(child, ids);
-      }
+      return; // Don't descend into children
     }
   }
+
+  // Leaf SVG node
+  if (SVG_NODE_TYPES.has(node.type)) {
+    ids.push(node.id);
+    return;
+  }
+
+  // Recurse into non-SVG children
+  if (node.children) {
+    for (const child of node.children) {
+      collectSvgIds(child, ids);
+    }
+  }
+}
+
+const CONTAINER_TYPES = new Set(["INSTANCE", "FRAME", "COMPONENT", "GROUP"]);
+
+function isContainerType(type: string): boolean {
+  return CONTAINER_TYPES.has(type);
+}
+
+/**
+ * A container should be exported as a single SVG if:
+ * 1. Small (≤48px) with vector children — standard icon, OR
+ * 2. INSTANCE/COMPONENT where all leaf descendants are SVG types — vector-only (logos etc.)
+ */
+function shouldExportAsUnit(node: RawFigmaNode): boolean {
+  const bbox = node.absoluteBoundingBox;
+
+  // Small frame with vector descendants — obvious icon
+  if (bbox && bbox.width <= 48 && bbox.height <= 48 && hasVectorDescendants(node)) {
+    return true;
+  }
+
+  // INSTANCE or COMPONENT with all-vector leaves — logos, icon assets
+  if ((node.type === "INSTANCE" || node.type === "COMPONENT") && allLeavesAreSvg(node)) {
+    return true;
+  }
+
+  return false;
+}
+
+function hasVectorDescendants(node: RawFigmaNode): boolean {
+  if (SVG_NODE_TYPES.has(node.type)) return true;
+  return node.children?.some(c => hasVectorDescendants(c)) ?? false;
+}
+
+function allLeavesAreSvg(node: RawFigmaNode): boolean {
+  if (!node.children || node.children.length === 0) {
+    return SVG_NODE_TYPES.has(node.type);
+  }
+  return node.children.every(child => allLeavesAreSvg(child));
 }
 
 /**
@@ -75,38 +113,42 @@ function collectSvgIdsDedup(
   signatures: Map<string, string>,
   duplicateMap: Record<string, string>
 ): void {
-  if (SVG_NODE_TYPES.has(node.type)) {
-    const sig = svgSignature(node);
-    const existing = signatures.get(sig);
-    if (existing) {
-      duplicateMap[node.id] = existing;
-    } else {
-      signatures.set(sig, node.id);
+  // Check if this container should be exported as a single SVG
+  if (node.children && isContainerType(node.type)) {
+    if (shouldExportAsUnit(node)) {
+      addWithDedup(node, ids, signatures, duplicateMap);
+      return;
     }
-    ids.push(node.id);
+  }
+
+  // Leaf SVG node
+  if (SVG_NODE_TYPES.has(node.type)) {
+    addWithDedup(node, ids, signatures, duplicateMap);
     return;
   }
 
+  // Recurse into non-SVG children
   if (node.children) {
-    const bbox = node.absoluteBoundingBox;
-    const isSmallFrame = bbox && bbox.width <= 48 && bbox.height <= 48;
-    const hasVectorChildren = node.children.some(c => SVG_NODE_TYPES.has(c.type));
-
-    if (isSmallFrame && hasVectorChildren && (node.type === "INSTANCE" || node.type === "FRAME" || node.type === "COMPONENT")) {
-      const sig = svgSignature(node);
-      const existing = signatures.get(sig);
-      if (existing) {
-        duplicateMap[node.id] = existing;
-      } else {
-        signatures.set(sig, node.id);
-      }
-      ids.push(node.id);
-    } else {
-      for (const child of node.children) {
-        collectSvgIdsDedup(child, ids, signatures, duplicateMap);
-      }
+    for (const child of node.children) {
+      collectSvgIdsDedup(child, ids, signatures, duplicateMap);
     }
   }
+}
+
+function addWithDedup(
+  node: RawFigmaNode,
+  ids: string[],
+  signatures: Map<string, string>,
+  duplicateMap: Record<string, string>
+): void {
+  const sig = svgSignature(node);
+  const existing = signatures.get(sig);
+  if (existing) {
+    duplicateMap[node.id] = existing;
+  } else {
+    signatures.set(sig, node.id);
+  }
+  ids.push(node.id);
 }
 
 /**
