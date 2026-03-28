@@ -22,3 +22,7 @@ export type {
 export { extract, parseFigmaUrl, NodeCache } from "./extract/index.js";
 export { fetchFigmaNode } from "./extract/client.js";
 export type { ExtractOptions, ExtractResult } from "./extract/index.js";
+
+export { auditNode } from "./audit/index.js";
+export { AUDIT_RULES } from "./audit/rules.js";
+export type { AuditOptions } from "./audit/index.js";
