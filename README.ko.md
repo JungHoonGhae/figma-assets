@@ -45,20 +45,6 @@ Cursor나 Claude Code 같은 AI 에이전트로 Figma 디자인을 구현하면,
 
 24×24 캔버스 그대로. 색상 확정. 어디 넣어도 그냥 된다.
 
-```bash
-export FIGMA_TOKEN=figd_...
-npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
-```
-
-```
-./assets/
-├── back-arrow.svg            24×24 SVG
-├── check.svg                 같은 아이콘 9개 → 1번만 요청
-├── company-logo.svg          로고 통째로
-├── hero-image@2x.png         비트맵 포함 SVG(1.1MB) → PNG(13KB)로 자동 변환
-└── ...
-```
-
 ## 준비할 것
 
 **1.** [Figma Personal Access Token](https://www.figma.com/settings) 발급하고 환경변수 설정:
@@ -67,21 +53,11 @@ npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
 export FIGMA_TOKEN=figd_xxxxxxxx
 ```
 
-**2.** Figma에서 프레임 선택 → 우클릭 → **Copy link**로 URL 복사. URL에 `node-id`가 들어 있어야 한다.
-
-**3.** Node.js 18 이상.
+**2.** Node.js 18 이상.
 
 ## 시작하기
 
-```bash
-npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
-```
-
-## AI 에이전트에서 쓰기
-
-### MCP 서버로 등록 (추천)
-
-Claude Code나 Cursor MCP 설정에 추가하면, 에이전트가 `extract_assets` 도구를 알아서 쓴다:
+Claude Code나 Cursor MCP 설정에 추가한다:
 
 ```json
 {
@@ -95,15 +71,26 @@ Claude Code나 Cursor MCP 설정에 추가하면, 에이전트가 `extract_asset
 }
 ```
 
-### 직접 시키기
-
-에이전트한테 이걸 붙여넣으면 된다:
+끝. 에이전트가 `extract_assets` 도구를 갖게 된다. Figma URL(`node-id` 포함)을 주면 알아서 에셋을 뽑는다.
 
 ```
-1. 실행: npx figma-assets "FIGMA_URL" -o ./assets
-2. 쓸 때: <img src="./assets/아이콘이름.svg" />
-3. SVG 직접 그리지 마. 뽑은 파일 써.
+./assets/
+├── back-arrow.svg            24×24 SVG
+├── check.svg                 같은 아이콘 9개 → 1번만 요청
+├── company-logo.svg          로고 통째로
+├── hero-image@2x.png         비트맵 포함 SVG(1.1MB) → PNG(13KB)로 자동 변환
+└── ...
 ```
+
+### MCP 없이 쓰기 (CLI)
+
+직접 실행할 수도 있다:
+
+```bash
+npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
+```
+
+Figma URL에 `node-id`가 있어야 한다. 프레임 선택 → 우클릭 → **Copy link**로 복사.
 
 ## 옵션
 

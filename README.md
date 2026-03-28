@@ -45,43 +45,19 @@ No fixed size. Cropped canvas. CSS variable instead of an actual color. Breaks w
 
 Complete icon. Fixed dimensions. Real color. Saved as an actual file in your project.
 
-```bash
-export FIGMA_TOKEN=figd_...
-npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
-```
-
-```
-./assets/
-├── back-arrow.svg            24×24, self-contained SVG
-├── check.svg                 deduplicated (9 identical → 1 API call)
-├── company-logo.svg          complex logo exported as single unit
-├── hero-image@2x.png         raster auto-detected (1.1MB SVG → 13KB PNG)
-└── ...
-```
-
 ## Setup
 
-**1.** Get a [Figma Personal Access Token](https://www.figma.com/settings) and set `FIGMA_TOKEN`:
+**1.** Get a [Figma Personal Access Token](https://www.figma.com/settings) and set it:
 
 ```bash
 export FIGMA_TOKEN=figd_xxxxxxxx
 ```
 
-**2.** Copy a Figma URL — select a frame → right-click → **Copy link**. Needs `node-id` in the URL.
-
-**3.** Node.js 18+.
+**2.** Node.js 18+.
 
 ## Quick Start
 
-```bash
-npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
-```
-
-## Use with AI agents
-
-### As an MCP server (recommended)
-
-Add to your Claude Code or Cursor MCP settings — the agent gets an `extract_assets` tool automatically:
+Add to your Claude Code or Cursor MCP settings:
 
 ```json
 {
@@ -95,15 +71,26 @@ Add to your Claude Code or Cursor MCP settings — the agent gets an `extract_as
 }
 ```
 
-### Manual prompt
-
-Paste to your agent:
+That's it. Your agent now has an `extract_assets` tool. When implementing a Figma design, give the agent a Figma URL (with `node-id`) and it extracts the assets automatically.
 
 ```
-1. Run: npx figma-assets "FIGMA_URL" -o ./assets
-2. Use: <img src="./assets/icon-name.svg" />
-3. Do NOT recreate SVGs manually.
+./assets/
+├── back-arrow.svg            24×24, self-contained SVG
+├── check.svg                 deduplicated (9 identical → 1 API call)
+├── company-logo.svg          complex logo exported as single unit
+├── hero-image@2x.png         raster auto-detected (1.1MB SVG → 13KB PNG)
+└── ...
 ```
+
+### Without MCP (CLI)
+
+You can also run it directly:
+
+```bash
+npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
+```
+
+The Figma URL needs `node-id`. Get it by selecting a frame in Figma → right-click → **Copy link**.
 
 ## Options
 
