@@ -54,11 +54,11 @@ export async function fetchNode(fileKey: string, nodeId: string, token: string):
 }
 
 export async function fetchLastModified(fileKey: string, token: string): Promise<string> {
-  const url = `https://api.figma.com/v1/files/${fileKey}?depth=1`;
+  const url = `https://api.figma.com/v1/files/${fileKey}/versions?page_size=1`;
   const res = await fetch(url, { headers: { "X-Figma-Token": token } });
   if (!res.ok) throw new Error(`Figma API error: ${res.status}`);
-  const data = await res.json();
-  return data.lastModified ?? "";
+  const data = await res.json() as { versions?: { created_at: string }[] };
+  return data.versions?.[0]?.created_at ?? "";
 }
 
 export async function fetchImageUrls(
