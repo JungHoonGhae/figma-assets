@@ -67,6 +67,9 @@ export interface RawFigmaNode {
   maxWidth?: number;
   minHeight?: number;
   maxHeight?: number;
+  // Layout sizing mode (per child)
+  layoutSizingHorizontal?: "FIXED" | "HUG" | "FILL";
+  layoutSizingVertical?: "FIXED" | "HUG" | "FILL";
   children?: RawFigmaNode[];
 }
 

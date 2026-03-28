@@ -104,6 +104,15 @@ function extractStyles(raw: RawFigmaNode): NormalizedStyles {
     styles.position = "absolute";
   }
 
+  // Layout sizing mode (FILL → stretch/grow, HUG → shrink)
+  if (raw.layoutSizingHorizontal === "FILL") {
+    styles.alignSelf = "stretch";
+    styles.flexGrow = "1";
+  }
+  if (raw.layoutSizingVertical === "FILL") {
+    styles.flexGrow = "1";
+  }
+
   // Sizing constraints
   if (raw.minWidth !== undefined) styles.minWidth = px(raw.minWidth);
   if (raw.maxWidth !== undefined) styles.maxWidth = px(raw.maxWidth);

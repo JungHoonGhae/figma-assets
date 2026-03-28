@@ -87,6 +87,9 @@ export interface NormalizedStyles {
   justifyContent?: string;
   overflow?: string;
   position?: string;
+  alignSelf?: string;
+  flexGrow?: string;
+  flexShrink?: string;
   // Effects
   boxShadow?: string;
   // Sizing constraints
