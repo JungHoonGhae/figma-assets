@@ -44,19 +44,20 @@ async function measureEntry(
     const count = await locator.count();
     if (count === 0) return null;
 
-    const selector = await locator.evaluate((el) => {
+    const selector = await locator.evaluate((el: Element) => {
       const path: string[] = [];
       let current: Element | null = el;
       while (current && current !== document.body) {
         let seg = current.tagName.toLowerCase();
         if (current.id) { seg = `#${current.id}`; path.unshift(seg); break; }
-        const parent = current.parentElement;
+        const parent: Element | null = current.parentElement;
         if (parent) {
-          const siblings = Array.from(parent.children).filter((c) => c.tagName === current!.tagName);
+          const currentTag = current.tagName;
+          const siblings = Array.from(parent.children).filter((c: Element) => c.tagName === currentTag);
           if (siblings.length > 1) { const index = siblings.indexOf(current) + 1; seg += `:nth-of-type(${index})`; }
         }
         path.unshift(seg);
-        current = parent;
+        current = current.parentElement;
       }
       return path.join(" > ");
     });
