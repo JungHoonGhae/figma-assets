@@ -1,13 +1,13 @@
 <div align="center">
   <h1>figma-assets</h1>
-  <p>Figma 디자인에서 프로덕션용 SVG/PNG 에셋을 추출한다.</p>
+  <p>Figma에서 SVG/PNG 에셋을 뽑아서 실제 파일로 저장한다.</p>
 </div>
 
 <p align="center">
-  <a href="#빠른-시작"><strong>빠른 시작</strong></a> ·
-  <a href="#ai-에이전트와-사용"><strong>AI 에이전트</strong></a> ·
+  <a href="#시작하기"><strong>시작하기</strong></a> ·
+  <a href="#ai-에이전트에서-쓰기"><strong>AI 에이전트</strong></a> ·
   <a href="#옵션"><strong>옵션</strong></a> ·
-  <a href="#왜-필요한가"><strong>왜</strong></a>
+  <a href="#왜-만들었나"><strong>왜</strong></a>
 </p>
 
 <p align="center">
@@ -23,7 +23,7 @@
 
 ---
 
-AI 에이전트(Cursor, Claude Code 등)가 Figma 공식 MCP로 디자인을 구현하면, 아이콘이 7일 뒤 만료되는 임시 URL로 오거나, 이런 SVG 조각으로 온다:
+Cursor나 Claude Code 같은 AI 에이전트로 Figma 디자인을 구현하면, 아이콘이 7일 뒤 만료되는 임시 URL로 오거나 이런 깨진 SVG로 온다:
 
 ```xml
 <!-- Figma 공식 MCP가 주는 것 -->
@@ -32,9 +32,9 @@ AI 에이전트(Cursor, Claude Code 등)가 Figma 공식 MCP로 디자인을 구
 </svg>
 ```
 
-고정 크기 없음. 잘린 캔버스. 색상이 CSS 변수. 쓸 수 없다.
+크기가 없어서 부모에 따라 찌그러지고, 캔버스가 잘려 있고, 색상이 CSS 변수라서 Figma 밖에서는 안 먹는다.
 
-**figma-assets**는 이걸 준다:
+**figma-assets**로 뽑으면 이렇게 나온다:
 
 ```xml
 <!-- figma-assets가 주는 것 -->
@@ -43,7 +43,7 @@ AI 에이전트(Cursor, Claude Code 등)가 Figma 공식 MCP로 디자인을 구
 </svg>
 ```
 
-완결된 아이콘. 고정 크기. 실제 색상. 프로젝트에 파일로 저장.
+24×24 캔버스 그대로. 색상 확정. 어디 넣어도 그냥 된다.
 
 ```bash
 export FIGMA_TOKEN=figd_...
@@ -52,36 +52,36 @@ npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
 
 ```
 ./assets/
-├── back-arrow.svg            24×24, 완결된 SVG
-├── check.svg                 중복 제거 (9개 동일 → 1회 API 호출)
-├── company-logo.svg          복잡한 로고를 통째로 추출
-├── hero-image@2x.png         래스터 자동 감지 (1.1MB SVG → 13KB PNG)
+├── back-arrow.svg            24×24 SVG
+├── check.svg                 같은 아이콘 9개 → 1번만 요청
+├── company-logo.svg          로고 통째로
+├── hero-image@2x.png         비트맵 포함 SVG(1.1MB) → PNG(13KB)로 자동 변환
 └── ...
 ```
 
-## 준비
+## 준비할 것
 
-**1.** [Figma Personal Access Token](https://www.figma.com/settings) 발급 후 `FIGMA_TOKEN` 설정:
+**1.** [Figma Personal Access Token](https://www.figma.com/settings) 발급하고 환경변수 설정:
 
 ```bash
 export FIGMA_TOKEN=figd_xxxxxxxx
 ```
 
-**2.** Figma URL 복사 — 프레임 선택 → 우클릭 → **Copy link**. URL에 `node-id` 필요.
+**2.** Figma에서 프레임 선택 → 우클릭 → **Copy link**로 URL 복사. URL에 `node-id`가 들어 있어야 한다.
 
-**3.** Node.js 18+.
+**3.** Node.js 18 이상.
 
-## 빠른 시작
+## 시작하기
 
 ```bash
 npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
 ```
 
-## AI 에이전트와 사용
+## AI 에이전트에서 쓰기
 
-### MCP 서버 (추천)
+### MCP 서버로 등록 (추천)
 
-Claude Code 또는 Cursor 설정에 추가 — 에이전트가 `extract_assets` 도구를 자동으로 사용:
+Claude Code나 Cursor MCP 설정에 추가하면, 에이전트가 `extract_assets` 도구를 알아서 쓴다:
 
 ```json
 {
@@ -95,31 +95,31 @@ Claude Code 또는 Cursor 설정에 추가 — 에이전트가 `extract_assets` 
 }
 ```
 
-### 수동 프롬프트
+### 직접 시키기
 
-에이전트에 붙여넣기:
+에이전트한테 이걸 붙여넣으면 된다:
 
 ```
 1. 실행: npx figma-assets "FIGMA_URL" -o ./assets
-2. 사용: <img src="./assets/아이콘이름.svg" />
-3. SVG를 직접 다시 그리지 마.
+2. 쓸 때: <img src="./assets/아이콘이름.svg" />
+3. SVG 직접 그리지 마. 뽑은 파일 써.
 ```
 
 ## 옵션
 
 | 플래그 | 기본값 | |
 |--------|--------|---|
-| `-o, --out-dir` | 필수 | 출력 디렉토리 |
-| `--scale` | `2` | 래스터 배수 (1-4) |
-| `--format` | `png` | 래스터 포맷: png / jpg |
-| `--threshold` | `50000` | 래스터 감지 임계값 (bytes) |
-| `--refresh` | `false` | 캐시 무시 |
-| `--json` | `false` | JSON 매니페스트 출력 |
+| `-o, --out-dir` | 필수 | 저장할 폴더 |
+| `--scale` | `2` | PNG 배수 (1-4) |
+| `--format` | `png` | PNG 또는 JPG |
+| `--threshold` | `50000` | 비트맵 감지 기준 (bytes) |
+| `--refresh` | `false` | 캐시 무시하고 새로 받기 |
+| `--json` | `false` | 결과를 JSON으로 출력 |
 | `--serve` | | MCP 서버 모드 |
 
 ## 설정 파일
 
-`.figma-assets.json` (선택):
+반복해서 쓸 때 `.figma-assets.json` 만들어두면 편하다:
 
 ```json
 {
@@ -129,20 +129,20 @@ Claude Code 또는 Cursor 설정에 추가 — 에이전트가 `extract_assets` 
 }
 ```
 
-캐시는 `.figma-assets/cache/`. 두 번째 실행은 즉시. 디자인 변경 시 `--refresh`.
+캐시는 `.figma-assets/cache/`에 저장된다. 두 번째부터는 API 안 타고 바로 끝난다. 디자인 바뀌면 `--refresh`.
 
 ---
 
-## 동작 방식
+## 왜 만들었나
 
-1. Figma 노드 트리를 순회하면서 벡터/아이콘 노드를 찾는다
-2. 작은 컨테이너(≤48px)는 개별 path가 아닌 단일 SVG로 내보낸다
-3. 로고(INSTANCE의 모든 자식이 벡터)는 통째로 내보낸다
-4. 같은 componentId는 한 번만 API 호출한다 (중복 제거)
-5. 래스터 임베딩 SVG(>50KB 또는 base64 비트맵)를 감지하면 PNG로 대체한다
-6. API 배치(최대 50/요청), 병렬 다운로드(20 동시), 캐싱
+1. Figma 노드 트리를 돌면서 아이콘/벡터 노드를 찾는다
+2. 작은 컨테이너(≤48px)는 path 쪼개지 않고 하나의 SVG로 뽑는다
+3. 로고처럼 벡터만으로 이루어진 컴포넌트도 하나로 뽑는다
+4. 같은 컴포넌트는 한 번만 API 호출한다
+5. SVG 안에 비트맵이 들어 있으면 감지해서 PNG로 바꾼다
+6. API를 50개씩 묶어서 보내고, 다운로드는 20개 동시에, 결과는 캐싱한다
 
-비트맵 임베딩 SVG(1.1MB)는 PNG @2x(13KB)로 자동 변환. LLM이 base64를 복사하면 깨지는데 — 실제 파일로 원천 차단.
+비트맵이 박힌 SVG는 1.1MB짜리가 나올 수 있다. 이걸 AI한테 넘기면 base64를 복사하다가 1~2글자가 바뀌어서 이미지가 깨진다. LLM은 복사가 아니라 토큰 단위로 다시 생성하기 때문이다. 실제 파일로 저장하면 이 문제가 없다.
 
 ## API
 
@@ -158,7 +158,7 @@ const result = await extract({
 
 ## 기여
 
-이슈와 PR 환영. [CHANGELOG.md](CHANGELOG.md)에서 릴리즈 히스토리 확인.
+이슈, PR 환영. [CHANGELOG.md](CHANGELOG.md)에서 변경 내역 확인.
 
 ## License
 
