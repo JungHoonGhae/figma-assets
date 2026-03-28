@@ -40,6 +40,76 @@ function collectSvgIds(node: RawFigmaNode, ids: string[]): void {
 }
 
 /**
+ * Collect SVG node IDs with deduplication.
+ * Identical component instances (same componentId + size, or name+type+size) are
+ * deduplicated — only the first occurrence is fetched; duplicates are tracked in
+ * duplicateMap so callers can copy the SVG without a network request.
+ */
+export function collectSvgNodeIdsWithDedup(node: RawFigmaNode): {
+  uniqueIds: string[];
+  duplicateMap: Record<string, string>; // duplicateId → originalId
+} {
+  const allIds: string[] = [];
+  const signatures = new Map<string, string>(); // signature → first nodeId
+  const duplicateMap: Record<string, string> = {};
+
+  collectSvgIdsDedup(node, allIds, signatures, duplicateMap);
+
+  const dupSet = new Set(Object.keys(duplicateMap));
+  const uniqueIds = allIds.filter(id => !dupSet.has(id));
+
+  return { uniqueIds, duplicateMap };
+}
+
+function svgSignature(node: RawFigmaNode): string {
+  const bbox = node.absoluteBoundingBox;
+  const w = bbox ? Math.round(bbox.width) : 0;
+  const h = bbox ? Math.round(bbox.height) : 0;
+  if (node.componentId) return `comp:${node.componentId}:${w}x${h}`;
+  return `name:${node.name}:${node.type}:${w}x${h}`;
+}
+
+function collectSvgIdsDedup(
+  node: RawFigmaNode,
+  ids: string[],
+  signatures: Map<string, string>,
+  duplicateMap: Record<string, string>
+): void {
+  if (SVG_NODE_TYPES.has(node.type)) {
+    const sig = svgSignature(node);
+    const existing = signatures.get(sig);
+    if (existing) {
+      duplicateMap[node.id] = existing;
+    } else {
+      signatures.set(sig, node.id);
+    }
+    ids.push(node.id);
+    return;
+  }
+
+  if (node.children) {
+    const bbox = node.absoluteBoundingBox;
+    const isSmallFrame = bbox && bbox.width <= 48 && bbox.height <= 48;
+    const hasVectorChildren = node.children.some(c => SVG_NODE_TYPES.has(c.type));
+
+    if (isSmallFrame && hasVectorChildren && (node.type === "INSTANCE" || node.type === "FRAME" || node.type === "COMPONENT")) {
+      const sig = svgSignature(node);
+      const existing = signatures.get(sig);
+      if (existing) {
+        duplicateMap[node.id] = existing;
+      } else {
+        signatures.set(sig, node.id);
+      }
+      ids.push(node.id);
+    } else {
+      for (const child of node.children) {
+        collectSvgIdsDedup(child, ids, signatures, duplicateMap);
+      }
+    }
+  }
+}
+
+/**
  * Fetch SVGs from Figma's image export API
  * Uses /v1/images endpoint with format=svg
  */
@@ -75,7 +145,7 @@ export async function fetchSvgs(
       (e): e is [string, string] => e[1] !== null
     );
 
-    const CONCURRENCY = 10;
+    const CONCURRENCY = 20;
     for (let j = 0; j < entries.length; j += CONCURRENCY) {
       const chunk = entries.slice(j, j + CONCURRENCY);
       const settled = await Promise.allSettled(
