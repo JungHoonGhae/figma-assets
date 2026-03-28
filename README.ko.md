@@ -33,10 +33,10 @@ npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
 
 ```
 ./assets/
-├── arrow-narrow-left.svg     24×24, 완결된 SVG
-├── check.svg                 중복 제거 (9개 동일 → 1회 요청)
-├── logo.svg                  93×32, 통째로 추출
-├── Plan_Icon@2x.png          래스터 자동 감지 (1.1MB SVG → 13KB PNG)
+├── back-arrow.svg            24×24, 완결된 SVG
+├── check.svg                 중복 제거 (9개 동일 → 1회 API 호출)
+├── company-logo.svg          복잡한 로고를 통째로 추출
+├── hero-image@2x.png         래스터 자동 감지 (1.1MB SVG → 13KB PNG)
 └── ...
 ```
 

@@ -33,10 +33,10 @@ npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
 
 ```
 ./assets/
-├── arrow-narrow-left.svg     24×24, self-contained
-├── check.svg                 deduplicated (9 identical → 1 fetch)
-├── logo.svg                  93×32, single unit
-├── Plan_Icon@2x.png          raster auto-detected (1.1MB SVG → 13KB PNG)
+├── back-arrow.svg            24×24, self-contained SVG
+├── check.svg                 deduplicated (9 identical → 1 API call)
+├── company-logo.svg          complex logo exported as single unit
+├── hero-image@2x.png         raster auto-detected (1.1MB SVG → 13KB PNG)
 └── ...
 ```
 
