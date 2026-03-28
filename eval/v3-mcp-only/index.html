@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=360, initial-scale=1.0" />
+  <title>요금제</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet" />
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #fafbfc;
+      font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      width: 360px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-[#fafbfc] w-[360px]" data-name="요금제-구독O">
+
+    <!-- Header / Section -->
+    <div class="flex flex-col items-start w-[360px]">
+
+      <!-- Status Bar -->
+      <div class="bg-white h-[44px] w-[360px] relative flex items-center">
+        <span class="absolute left-[30px] top-1/2 -translate-y-1/2 font-medium text-[#333] text-[16px] leading-[16px]" style="font-family: 'Inter', sans-serif;">9:41</span>
+        <!-- Mobile Signal -->
+        <div class="absolute right-[69px] top-1/2 -translate-y-1/2">
+          <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="6" width="3" height="4" rx="0.5" fill="#333"/>
+            <rect x="4.5" y="4" width="3" height="6" rx="0.5" fill="#333"/>
+            <rect x="9" y="2" width="3" height="8" rx="0.5" fill="#333"/>
+            <rect x="13.5" y="0" width="3" height="10" rx="0.5" fill="#333"/>
+          </svg>
+        </div>
+        <!-- WiFi -->
+        <div class="absolute right-[48px] top-1/2 -translate-y-1/2">
+          <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 8.5C8.83 8.5 9.5 9.17 9.5 10S8.83 11.5 8 11.5 6.5 10.83 6.5 10 7.17 8.5 8 8.5z" fill="#333"/>
+            <path d="M8 5C9.86 5 11.54 5.75 12.77 6.97L14.19 5.55C12.6 3.97 10.41 3 8 3s-4.6.97-6.19 2.55l1.42 1.42C4.46 5.75 6.14 5 8 5z" fill="#333"/>
+            <path d="M8 2C10.76 2 13.26 3.05 15.12 4.81L16.54 3.39C14.31 1.29 11.31 0 8 0S1.69 1.29-.54 3.39L.88 4.81C2.74 3.05 5.24 2 8 2z" fill="#333"/>
+          </svg>
+        </div>
+        <!-- Battery -->
+        <div class="absolute right-[16px] top-1/2 -translate-y-1/2">
+          <svg width="27" height="13" viewBox="0 0 27 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="0.5" width="23" height="12" rx="3.5" stroke="#333" stroke-opacity="0.35"/>
+            <rect x="2" y="2" width="19" height="9" rx="2" fill="#333"/>
+            <path d="M25 4.5V8.5C25.83 8.17 26.5 7.17 26.5 6.5S25.83 4.83 25 4.5z" fill="#333" fill-opacity="0.4"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Navigation Header -->
+      <div class="bg-white h-[56px] w-[360px] relative flex items-center">
+        <!-- Back arrow -->
+        <div class="absolute left-[18px] top-[16px] w-[24px] h-[24px] flex items-center justify-center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <!-- Title -->
+        <div class="absolute inset-0 flex items-center justify-center">
+          <p class="font-bold text-[#333] text-[16px] leading-[1.2] tracking-[-0.32px] text-center" style="font-family: 'Pretendard Variable', sans-serif;">요금제</p>
+        </div>
+        <!-- Hamburger menu -->
+        <div class="absolute right-[18px] top-[16px] w-[24px] h-[24px] flex items-center justify-center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 6H21M3 12H21M3 18H21" stroke="#333" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex flex-col items-center pb-[100px] pt-[40px] px-[20px] w-full">
+      <div class="flex flex-col gap-[20px] items-start w-full">
+
+        <!-- Page Header -->
+        <div class="flex flex-col items-start w-full">
+          <div class="flex items-center w-full">
+            <p class="font-bold text-[#333] text-[20px] leading-[28px] text-center whitespace-nowrap" style="font-family: 'Pretendard Variable', sans-serif;">
+              요금제 보기
+            </p>
+          </div>
+        </div>
+
+        <!-- Plans Section -->
+        <div class="flex flex-col gap-[80px] items-start w-full">
+
+          <!-- Plan Card Container -->
+          <div class="bg-white border border-[#e6e6e6] flex flex-col items-start px-[20px] py-[32px] rounded-[24px] w-full">
+            <div class="flex flex-col gap-[48px] items-start w-full">
+
+              <!-- Plan Card -->
+              <div class="flex flex-col items-center w-full">
+                <div class="flex flex-col gap-[32px] items-center w-full">
+
+                  <!-- Plan Info -->
+                  <div class="flex flex-col gap-[20px] items-center justify-center w-full">
+
+                    <!-- Membership Icon -->
+                    <div class="border border-[#e6e6e6] flex items-center justify-center pb-[4px] rounded-[14px] w-[64px] h-[64px] bg-white relative overflow-hidden">
+                      <div class="w-[22px] h-[22px] flex items-center justify-center">
+                        <!-- Membership A icon - stylized letter A badge -->
+                        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect width="34" height="34" rx="8" fill="#F0F0F0"/>
+                          <text x="17" y="24" text-anchor="middle" font-family="Pretendard Variable, sans-serif" font-weight="700" font-size="18" fill="#555">A</text>
+                        </svg>
+                      </div>
+                    </div>
+
+                    <!-- Plan Details -->
+                    <div class="flex flex-col items-center justify-center w-full">
+                      <div class="flex flex-col gap-[8px] items-start justify-center w-full">
+                        <!-- Plan Title -->
+                        <div class="flex items-center justify-center w-full">
+                          <p class="flex-1 font-bold text-[#333] text-[24px] leading-[32px] text-center overflow-hidden text-ellipsis whitespace-nowrap" style="font-family: 'Pretendard Variable', sans-serif;">
+                            올인원 패스
+                          </p>
+                        </div>
+                        <!-- Plan Description -->
+                        <div class="flex flex-col justify-center w-full text-[#808080] text-[14px] text-center" style="font-family: 'Pretendard Variable', sans-serif; font-weight: 400; line-height: 1.5;">
+                          <p>AI 구매 타이밍 분석부터</p>
+                          <p>수익률 계산까지, 축산물 수입에 필요한</p>
+                          <p>모든 데이터를 패스권 하나로 이용하세요.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Price Row -->
+                  <div class="flex gap-[4px] items-end justify-center text-[#333] w-full whitespace-nowrap">
+                    <p class="font-bold text-[32px] leading-[44px]" style="font-family: 'Pretendard Variable', sans-serif;">
+                      50,000원
+                    </p>
+                    <p class="text-[16px] leading-[24px]" style="font-family: 'Pretendard Variable', sans-serif; font-weight: 400;">
+                      /월
+                    </p>
+                  </div>
+
+                  <!-- Subscribe Button (active/subscribed state) -->
+                  <div class="bg-[#cacccf] border border-[#cacccf] flex gap-[4px] items-center justify-center px-[20px] py-[12px] rounded-[8px] w-full">
+                    <div class="flex flex-col justify-center text-center">
+                      <p class="font-bold text-white text-[16px] leading-[24px] whitespace-nowrap" style="font-family: 'Pretendard Variable', sans-serif;">
+                        구독중
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Features Column -->
+              <div class="flex flex-col gap-[12px] items-start w-full">
+                <!-- Features Header -->
+                <div class="flex items-center w-full">
+                  <p class="text-[#808080] text-[14px] leading-[20px] whitespace-nowrap" style="font-family: 'Pretendard Variable', sans-serif; font-weight: 500;">
+                    포함된 기능
+                  </p>
+                </div>
+                <!-- Features List -->
+                <div class="flex flex-col gap-[12px] items-start w-full">
+
+                  <!-- Feature Item 1 -->
+                  <div class="flex gap-[12px] items-start w-full">
+                    <div class="flex items-center pt-[2px] w-[24px] h-[24px] shrink-0">
+                      <div class="overflow-hidden w-[20px] h-[20px] flex items-center justify-center">
+                        <svg width="13" height="8" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1 3.5L5 7L12 1" stroke="#2D7FF9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="flex flex-col gap-[4px] items-start flex-1 min-w-0">
+                      <p class="font-semibold text-[#333] text-[16px] leading-[24px] w-full" style="font-family: 'Pretendard Variable', sans-serif;">
+                        AI 구매 타이밍 분석
+                      </p>
+                      <p class="text-[#808080] text-[14px] leading-[20px] w-full" style="font-family: 'Pretendard Variable', sans-serif; font-weight: 500;">
+                        AI 종합 매수 점수 제공
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Feature Item 2 -->
+                  <div class="flex gap-[12px] items-start w-full">
+                    <div class="flex items-center pt-[2px] w-[24px] h-[24px] shrink-0">
+                      <div class="overflow-hidden w-[20px] h-[20px] flex items-center justify-center">
+                        <svg width="13" height="8" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1 3.5L5 7L12 1" stroke="#2D7FF9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="flex flex-col gap-[4px] items-start flex-1 min-w-0">
+                      <p class="font-semibold text-[#333] text-[16px] leading-[24px] w-full" style="font-family: 'Pretendard Variable', sans-serif;">
+                        현지 공급 분석
+                      </p>
+                      <p class="text-[#808080] text-[14px] leading-[20px] w-full" style="font-family: 'Pretendard Variable', sans-serif; font-weight: 500;">
+                        부위별 가격 추세 · 공급 점수 제공
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Feature Item 3 -->
+                  <div class="flex gap-[12px] items-start w-full">
+                    <div class="flex items-center pt-[2px] w-[24px] h-[24px] shrink-0">
+                      <div class="overflow-hidden w-[20px] h-[20px] flex items-center justify-center">
+                        <svg width="13" height="8" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1 3.5L5 7L12 1" stroke="#2D7FF9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="flex flex-col gap-[4px] items-start flex-1 min-w-0">
+                      <p class="font-semibold text-[#333] text-[16px] leading-[24px] w-full" style="font-family: 'Pretendard Variable', sans-serif;">
+                        수익률 계산기
+                      </p>
+                      <p class="text-[#808080] text-[14px] leading-[20px] w-full" style="font-family: 'Pretendard Variable', sans-serif; font-weight: 500;">
+                        오퍼가를 통한 예상 마진 확인
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Feature Item 4 -->
+                  <div class="flex gap-[12px] items-start w-full">
+                    <div class="flex items-center pt-[2px] w-[24px] h-[24px] shrink-0">
+                      <div class="overflow-hidden w-[20px] h-[20px] flex items-center justify-center">
+                        <svg width="13" height="8" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1 3.5L5 7L12 1" stroke="#2D7FF9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="flex flex-col gap-[4px] items-start flex-1 min-w-0">
+                      <p class="font-semibold text-[#333] text-[16px] leading-[24px] w-full" style="font-family: 'Pretendard Variable', sans-serif;">
+                        대체 품목 분석
+                      </p>
+                      <p class="text-[#808080] text-[14px] leading-[20px] w-full" style="font-family: 'Pretendard Variable', sans-serif; font-weight: 500;">
+                        유사 품목 가격 비교
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Feature Item 5 -->
+                  <div class="flex gap-[12px] items-start w-full">
+                    <div class="flex items-center pt-[2px] w-[24px] h-[24px] shrink-0">
+                      <div class="overflow-hidden w-[20px] h-[20px] flex items-center justify-center">
+                        <svg width="13" height="8" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1 3.5L5 7L12 1" stroke="#2D7FF9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="flex flex-col gap-[4px] items-start flex-1 min-w-0">
+                      <p class="font-semibold text-[#333] text-[16px] leading-[24px] w-full" style="font-family: 'Pretendard Variable', sans-serif;">
+                        미트박스 지수
+                      </p>
+                      <p class="text-[#808080] text-[14px] leading-[20px] w-full" style="font-family: 'Pretendard Variable', sans-serif; font-weight: 500;">
+                        10년 실거래 기반 수요 강도 지수
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Feature Item 6 -->
+                  <div class="flex gap-[12px] items-start w-full">
+                    <div class="flex items-center pt-[2px] w-[24px] h-[24px] shrink-0">
+                      <div class="overflow-hidden w-[20px] h-[20px] flex items-center justify-center">
+                        <svg width="13" height="8" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1 3.5L5 7L12 1" stroke="#2D7FF9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="flex flex-col gap-[4px] items-start flex-1 min-w-0">
+                      <p class="font-semibold text-[#333] text-[16px] leading-[24px] w-full" style="font-family: 'Pretendard Variable', sans-serif;">
+                        국내 공급 분석
+                      </p>
+                      <p class="text-[#808080] text-[14px] leading-[20px] w-full" style="font-family: 'Pretendard Variable', sans-serif; font-weight: 500;">
+                        보세 창고 재고 · 검역 · 통관 흐름 확인
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Feature Item 7 -->
+                  <div class="flex gap-[12px] items-start w-full">
+                    <div class="flex items-center pt-[2px] w-[24px] h-[24px] shrink-0">
+                      <div class="overflow-hidden w-[20px] h-[20px] flex items-center justify-center">
+                        <svg width="13" height="8" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1 3.5L5 7L12 1" stroke="#2D7FF9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="flex flex-col gap-[4px] items-start flex-1 min-w-0">
+                      <p class="font-semibold text-[#333] text-[16px] leading-[24px] w-full" style="font-family: 'Pretendard Variable', sans-serif;">
+                        국내 도매가격 예측
+                      </p>
+                      <p class="text-[#808080] text-[14px] leading-[20px] w-full" style="font-family: 'Pretendard Variable', sans-serif; font-weight: 500;">
+                        향후 3개월 예상 가격 범위 제공
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Feature Item 8 -->
+                  <div class="flex gap-[12px] items-start w-full">
+                    <div class="flex items-center pt-[2px] w-[24px] h-[24px] shrink-0">
+                      <div class="overflow-hidden w-[20px] h-[20px] flex items-center justify-center">
+                        <svg width="13" height="8" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1 3.5L5 7L12 1" stroke="#2D7FF9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="flex flex-col gap-[4px] items-start flex-1 min-w-0">
+                      <p class="font-semibold text-[#333] text-[16px] leading-[24px] w-full" style="font-family: 'Pretendard Variable', sans-serif;">
+                        원산지 시세 분석
+                      </p>
+                      <p class="text-[#808080] text-[14px] leading-[20px] w-full" style="font-family: 'Pretendard Variable', sans-serif; font-weight: 500;">
+                        현지 가격 · 환율 실시간 제공
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Feature Item 9 -->
+                  <div class="flex gap-[12px] items-start w-full">
+                    <div class="flex items-center pt-[2px] w-[24px] h-[24px] shrink-0">
+                      <div class="overflow-hidden w-[20px] h-[20px] flex items-center justify-center">
+                        <svg width="13" height="8" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1 3.5L5 7L12 1" stroke="#2D7FF9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="flex flex-col gap-[4px] items-start flex-1 min-w-0">
+                      <p class="font-semibold text-[#333] text-[16px] leading-[24px] w-full" style="font-family: 'Pretendard Variable', sans-serif;">
+                        외부 리스크
+                      </p>
+                      <p class="text-[#808080] text-[14px] leading-[20px] w-full" style="font-family: 'Pretendard Variable', sans-serif; font-weight: 500;">
+                        원유 · 운임 · 곡물 변동 영향 확인
+                      </p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Section -->
+          <div class="flex flex-col gap-[20px] items-start w-full">
+            <!-- FAQ Header -->
+            <div class="flex items-center w-full">
+              <p class="font-bold text-[#333] text-[20px] leading-[28px] text-center whitespace-nowrap" style="font-family: 'Pretendard Variable', sans-serif;">
+                자주 묻는 질문
+              </p>
+            </div>
+            <!-- FAQ List -->
+            <div class="bg-white border border-[#e6e6e6] flex flex-col items-start py-[4px] rounded-[8px] w-full">
+
+              <!-- FAQ Item 1 -->
+              <div class="border-b border-[#e6e6e6] flex items-center p-[16px] w-full">
+                <div class="flex flex-1 items-center justify-between overflow-hidden">
+                  <p class="flex-1 text-[#333] text-[14px] leading-[20px] min-w-0" style="font-family: 'Pretendard Variable', sans-serif; font-weight: 500;">
+                    구독 신청은 어떻게 하나요?
+                  </p>
+                  <div class="w-[24px] h-[24px] flex items-center justify-center shrink-0">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6 9L12 15L18 9" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- FAQ Item 2 -->
+              <div class="border-b border-[#e6e6e6] flex items-center p-[16px] w-full">
+                <div class="flex flex-1 items-center justify-between overflow-hidden">
+                  <p class="flex-1 text-[#333] text-[14px] leading-[20px] min-w-0" style="font-family: 'Pretendard Variable', sans-serif; font-weight: 500;">
+                    여러 요금제를 구독할 수 있나요?
+                  </p>
+                  <div class="w-[24px] h-[24px] flex items-center justify-center shrink-0">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6 9L12 15L18 9" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- FAQ Item 3 -->
+              <div class="border-b border-[#e6e6e6] flex items-center p-[16px] w-full">
+                <div class="flex flex-1 items-center justify-between overflow-hidden">
+                  <p class="flex-1 text-[#333] text-[14px] leading-[20px] min-w-0" style="font-family: 'Pretendard Variable', sans-serif; font-weight: 500;">
+                    구독 중인 요금제를 변경하고 싶어요.
+                  </p>
+                  <div class="w-[24px] h-[24px] flex items-center justify-center shrink-0">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6 9L12 15L18 9" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- FAQ Item 4 -->
+              <div class="flex items-center p-[16px] w-full">
+                <div class="flex flex-1 items-center justify-between overflow-hidden">
+                  <p class="flex-1 text-[#333] text-[14px] leading-[20px] min-w-0" style="font-family: 'Pretendard Variable', sans-serif; font-weight: 500;">
+                    구독 신청 시 의무 사용기간이 있나요?
+                  </p>
+                  <div class="w-[24px] h-[24px] flex items-center justify-center shrink-0">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6 9L12 15L18 9" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="bg-[#333] flex flex-col items-start pb-[80px] pt-[48px] px-[20px] w-[360px]">
+      <div class="flex flex-wrap gap-[60px] items-start justify-center w-full">
+
+        <!-- Logo / Description -->
+        <div class="flex flex-col gap-[6px] items-center w-[320px]">
+          <div class="flex items-center w-full">
+            <!-- MITTI Logo (text-based SVG recreation) -->
+            <div class="h-[32px] overflow-hidden w-[93px] flex items-center">
+              <svg width="93" height="32" viewBox="0 0 93 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- M -->
+                <path d="M2 26V8L9 20L16 8V26" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <!-- I -->
+                <path d="M20 8V26" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                <!-- T -->
+                <path d="M24 8H36M30 8V26" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- T -->
+                <path d="M38 8H50M44 8V26" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- I -->
+                <path d="M54 8V26" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                <!-- Dot under I -->
+                <circle cx="54" cy="29.5" r="1.5" fill="white"/>
+              </svg>
+            </div>
+          </div>
+          <p class="font-bold text-[#808080] text-[14px] leading-[20px] w-full" style="font-family: 'Pretendard Variable', sans-serif;">
+            축산물 수입 데이터의 새로운 기준
+          </p>
+        </div>
+
+        <!-- Text / Links -->
+        <div class="flex flex-col gap-[12px] items-center justify-center flex-1 min-w-0">
+          <!-- Legal Links -->
+          <div class="flex font-bold gap-[12px] items-center text-[14px] leading-[20px] text-center text-white w-full whitespace-nowrap" style="font-family: 'Pretendard Variable', sans-serif;">
+            <p class="shrink-0">서비스 이용약관</p>
+            <p class="shrink-0">개인정보처리방침</p>
+          </div>
+          <!-- Company Information -->
+          <div class="flex flex-col gap-[4px] items-start text-[#808080] text-[12px] leading-[18px] w-full" style="font-family: 'Pretendard Variable', sans-serif; font-weight: 400;">
+            <div class="flex flex-col gap-[4px] items-start justify-center w-full">
+              <p class="whitespace-nowrap text-center min-w-[176px]">서울특별시 강남구 테헤란로 34길 22</p>
+              <div class="flex gap-[8px] items-center w-full">
+                <p class="shrink-0 whitespace-nowrap">대표이사: 김기봉</p>
+                <p class="flex-1 min-w-0">사업자등록번호: 129-86-87864</p>
+              </div>
+            </div>
+            <p class="w-full">© 2026 MEATBOX. All rights reserved.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

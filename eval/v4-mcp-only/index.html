@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=360, initial-scale=1.0" />
+  <title>요금제</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      background: #fafbfc;
+      font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+      display: flex;
+      justify-content: center;
+    }
+    .page-root {
+      width: 360px;
+      min-height: 100vh;
+      background: #fafbfc;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+<div class="page-root">
+  <!-- Status Bar -->
+  <div style="height:44px; background:#fff; position:relative; width:360px;">
+    <!-- Time -->
+    <span style="position:absolute; left:30px; top:50%; transform:translateY(-50%); font-family:'Inter',sans-serif; font-weight:500; font-size:16px; color:#333; line-height:16px;">9:41</span>
+    <!-- Mobile Signal Icon (inline SVG) -->
+    <div style="position:absolute; right:69px; top:50%; transform:translateY(-50%) translateY(3.5px); width:18px; height:10px;">
+      <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="6" width="3" height="4" rx="0.5" fill="#333"/>
+        <rect x="4.5" y="4" width="3" height="6" rx="0.5" fill="#333"/>
+        <rect x="9" y="2" width="3" height="8" rx="0.5" fill="#333"/>
+        <rect x="13.5" y="0" width="3" height="10" rx="0.5" fill="#333"/>
+      </svg>
+    </div>
+    <!-- Wifi Icon (inline SVG) -->
+    <div style="position:absolute; right:48.73px; top:50%; transform:translateY(-50%) translateY(2.48px); width:15.27px; height:10.97px;">
+      <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 8.5C8.83 8.5 9.5 9.17 9.5 10C9.5 10.83 8.83 11.5 8 11.5C7.17 11.5 6.5 10.83 6.5 10C6.5 9.17 7.17 8.5 8 8.5Z" fill="#333"/>
+        <path d="M8 5.5C9.74 5.5 11.31 6.21 12.44 7.36L13.86 5.94C12.35 4.42 10.28 3.5 8 3.5C5.72 3.5 3.65 4.42 2.14 5.94L3.56 7.36C4.69 6.21 6.26 5.5 8 5.5Z" fill="#333"/>
+        <path d="M8 2.5C10.76 2.5 13.26 3.57 15.1 5.35L16.52 3.93C14.32 1.79 11.31 0.5 8 0.5C4.69 0.5 1.68 1.79 -0.52 3.93L0.9 5.35C2.74 3.57 5.24 2.5 8 2.5Z" fill="#333"/>
+      </svg>
+    </div>
+    <!-- Battery Icon (inline SVG) -->
+    <div style="position:absolute; right:16px; top:50%; transform:translateY(-50%) translateY(2.5px); width:27px; height:13px;">
+      <svg width="27" height="13" viewBox="0 0 27 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Battery body outline -->
+        <rect x="0" y="0" width="24" height="12" rx="3" stroke="#333" stroke-width="1" fill="none"/>
+        <!-- Battery fill -->
+        <rect x="1.5" y="1.5" width="19" height="9" rx="2" fill="#333"/>
+        <!-- Battery tip -->
+        <rect x="25" y="4" width="2" height="4" rx="1" fill="#333"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Header with Back and Menu -->
+  <div style="height:56px; background:#fff; position:relative; width:360px;">
+    <!-- Back arrow (inline SVG) -->
+    <div style="position:absolute; left:18px; top:16px; width:24px; height:24px; display:flex; align-items:center; justify-content:center;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 12H5M5 12L11 6M5 12L11 18" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <!-- Title -->
+    <div style="position:absolute; left:0; right:0; top:0; bottom:0; display:flex; align-items:center; justify-content:center;">
+      <span style="font-family:'Pretendard',sans-serif; font-weight:700; font-size:16px; color:#333; letter-spacing:-0.32px; text-align:center;">요금제</span>
+    </div>
+    <!-- Menu (hamburger) icon -->
+    <div style="position:absolute; right:18px; top:16px; width:24px; height:24px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 6H20M4 12H20M4 18H20" stroke="#333" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div style="padding: 40px 20px 100px; display:flex; flex-direction:column; align-items:center; gap:20px; width:360px;">
+
+    <!-- Page Title -->
+    <div style="width:100%;">
+      <p style="font-family:'Pretendard',sans-serif; font-weight:700; font-size:20px; color:#333; line-height:28px; text-align:center; white-space:nowrap; margin:0;">요금제 보기</p>
+    </div>
+
+    <!-- Plans Section -->
+    <div style="display:flex; flex-direction:column; gap:80px; width:100%;">
+
+      <!-- Plan Card Container -->
+      <div style="background:#fff; border:1px solid #e6e6e6; border-radius:24px; padding:32px 20px; width:100%;">
+        <div style="display:flex; flex-direction:column; gap:48px; width:100%;">
+
+          <!-- Plan Card -->
+          <div style="display:flex; flex-direction:column; gap:32px; align-items:center; width:100%;">
+
+            <!-- Plan Info -->
+            <div style="display:flex; flex-direction:column; gap:20px; align-items:center; width:100%;">
+              <!-- Plan Icon (CSS gradient placeholder for plan icon) -->
+              <div style="width:64px; height:64px; border-radius:14px; border:1px solid #e6e6e6; background: linear-gradient(135deg, #e8edf5 0%, #d0d8e8 100%); display:flex; align-items:center; justify-content:center; padding-bottom:4px;">
+                <span style="font-family:'Pretendard',sans-serif; font-weight:900; font-size:22px; color:#555; letter-spacing:-1px;">A</span>
+              </div>
+
+              <!-- Plan Details -->
+              <div style="display:flex; flex-direction:column; gap:8px; align-items:center; width:100%;">
+                <!-- Plan Name -->
+                <p style="font-family:'Pretendard',sans-serif; font-weight:700; font-size:24px; color:#333; line-height:32px; text-align:center; width:100%; margin:0;">올인원 패스</p>
+                <!-- Plan Description -->
+                <div style="font-family:'Pretendard',sans-serif; font-weight:400; font-size:14px; color:#808080; line-height:1.5; text-align:center; width:100%;">
+                  <p style="margin:0;">AI 구매 타이밍 분석부터</p>
+                  <p style="margin:0;">수익률 계산까지, 축산물 수입에 필요한</p>
+                  <p style="margin:0;">모든 데이터를 패스권 하나로 이용하세요.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Price Row -->
+            <div style="display:flex; gap:4px; align-items:flex-end; justify-content:center; width:100%;">
+              <p style="font-family:'Pretendard',sans-serif; font-weight:700; font-size:32px; color:#333; line-height:44px; white-space:nowrap; margin:0;">50,000원</p>
+              <p style="font-family:'Pretendard',sans-serif; font-weight:400; font-size:16px; color:#333; line-height:24px; white-space:nowrap; margin:0;">/월</p>
+            </div>
+
+            <!-- Subscribe Button (active/subscribed state - gray) -->
+            <div style="background:#cacccf; border:1px solid #cacccf; border-radius:8px; padding:12px 20px; width:100%; display:flex; justify-content:center; align-items:center;">
+              <p style="font-family:'Pretendard',sans-serif; font-weight:700; font-size:16px; color:#fff; line-height:24px; text-align:center; white-space:nowrap; margin:0;">구독중</p>
+            </div>
+          </div>
+
+          <!-- Features Column -->
+          <div style="display:flex; flex-direction:column; gap:12px; width:100%;">
+            <!-- Features Header -->
+            <div style="display:flex; align-items:center; width:100%;">
+              <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:14px; color:#808080; line-height:20px; white-space:nowrap; margin:0;">포함된 기능</p>
+            </div>
+
+            <!-- Features List -->
+            <div style="display:flex; flex-direction:column; gap:12px; width:100%;">
+
+              <!-- Feature Item 1 -->
+              <div style="display:flex; gap:12px; align-items:flex-start; width:100%;">
+                <div style="padding-top:2px; width:24px; height:24px; display:flex; align-items:center; flex-shrink:0;">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 10.5L7.5 15L17 6" stroke="#2D7FF9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:4px; flex:1; min-width:0;">
+                  <p style="font-family:'Pretendard',sans-serif; font-weight:600; font-size:16px; color:#333; line-height:24px; margin:0;">AI 구매 타이밍 분석</p>
+                  <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:14px; color:#808080; line-height:20px; margin:0;">AI 종합 매수 점수 제공</p>
+                </div>
+              </div>
+
+              <!-- Feature Item 2 -->
+              <div style="display:flex; gap:12px; align-items:flex-start; width:100%;">
+                <div style="padding-top:2px; width:24px; height:24px; display:flex; align-items:center; flex-shrink:0;">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 10.5L7.5 15L17 6" stroke="#2D7FF9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:4px; flex:1; min-width:0;">
+                  <p style="font-family:'Pretendard',sans-serif; font-weight:600; font-size:16px; color:#333; line-height:24px; margin:0;">현지 공급 분석</p>
+                  <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:14px; color:#808080; line-height:20px; margin:0;">부위별 가격 추세 · 공급 점수 제공</p>
+                </div>
+              </div>
+
+              <!-- Feature Item 3 -->
+              <div style="display:flex; gap:12px; align-items:flex-start; width:100%;">
+                <div style="padding-top:2px; width:24px; height:24px; display:flex; align-items:center; flex-shrink:0;">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 10.5L7.5 15L17 6" stroke="#2D7FF9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:4px; flex:1; min-width:0;">
+                  <p style="font-family:'Pretendard',sans-serif; font-weight:600; font-size:16px; color:#333; line-height:24px; margin:0;">수익률 계산기</p>
+                  <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:14px; color:#808080; line-height:20px; margin:0;">오퍼가를 통한 예상 마진 확인</p>
+                </div>
+              </div>
+
+              <!-- Feature Item 4 -->
+              <div style="display:flex; gap:12px; align-items:flex-start; width:100%;">
+                <div style="padding-top:2px; width:24px; height:24px; display:flex; align-items:center; flex-shrink:0;">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 10.5L7.5 15L17 6" stroke="#2D7FF9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:4px; flex:1; min-width:0;">
+                  <p style="font-family:'Pretendard',sans-serif; font-weight:600; font-size:16px; color:#333; line-height:24px; margin:0;">대체 품목 분석</p>
+                  <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:14px; color:#808080; line-height:20px; margin:0;">유사 품목 가격 비교</p>
+                </div>
+              </div>
+
+              <!-- Feature Item 5 -->
+              <div style="display:flex; gap:12px; align-items:flex-start; width:100%;">
+                <div style="padding-top:2px; width:24px; height:24px; display:flex; align-items:center; flex-shrink:0;">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 10.5L7.5 15L17 6" stroke="#2D7FF9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:4px; flex:1; min-width:0;">
+                  <p style="font-family:'Pretendard',sans-serif; font-weight:600; font-size:16px; color:#333; line-height:24px; margin:0;">미트박스 지수</p>
+                  <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:14px; color:#808080; line-height:20px; margin:0;">10년 실거래 기반 수요 강도 지수</p>
+                </div>
+              </div>
+
+              <!-- Feature Item 6 -->
+              <div style="display:flex; gap:12px; align-items:flex-start; width:100%;">
+                <div style="padding-top:2px; width:24px; height:24px; display:flex; align-items:center; flex-shrink:0;">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 10.5L7.5 15L17 6" stroke="#2D7FF9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:4px; flex:1; min-width:0;">
+                  <p style="font-family:'Pretendard',sans-serif; font-weight:600; font-size:16px; color:#333; line-height:24px; margin:0;">국내 공급 분석</p>
+                  <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:14px; color:#808080; line-height:20px; margin:0;">보세 창고 재고 · 검역 · 통관 흐름 확인</p>
+                </div>
+              </div>
+
+              <!-- Feature Item 7 -->
+              <div style="display:flex; gap:12px; align-items:flex-start; width:100%;">
+                <div style="padding-top:2px; width:24px; height:24px; display:flex; align-items:center; flex-shrink:0;">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 10.5L7.5 15L17 6" stroke="#2D7FF9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:4px; flex:1; min-width:0;">
+                  <p style="font-family:'Pretendard',sans-serif; font-weight:600; font-size:16px; color:#333; line-height:24px; margin:0;">국내 도매가격 예측</p>
+                  <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:14px; color:#808080; line-height:20px; margin:0;">향후 3개월 예상 가격 범위 제공</p>
+                </div>
+              </div>
+
+              <!-- Feature Item 8 -->
+              <div style="display:flex; gap:12px; align-items:flex-start; width:100%;">
+                <div style="padding-top:2px; width:24px; height:24px; display:flex; align-items:center; flex-shrink:0;">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 10.5L7.5 15L17 6" stroke="#2D7FF9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:4px; flex:1; min-width:0;">
+                  <p style="font-family:'Pretendard',sans-serif; font-weight:600; font-size:16px; color:#333; line-height:24px; margin:0;">원산지 시세 분석</p>
+                  <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:14px; color:#808080; line-height:20px; margin:0;">현지 가격 · 환율 실시간 제공</p>
+                </div>
+              </div>
+
+              <!-- Feature Item 9 -->
+              <div style="display:flex; gap:12px; align-items:flex-start; width:100%;">
+                <div style="padding-top:2px; width:24px; height:24px; display:flex; align-items:center; flex-shrink:0;">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 10.5L7.5 15L17 6" stroke="#2D7FF9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:4px; flex:1; min-width:0;">
+                  <p style="font-family:'Pretendard',sans-serif; font-weight:600; font-size:16px; color:#333; line-height:24px; margin:0;">외부 리스크</p>
+                  <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:14px; color:#808080; line-height:20px; margin:0;">원유 · 운임 · 곡물 변동 영향 확인</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div style="display:flex; flex-direction:column; gap:20px; width:100%;">
+        <!-- FAQ Title -->
+        <div style="display:flex; align-items:center; width:100%;">
+          <p style="font-family:'Pretendard',sans-serif; font-weight:700; font-size:20px; color:#333; line-height:28px; text-align:center; white-space:nowrap; margin:0;">자주 묻는 질문</p>
+        </div>
+
+        <!-- FAQ List -->
+        <div style="background:#fff; border:1px solid #e6e6e6; border-radius:8px; padding:4px 0; width:100%;">
+
+          <!-- FAQ Item 1 -->
+          <div style="border-bottom:1px solid #e6e6e6; padding:16px; display:flex; align-items:center;">
+            <div style="display:flex; flex:1; align-items:center; justify-content:space-between; overflow:hidden;">
+              <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:14px; color:#333; line-height:20px; flex:1; min-width:0; margin:0;">구독 신청은 어떻게 하나요?</p>
+              <div style="width:24px; height:24px; flex-shrink:0; display:flex; align-items:center; justify-content:center;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 9L12 15L18 9" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 2 -->
+          <div style="border-bottom:1px solid #e6e6e6; padding:16px; display:flex; align-items:center;">
+            <div style="display:flex; flex:1; align-items:center; justify-content:space-between; overflow:hidden;">
+              <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:14px; color:#333; line-height:20px; flex:1; min-width:0; margin:0;">여러 요금제를 구독할 수 있나요?</p>
+              <div style="width:24px; height:24px; flex-shrink:0; display:flex; align-items:center; justify-content:center;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 9L12 15L18 9" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 3 -->
+          <div style="border-bottom:1px solid #e6e6e6; padding:16px; display:flex; align-items:center;">
+            <div style="display:flex; flex:1; align-items:center; justify-content:space-between; overflow:hidden;">
+              <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:14px; color:#333; line-height:20px; flex:1; min-width:0; margin:0;">구독 중인 요금제를 변경하고 싶어요.</p>
+              <div style="width:24px; height:24px; flex-shrink:0; display:flex; align-items:center; justify-content:center;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 9L12 15L18 9" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 4 -->
+          <div style="padding:16px; display:flex; align-items:center;">
+            <div style="display:flex; flex:1; align-items:center; justify-content:space-between; overflow:hidden;">
+              <p style="font-family:'Pretendard',sans-serif; font-weight:500; font-size:14px; color:#333; line-height:20px; flex:1; min-width:0; margin:0;">구독 신청 시 의무 사용기간이 있나요?</p>
+              <div style="width:24px; height:24px; flex-shrink:0; display:flex; align-items:center; justify-content:center;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 9L12 15L18 9" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="background:#333; padding:48px 20px 80px; width:360px;">
+    <div style="display:flex; flex-wrap:wrap; gap:60px; justify-content:center; align-items:flex-start;">
+
+      <!-- Logo + Description -->
+      <div style="display:flex; flex-direction:column; gap:6px; align-items:flex-start; min-width:320px; width:320px;">
+        <!-- MITTI Logo (inline SVG text-based) -->
+        <div style="display:flex; align-items:center; height:32px; width:93px; overflow:hidden;">
+          <svg width="93" height="32" viewBox="0 0 93 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- M -->
+            <path d="M2 26V8L9 18L16 8V26" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <!-- I -->
+            <path d="M21 8V26" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <!-- T -->
+            <path d="M26 8H36M31 8V26" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <!-- T -->
+            <path d="M40 8H50M45 8V26" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <!-- I -->
+            <path d="M55 8V26" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <!-- Small dots under MITTI -->
+            <circle cx="9" cy="30" r="1" fill="white"/>
+            <circle cx="21" cy="30" r="1" fill="white"/>
+            <circle cx="31" cy="30" r="1" fill="white"/>
+            <circle cx="45" cy="30" r="1" fill="white"/>
+            <circle cx="55" cy="30" r="1" fill="white"/>
+          </svg>
+        </div>
+        <p style="font-family:'Pretendard',sans-serif; font-weight:700; font-size:14px; color:#808080; line-height:20px; margin:0;">축산물 수입 데이터의 새로운 기준</p>
+      </div>
+
+      <!-- Text Links and Company Info -->
+      <div style="display:flex; flex-direction:column; gap:12px; flex:1; min-width:0; align-items:flex-start; width:100%;">
+        <!-- Legal Links -->
+        <div style="display:flex; gap:12px; align-items:center; width:100%;">
+          <span style="font-family:'Pretendard',sans-serif; font-weight:700; font-size:14px; color:#fff; line-height:20px; white-space:nowrap;">서비스 이용약관</span>
+          <span style="font-family:'Pretendard',sans-serif; font-weight:700; font-size:14px; color:#fff; line-height:20px; white-space:nowrap;">개인정보처리방침</span>
+        </div>
+
+        <!-- Company Information -->
+        <div style="display:flex; flex-direction:column; gap:4px; width:100%;">
+          <!-- Address -->
+          <p style="font-family:'Pretendard',sans-serif; font-weight:400; font-size:12px; color:#808080; line-height:18px; margin:0; white-space:nowrap; text-align:center; min-width:176px;">서울특별시 강남구 테헤란로 34길 22</p>
+          <!-- Representative Info -->
+          <div style="display:flex; gap:8px; align-items:center; width:100%;">
+            <span style="font-family:'Pretendard',sans-serif; font-weight:400; font-size:12px; color:#808080; line-height:18px; white-space:nowrap;">대표이사: 김기봉</span>
+            <span style="font-family:'Pretendard',sans-serif; font-weight:400; font-size:12px; color:#808080; line-height:18px;">사업자등록번호: 129-86-87864</span>
+          </div>
+          <!-- Copyright -->
+          <p style="font-family:'Pretendard',sans-serif; font-weight:400; font-size:12px; color:#808080; line-height:18px; margin:0; width:100%;">© 2026 MEATBOX. All rights reserved.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

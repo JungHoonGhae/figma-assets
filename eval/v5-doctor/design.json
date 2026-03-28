@@ -1,0 +1,2335 @@
+{
+  "name": "{💠 › Ready to Dev} 요금제-구독O",
+  "type": "FRAME",
+  "styles": {
+    "width": "360px",
+    "height": "2003px",
+    "overflow": "hidden",
+    "backgroundColor": "rgb(250, 251, 252)"
+  },
+  "children": [
+    {
+      "name": "Contents",
+      "type": "FRAME",
+      "styles": {
+        "display": "flex",
+        "flexDirection": "column"
+      },
+      "children": [
+        {
+          "name": "header/section",
+          "type": "FRAME",
+          "styles": {
+            "display": "flex",
+            "flexDirection": "column"
+          },
+          "children": [
+            {
+              "name": "Status Bar",
+              "type": "INSTANCE",
+              "styles": {
+                "width": "360px",
+                "height": "44px",
+                "backgroundColor": "rgb(255, 255, 255)"
+              },
+              "children": [
+                {
+                  "name": "9:41",
+                  "type": "TEXT",
+                  "styles": {
+                    "width": "33px",
+                    "height": "16px",
+                    "fontSize": "16px",
+                    "fontWeight": "500",
+                    "fontFamily": "Inter",
+                    "letterSpacing": "0px",
+                    "lineHeight": "16px",
+                    "textAlign": "left",
+                    "color": "rgb(51, 51, 51)"
+                  },
+                  "text": "9:41"
+                },
+                {
+                  "name": "Mobile Signal",
+                  "type": "GROUP",
+                  "styles": {
+                    "width": "18px",
+                    "height": "10px"
+                  },
+                  "svg": "[SVG]",
+                  "children": [
+                    {
+                      "name": "Mobile Signal",
+                      "type": "BOOLEAN_OPERATION",
+                      "styles": {
+                        "width": "18px",
+                        "height": "10px",
+                        "backgroundColor": "rgb(51, 51, 51)"
+                      },
+                      "children": [
+                        {
+                          "name": "Cellular_Connection-path",
+                          "type": "VECTOR",
+                          "styles": {
+                            "width": "3px",
+                            "height": "4px",
+                            "backgroundColor": "rgb(218, 218, 218)"
+                          }
+                        },
+                        {
+                          "name": "Cellular_Connection-path",
+                          "type": "VECTOR",
+                          "styles": {
+                            "width": "3px",
+                            "height": "6px",
+                            "backgroundColor": "rgb(218, 218, 218)"
+                          }
+                        },
+                        {
+                          "name": "Cellular_Connection-path",
+                          "type": "VECTOR",
+                          "styles": {
+                            "width": "3px",
+                            "height": "8px",
+                            "backgroundColor": "rgb(218, 218, 218)"
+                          }
+                        },
+                        {
+                          "name": "Cellular_Connection-path",
+                          "type": "VECTOR",
+                          "styles": {
+                            "width": "3px",
+                            "height": "10px",
+                            "backgroundColor": "rgb(218, 218, 218)"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Wifi",
+                  "type": "GROUP",
+                  "styles": {
+                    "width": "15.27px",
+                    "height": "10.97px"
+                  },
+                  "svg": "[SVG]",
+                  "children": [
+                    {
+                      "name": "Union",
+                      "type": "BOOLEAN_OPERATION",
+                      "styles": {
+                        "width": "15.27px",
+                        "height": "10.97px",
+                        "backgroundColor": "rgb(51, 51, 51)"
+                      },
+                      "children": [
+                        {
+                          "name": "Wifi-path",
+                          "type": "VECTOR",
+                          "styles": {
+                            "width": "15.27px",
+                            "height": "4.74px",
+                            "backgroundColor": "rgb(0, 0, 0)"
+                          }
+                        },
+                        {
+                          "name": "Wifi-path",
+                          "type": "VECTOR",
+                          "styles": {
+                            "width": "9.95px",
+                            "height": "3.63px",
+                            "backgroundColor": "rgb(0, 0, 0)"
+                          }
+                        },
+                        {
+                          "name": "Wifi-path",
+                          "type": "VECTOR",
+                          "styles": {
+                            "width": "4.63px",
+                            "height": "3.37px",
+                            "backgroundColor": "rgb(0, 0, 0)"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Battery",
+                  "type": "GROUP",
+                  "styles": {
+                    "width": "26.98px",
+                    "height": "13px"
+                  },
+                  "svg": "[SVG]",
+                  "children": [
+                    {
+                      "name": "Battery",
+                      "type": "GROUP",
+                      "styles": {
+                        "width": "26.98px",
+                        "height": "13px",
+                        "backgroundColor": "rgb(255, 255, 255)"
+                      },
+                      "children": [
+                        {
+                          "name": "Rectangle",
+                          "type": "VECTOR",
+                          "styles": {
+                            "width": "25px",
+                            "height": "13px",
+                            "borderRadius": "2.67px",
+                            "borderWidth": "1px",
+                            "borderStyle": "solid",
+                            "borderColor": "rgb(51, 51, 51)",
+                            "opacity": "0.3499999940395355"
+                          }
+                        },
+                        {
+                          "name": "Combined Shape",
+                          "type": "VECTOR",
+                          "styles": {
+                            "width": "1.33px",
+                            "height": "4px",
+                            "backgroundColor": "rgb(51, 51, 51)",
+                            "opacity": "0.4000000059604645"
+                          }
+                        },
+                        {
+                          "name": "Rectangle",
+                          "type": "VECTOR",
+                          "styles": {
+                            "width": "20.2px",
+                            "height": "8.33px",
+                            "borderRadius": "1.33px",
+                            "backgroundColor": "rgb(51, 51, 51)"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "header-center",
+              "type": "INSTANCE",
+              "styles": {
+                "width": "360px",
+                "height": "56px"
+              },
+              "children": [
+                {
+                  "name": "Rectangle 8020",
+                  "type": "RECTANGLE",
+                  "styles": {
+                    "width": "360px",
+                    "height": "56px",
+                    "backgroundColor": "rgb(255, 255, 255)"
+                  }
+                },
+                {
+                  "name": "menu-01",
+                  "type": "INSTANCE",
+                  "styles": {
+                    "width": "24px",
+                    "height": "24px",
+                    "overflow": "hidden",
+                    "backgroundColor": "rgb(255, 255, 255)"
+                  },
+                  "svg": "[SVG]",
+                  "children": [
+                    {
+                      "name": "Icon",
+                      "type": "VECTOR",
+                      "styles": {
+                        "width": "18px",
+                        "height": "12px",
+                        "borderWidth": "1.5px",
+                        "borderStyle": "solid",
+                        "borderColor": "rgb(51, 51, 51)"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "arrow-narrow-left",
+                  "type": "INSTANCE",
+                  "styles": {
+                    "width": "24px",
+                    "height": "24px",
+                    "overflow": "hidden",
+                    "backgroundColor": "rgb(255, 255, 255)"
+                  },
+                  "svg": "[SVG]",
+                  "children": [
+                    {
+                      "name": "Icon",
+                      "type": "VECTOR",
+                      "styles": {
+                        "width": "16px",
+                        "height": "12px",
+                        "borderWidth": "1.5px",
+                        "borderStyle": "solid",
+                        "borderColor": "rgb(51, 51, 51)"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "타이틀",
+                  "type": "TEXT",
+                  "styles": {
+                    "width": "41px",
+                    "height": "19px",
+                    "fontSize": "16px",
+                    "fontWeight": "700",
+                    "fontFamily": "Pretendard",
+                    "letterSpacing": "-0.32px",
+                    "lineHeight": "120.00000762939453%",
+                    "textAlign": "center",
+                    "color": "rgb(51, 51, 51)"
+                  },
+                  "text": "요금제"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "container",
+          "type": "FRAME",
+          "styles": {
+            "paddingTop": "40px",
+            "paddingRight": "20px",
+            "paddingBottom": "100px",
+            "paddingLeft": "20px",
+            "gap": "32px",
+            "display": "flex",
+            "flexDirection": "column",
+            "alignItems": "center"
+          },
+          "children": [
+            {
+              "name": "container",
+              "type": "FRAME",
+              "styles": {
+                "gap": "20px",
+                "display": "flex",
+                "flexDirection": "column"
+              },
+              "children": [
+                {
+                  "name": "Page Header",
+                  "type": "FRAME",
+                  "styles": {
+                    "gap": "20px",
+                    "display": "flex",
+                    "flexDirection": "column"
+                  },
+                  "children": [
+                    {
+                      "name": "title/subtitle",
+                      "type": "FRAME",
+                      "styles": {
+                        "gap": "20px",
+                        "display": "flex",
+                        "flexDirection": "row",
+                        "alignItems": "center"
+                      },
+                      "children": [
+                        {
+                          "name": "Title",
+                          "type": "TEXT",
+                          "styles": {
+                            "width": "92px",
+                            "height": "28px",
+                            "fontSize": "20px",
+                            "fontWeight": "700",
+                            "fontFamily": "Pretendard",
+                            "letterSpacing": "0px",
+                            "lineHeight": "28px",
+                            "textAlign": "center",
+                            "color": "rgb(51, 51, 51)"
+                          },
+                          "text": "요금제 보기"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Plans Section",
+                  "type": "FRAME",
+                  "styles": {
+                    "gap": "80px",
+                    "display": "flex",
+                    "flexDirection": "column"
+                  },
+                  "children": [
+                    {
+                      "name": "Container",
+                      "type": "FRAME",
+                      "styles": {
+                        "paddingTop": "32px",
+                        "paddingRight": "20px",
+                        "paddingBottom": "32px",
+                        "paddingLeft": "20px",
+                        "borderRadius": "24px",
+                        "display": "flex",
+                        "flexDirection": "column",
+                        "backgroundColor": "rgb(255, 255, 255)",
+                        "borderWidth": "1px",
+                        "borderStyle": "solid",
+                        "borderColor": "rgb(230, 230, 230)"
+                      },
+                      "children": [
+                        {
+                          "name": "Plans Content",
+                          "type": "FRAME",
+                          "styles": {
+                            "gap": "48px",
+                            "display": "flex",
+                            "flexDirection": "column"
+                          },
+                          "children": [
+                            {
+                              "name": "Plan Card",
+                              "type": "FRAME",
+                              "styles": {
+                                "gap": "32px",
+                                "display": "flex",
+                                "flexDirection": "column",
+                                "alignItems": "center"
+                              },
+                              "children": [
+                                {
+                                  "name": "Plan Card",
+                                  "type": "FRAME",
+                                  "styles": {
+                                    "gap": "32px",
+                                    "display": "flex",
+                                    "flexDirection": "column",
+                                    "alignItems": "center"
+                                  },
+                                  "children": [
+                                    {
+                                      "name": "Plan Info",
+                                      "type": "FRAME",
+                                      "styles": {
+                                        "gap": "20px",
+                                        "display": "flex",
+                                        "flexDirection": "column",
+                                        "justifyContent": "center",
+                                        "alignItems": "center"
+                                      },
+                                      "children": [
+                                        {
+                                          "name": "Plan Icon",
+                                          "type": "INSTANCE",
+                                          "styles": {
+                                            "paddingBottom": "4px",
+                                            "gap": "10px",
+                                            "display": "flex",
+                                            "flexDirection": "row",
+                                            "justifyContent": "center",
+                                            "alignItems": "center"
+                                          },
+                                          "raster": {
+                                            "format": "png",
+                                            "scale": 2,
+                                            "filePath": ".figma-doctor/cache/rasters/2937-18407@2x.png",
+                                            "hint": "Use <img> directly without container styling."
+                                          },
+                                          "children": [
+                                            {
+                                              "name": "Frame 1261159910",
+                                              "type": "FRAME",
+                                              "styles": {
+                                                "width": "22px",
+                                                "height": "22px"
+                                              },
+                                              "children": [
+                                                {
+                                                  "name": "Vector",
+                                                  "type": "VECTOR",
+                                                  "styles": {
+                                                    "width": "22px",
+                                                    "height": "22px",
+                                                    "background": "linear-gradient(180deg, rgb(0, 61, 152) 40%, rgb(141, 187, 255) 100%)"
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "Plan Details",
+                                          "type": "FRAME",
+                                          "styles": {
+                                            "gap": "24px",
+                                            "display": "flex",
+                                            "flexDirection": "column",
+                                            "justifyContent": "center",
+                                            "alignItems": "center"
+                                          },
+                                          "children": [
+                                            {
+                                              "name": "Plan Content",
+                                              "type": "FRAME",
+                                              "styles": {
+                                                "gap": "8px",
+                                                "display": "flex",
+                                                "flexDirection": "column",
+                                                "justifyContent": "center"
+                                              },
+                                              "children": [
+                                                {
+                                                  "name": "Plan Title Row",
+                                                  "type": "FRAME",
+                                                  "styles": {
+                                                    "gap": "6px",
+                                                    "display": "flex",
+                                                    "flexDirection": "row",
+                                                    "justifyContent": "center",
+                                                    "alignItems": "center"
+                                                  },
+                                                  "children": [
+                                                    {
+                                                      "name": "Plan Title",
+                                                      "type": "TEXT",
+                                                      "styles": {
+                                                        "width": "280px",
+                                                        "height": "32px",
+                                                        "fontSize": "24px",
+                                                        "fontWeight": "700",
+                                                        "fontFamily": "Pretendard",
+                                                        "letterSpacing": "0px",
+                                                        "lineHeight": "32px",
+                                                        "textAlign": "center",
+                                                        "color": "rgb(51, 51, 51)"
+                                                      },
+                                                      "text": "올인원 패스"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "name": "Plan Summary",
+                                                  "type": "TEXT",
+                                                  "styles": {
+                                                    "width": "280px",
+                                                    "height": "63px",
+                                                    "fontSize": "14px",
+                                                    "fontWeight": "400",
+                                                    "fontFamily": "Pretendard",
+                                                    "letterSpacing": "0px",
+                                                    "lineHeight": "150%",
+                                                    "textAlign": "center",
+                                                    "color": "rgb(128, 128, 128)"
+                                                  },
+                                                  "text": "AI 구매 타이밍 분석부터\n수익률 계산까지, 축산물 수입에 필요한\n모든 데이터를 패스권 하나로 이용하세요."
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Price Row",
+                                      "type": "FRAME",
+                                      "styles": {
+                                        "gap": "4px",
+                                        "display": "flex",
+                                        "flexDirection": "row",
+                                        "justifyContent": "center",
+                                        "alignItems": "flex-end"
+                                      },
+                                      "children": [
+                                        {
+                                          "name": "Plan Price",
+                                          "type": "TEXT",
+                                          "styles": {
+                                            "width": "140px",
+                                            "height": "44px",
+                                            "fontSize": "32px",
+                                            "fontWeight": "700",
+                                            "fontFamily": "Pretendard",
+                                            "letterSpacing": "0px",
+                                            "lineHeight": "44px",
+                                            "textAlign": "left",
+                                            "color": "rgb(51, 51, 51)"
+                                          },
+                                          "text": "50,000원"
+                                        },
+                                        {
+                                          "name": "Per Month",
+                                          "type": "TEXT",
+                                          "styles": {
+                                            "width": "20px",
+                                            "height": "24px",
+                                            "fontSize": "16px",
+                                            "fontWeight": "400",
+                                            "fontFamily": "Pretendard",
+                                            "letterSpacing": "0px",
+                                            "lineHeight": "24px",
+                                            "textAlign": "left",
+                                            "color": "rgb(51, 51, 51)"
+                                          },
+                                          "text": "/월"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "btn/default",
+                                      "type": "INSTANCE",
+                                      "styles": {
+                                        "paddingTop": "12px",
+                                        "paddingRight": "20px",
+                                        "paddingBottom": "12px",
+                                        "paddingLeft": "20px",
+                                        "gap": "4px",
+                                        "borderRadius": "8px",
+                                        "display": "flex",
+                                        "flexDirection": "row",
+                                        "justifyContent": "center",
+                                        "alignItems": "center",
+                                        "backgroundColor": "rgb(202, 204, 207)",
+                                        "borderWidth": "1px",
+                                        "borderStyle": "solid",
+                                        "borderColor": "rgb(202, 204, 207)"
+                                      },
+                                      "children": [
+                                        {
+                                          "name": "텍스트",
+                                          "type": "TEXT",
+                                          "styles": {
+                                            "width": "42px",
+                                            "height": "24px",
+                                            "fontSize": "16px",
+                                            "fontWeight": "700",
+                                            "fontFamily": "Pretendard",
+                                            "letterSpacing": "0px",
+                                            "lineHeight": "24px",
+                                            "textAlign": "center",
+                                            "color": "rgb(255, 255, 255)"
+                                          },
+                                          "text": "구독중"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "Features Column",
+                              "type": "COMPONENT",
+                              "styles": {
+                                "gap": "12px",
+                                "display": "flex",
+                                "flexDirection": "column"
+                              },
+                              "children": [
+                                {
+                                  "name": "Features Header",
+                                  "type": "FRAME",
+                                  "styles": {
+                                    "gap": "12px",
+                                    "display": "flex",
+                                    "flexDirection": "row",
+                                    "alignItems": "center"
+                                  },
+                                  "children": [
+                                    {
+                                      "name": "Features Title",
+                                      "type": "TEXT",
+                                      "styles": {
+                                        "width": "64px",
+                                        "height": "20px",
+                                        "fontSize": "14px",
+                                        "fontWeight": "500",
+                                        "fontFamily": "Pretendard",
+                                        "letterSpacing": "0px",
+                                        "lineHeight": "20px",
+                                        "textAlign": "left",
+                                        "color": "rgb(128, 128, 128)"
+                                      },
+                                      "text": "포함된 기능"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Features List",
+                                  "type": "FRAME",
+                                  "styles": {
+                                    "gap": "20px",
+                                    "display": "flex",
+                                    "flexDirection": "row"
+                                  },
+                                  "children": [
+                                    {
+                                      "name": "Feature Item",
+                                      "type": "FRAME",
+                                      "styles": {
+                                        "gap": "12px",
+                                        "display": "flex",
+                                        "flexDirection": "row",
+                                        "minWidth": "280px"
+                                      },
+                                      "children": [
+                                        {
+                                          "name": "Item Icon",
+                                          "type": "FRAME",
+                                          "styles": {
+                                            "paddingTop": "2px",
+                                            "display": "flex",
+                                            "flexDirection": "row",
+                                            "alignItems": "center"
+                                          },
+                                          "svg": "[SVG]",
+                                          "children": [
+                                            {
+                                              "name": "check",
+                                              "type": "INSTANCE",
+                                              "styles": {
+                                                "width": "20px",
+                                                "height": "20px",
+                                                "overflow": "hidden",
+                                                "backgroundColor": "rgb(255, 255, 255)"
+                                              },
+                                              "children": [
+                                                {
+                                                  "name": "Icon",
+                                                  "type": "VECTOR",
+                                                  "styles": {
+                                                    "width": "10.83px",
+                                                    "height": "6.67px",
+                                                    "borderWidth": "3px",
+                                                    "borderStyle": "solid",
+                                                    "borderColor": "rgb(45, 127, 249)"
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "Item Text",
+                                          "type": "FRAME",
+                                          "styles": {
+                                            "gap": "4px",
+                                            "display": "flex",
+                                            "flexDirection": "column"
+                                          },
+                                          "children": [
+                                            {
+                                              "name": "Item Title",
+                                              "type": "TEXT",
+                                              "styles": {
+                                                "width": "244px",
+                                                "height": "24px",
+                                                "fontSize": "16px",
+                                                "fontWeight": "600",
+                                                "fontFamily": "Pretendard",
+                                                "letterSpacing": "0px",
+                                                "lineHeight": "24px",
+                                                "textAlign": "left",
+                                                "color": "rgb(51, 51, 51)"
+                                              },
+                                              "text": "AI 구매 타이밍 분석"
+                                            },
+                                            {
+                                              "name": "Item Description",
+                                              "type": "TEXT",
+                                              "styles": {
+                                                "width": "244px",
+                                                "height": "20px",
+                                                "fontSize": "14px",
+                                                "fontWeight": "500",
+                                                "fontFamily": "Pretendard",
+                                                "letterSpacing": "0px",
+                                                "lineHeight": "20px",
+                                                "textAlign": "left",
+                                                "color": "rgb(128, 128, 128)"
+                                              },
+                                              "text": "AI 종합 매수 점수 제공"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Feature Item",
+                                      "type": "FRAME",
+                                      "styles": {
+                                        "gap": "12px",
+                                        "display": "flex",
+                                        "flexDirection": "row",
+                                        "minWidth": "280px"
+                                      },
+                                      "children": [
+                                        {
+                                          "name": "Item Icon",
+                                          "type": "FRAME",
+                                          "styles": {
+                                            "paddingTop": "2px",
+                                            "display": "flex",
+                                            "flexDirection": "row",
+                                            "alignItems": "center"
+                                          },
+                                          "svg": "[SVG]",
+                                          "children": [
+                                            {
+                                              "name": "check",
+                                              "type": "INSTANCE",
+                                              "styles": {
+                                                "width": "20px",
+                                                "height": "20px",
+                                                "overflow": "hidden",
+                                                "backgroundColor": "rgb(255, 255, 255)"
+                                              },
+                                              "children": [
+                                                {
+                                                  "name": "Icon",
+                                                  "type": "VECTOR",
+                                                  "styles": {
+                                                    "width": "10.83px",
+                                                    "height": "6.67px",
+                                                    "borderWidth": "3px",
+                                                    "borderStyle": "solid",
+                                                    "borderColor": "rgb(45, 127, 249)"
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "Item Text",
+                                          "type": "FRAME",
+                                          "styles": {
+                                            "gap": "4px",
+                                            "display": "flex",
+                                            "flexDirection": "column"
+                                          },
+                                          "children": [
+                                            {
+                                              "name": "Item Title",
+                                              "type": "TEXT",
+                                              "styles": {
+                                                "width": "248px",
+                                                "height": "24px",
+                                                "fontSize": "16px",
+                                                "fontWeight": "600",
+                                                "fontFamily": "Pretendard",
+                                                "letterSpacing": "0px",
+                                                "lineHeight": "24px",
+                                                "textAlign": "left",
+                                                "color": "rgb(51, 51, 51)"
+                                              },
+                                              "text": "현지 공급 분석"
+                                            },
+                                            {
+                                              "name": "Item Description",
+                                              "type": "TEXT",
+                                              "styles": {
+                                                "width": "248px",
+                                                "height": "20px",
+                                                "fontSize": "14px",
+                                                "fontWeight": "500",
+                                                "fontFamily": "Pretendard",
+                                                "letterSpacing": "0px",
+                                                "lineHeight": "20px",
+                                                "textAlign": "left",
+                                                "color": "rgb(128, 128, 128)"
+                                              },
+                                              "text": "부위별 가격 추세 · 공급 점수 제공"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Feature Item",
+                                      "type": "FRAME",
+                                      "styles": {
+                                        "gap": "12px",
+                                        "display": "flex",
+                                        "flexDirection": "row",
+                                        "minWidth": "280px"
+                                      },
+                                      "children": [
+                                        {
+                                          "name": "Item Icon",
+                                          "type": "FRAME",
+                                          "styles": {
+                                            "paddingTop": "2px",
+                                            "display": "flex",
+                                            "flexDirection": "row",
+                                            "alignItems": "center"
+                                          },
+                                          "svg": "[SVG]",
+                                          "children": [
+                                            {
+                                              "name": "check",
+                                              "type": "INSTANCE",
+                                              "styles": {
+                                                "width": "20px",
+                                                "height": "20px",
+                                                "overflow": "hidden",
+                                                "backgroundColor": "rgb(255, 255, 255)"
+                                              },
+                                              "children": [
+                                                {
+                                                  "name": "Icon",
+                                                  "type": "VECTOR",
+                                                  "styles": {
+                                                    "width": "10.83px",
+                                                    "height": "6.67px",
+                                                    "borderWidth": "3px",
+                                                    "borderStyle": "solid",
+                                                    "borderColor": "rgb(45, 127, 249)"
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "Item Text",
+                                          "type": "FRAME",
+                                          "styles": {
+                                            "gap": "4px",
+                                            "display": "flex",
+                                            "flexDirection": "column"
+                                          },
+                                          "children": [
+                                            {
+                                              "name": "Item Title",
+                                              "type": "TEXT",
+                                              "styles": {
+                                                "width": "248px",
+                                                "height": "24px",
+                                                "fontSize": "16px",
+                                                "fontWeight": "600",
+                                                "fontFamily": "Pretendard",
+                                                "letterSpacing": "0px",
+                                                "lineHeight": "24px",
+                                                "textAlign": "left",
+                                                "color": "rgb(51, 51, 51)"
+                                              },
+                                              "text": "수익률 계산기"
+                                            },
+                                            {
+                                              "name": "Item Description",
+                                              "type": "TEXT",
+                                              "styles": {
+                                                "width": "248px",
+                                                "height": "20px",
+                                                "fontSize": "14px",
+                                                "fontWeight": "500",
+                                                "fontFamily": "Pretendard",
+                                                "letterSpacing": "0px",
+                                                "lineHeight": "20px",
+                                                "textAlign": "left",
+                                                "color": "rgb(128, 128, 128)"
+                                              },
+                                              "text": "오퍼가를 통한 예상 마진 확인"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Feature Item",
+                                      "type": "FRAME",
+                                      "styles": {
+                                        "gap": "12px",
+                                        "display": "flex",
+                                        "flexDirection": "row",
+                                        "minWidth": "280px"
+                                      },
+                                      "children": [
+                                        {
+                                          "name": "Item Icon",
+                                          "type": "FRAME",
+                                          "styles": {
+                                            "paddingTop": "2px",
+                                            "display": "flex",
+                                            "flexDirection": "row",
+                                            "alignItems": "center"
+                                          },
+                                          "svg": "[SVG]",
+                                          "children": [
+                                            {
+                                              "name": "check",
+                                              "type": "INSTANCE",
+                                              "styles": {
+                                                "width": "20px",
+                                                "height": "20px",
+                                                "overflow": "hidden",
+                                                "backgroundColor": "rgb(255, 255, 255)"
+                                              },
+                                              "children": [
+                                                {
+                                                  "name": "Icon",
+                                                  "type": "VECTOR",
+                                                  "styles": {
+                                                    "width": "10.83px",
+                                                    "height": "6.67px",
+                                                    "borderWidth": "3px",
+                                                    "borderStyle": "solid",
+                                                    "borderColor": "rgb(45, 127, 249)"
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "Item Text",
+                                          "type": "FRAME",
+                                          "styles": {
+                                            "gap": "4px",
+                                            "display": "flex",
+                                            "flexDirection": "column"
+                                          },
+                                          "children": [
+                                            {
+                                              "name": "Item Title",
+                                              "type": "TEXT",
+                                              "styles": {
+                                                "width": "248px",
+                                                "height": "24px",
+                                                "fontSize": "16px",
+                                                "fontWeight": "600",
+                                                "fontFamily": "Pretendard",
+                                                "letterSpacing": "0px",
+                                                "lineHeight": "24px",
+                                                "textAlign": "left",
+                                                "color": "rgb(51, 51, 51)"
+                                              },
+                                              "text": "대체 품목 분석"
+                                            },
+                                            {
+                                              "name": "Item Description",
+                                              "type": "TEXT",
+                                              "styles": {
+                                                "width": "248px",
+                                                "height": "20px",
+                                                "fontSize": "14px",
+                                                "fontWeight": "500",
+                                                "fontFamily": "Pretendard",
+                                                "letterSpacing": "0px",
+                                                "lineHeight": "20px",
+                                                "textAlign": "left",
+                                                "color": "rgb(128, 128, 128)"
+                                              },
+                                              "text": "유사 품목 가격 비교"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Feature Item",
+                                      "type": "FRAME",
+                                      "styles": {
+                                        "gap": "12px",
+                                        "display": "flex",
+                                        "flexDirection": "row",
+                                        "minWidth": "280px"
+                                      },
+                                      "children": [
+                                        {
+                                          "name": "Item Icon",
+                                          "type": "FRAME",
+                                          "styles": {
+                                            "paddingTop": "2px",
+                                            "display": "flex",
+                                            "flexDirection": "row",
+                                            "alignItems": "center"
+                                          },
+                                          "svg": "[SVG]",
+                                          "children": [
+                                            {
+                                              "name": "check",
+                                              "type": "INSTANCE",
+                                              "styles": {
+                                                "width": "20px",
+                                                "height": "20px",
+                                                "overflow": "hidden",
+                                                "backgroundColor": "rgb(255, 255, 255)"
+                                              },
+                                              "children": [
+                                                {
+                                                  "name": "Icon",
+                                                  "type": "VECTOR",
+                                                  "styles": {
+                                                    "width": "10.83px",
+                                                    "height": "6.67px",
+                                                    "borderWidth": "3px",
+                                                    "borderStyle": "solid",
+                                                    "borderColor": "rgb(45, 127, 249)"
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "Item Text",
+                                          "type": "FRAME",
+                                          "styles": {
+                                            "gap": "4px",
+                                            "display": "flex",
+                                            "flexDirection": "column"
+                                          },
+                                          "children": [
+                                            {
+                                              "name": "Item Title",
+                                              "type": "TEXT",
+                                              "styles": {
+                                                "width": "248px",
+                                                "height": "24px",
+                                                "fontSize": "16px",
+                                                "fontWeight": "600",
+                                                "fontFamily": "Pretendard",
+                                                "letterSpacing": "0px",
+                                                "lineHeight": "24px",
+                                                "textAlign": "left",
+                                                "color": "rgb(51, 51, 51)"
+                                              },
+                                              "text": "미트박스 지수"
+                                            },
+                                            {
+                                              "name": "Item Description",
+                                              "type": "TEXT",
+                                              "styles": {
+                                                "width": "248px",
+                                                "height": "20px",
+                                                "fontSize": "14px",
+                                                "fontWeight": "500",
+                                                "fontFamily": "Pretendard",
+                                                "letterSpacing": "0px",
+                                                "lineHeight": "20px",
+                                                "textAlign": "left",
+                                                "color": "rgb(128, 128, 128)"
+                                              },
+                                              "text": "10년 실거래 기반 수요 강도 지수"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Feature Item",
+                                      "type": "FRAME",
+                                      "styles": {
+                                        "gap": "12px",
+                                        "display": "flex",
+                                        "flexDirection": "row",
+                                        "minWidth": "280px"
+                                      },
+                                      "children": [
+                                        {
+                                          "name": "Item Icon",
+                                          "type": "FRAME",
+                                          "styles": {
+                                            "paddingTop": "2px",
+                                            "display": "flex",
+                                            "flexDirection": "row",
+                                            "alignItems": "center"
+                                          },
+                                          "svg": "[SVG]",
+                                          "children": [
+                                            {
+                                              "name": "check",
+                                              "type": "INSTANCE",
+                                              "styles": {
+                                                "width": "20px",
+                                                "height": "20px",
+                                                "overflow": "hidden",
+                                                "backgroundColor": "rgb(255, 255, 255)"
+                                              },
+                                              "children": [
+                                                {
+                                                  "name": "Icon",
+                                                  "type": "VECTOR",
+                                                  "styles": {
+                                                    "width": "10.83px",
+                                                    "height": "6.67px",
+                                                    "borderWidth": "3px",
+                                                    "borderStyle": "solid",
+                                                    "borderColor": "rgb(45, 127, 249)"
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "Item Text",
+                                          "type": "FRAME",
+                                          "styles": {
+                                            "gap": "4px",
+                                            "display": "flex",
+                                            "flexDirection": "column"
+                                          },
+                                          "children": [
+                                            {
+                                              "name": "Item Title",
+                                              "type": "TEXT",
+                                              "styles": {
+                                                "width": "248px",
+                                                "height": "24px",
+                                                "fontSize": "16px",
+                                                "fontWeight": "600",
+                                                "fontFamily": "Pretendard",
+                                                "letterSpacing": "0px",
+                                                "lineHeight": "24px",
+                                                "textAlign": "left",
+                                                "color": "rgb(51, 51, 51)"
+                                              },
+                                              "text": "국내 공급 분석"
+                                            },
+                                            {
+                                              "name": "Item Description",
+                                              "type": "TEXT",
+                                              "styles": {
+                                                "width": "248px",
+                                                "height": "20px",
+                                                "fontSize": "14px",
+                                                "fontWeight": "500",
+                                                "fontFamily": "Pretendard",
+                                                "letterSpacing": "0px",
+                                                "lineHeight": "20px",
+                                                "textAlign": "left",
+                                                "color": "rgb(128, 128, 128)"
+                                              },
+                                              "text": "보세 창고 재고 · 검역 · 통관 흐름 확인"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Feature Item",
+                                      "type": "FRAME",
+                                      "styles": {
+                                        "gap": "12px",
+                                        "display": "flex",
+                                        "flexDirection": "row",
+                                        "minWidth": "280px"
+                                      },
+                                      "children": [
+                                        {
+                                          "name": "Item Icon",
+                                          "type": "FRAME",
+                                          "styles": {
+                                            "paddingTop": "2px",
+                                            "display": "flex",
+                                            "flexDirection": "row",
+                                            "alignItems": "center"
+                                          },
+                                          "svg": "[SVG]",
+                                          "children": [
+                                            {
+                                              "name": "check",
+                                              "type": "INSTANCE",
+                                              "styles": {
+                                                "width": "20px",
+                                                "height": "20px",
+                                                "overflow": "hidden",
+                                                "backgroundColor": "rgb(255, 255, 255)"
+                                              },
+                                              "children": [
+                                                {
+                                                  "name": "Icon",
+                                                  "type": "VECTOR",
+                                                  "styles": {
+                                                    "width": "10.83px",
+                                                    "height": "6.67px",
+                                                    "borderWidth": "3px",
+                                                    "borderStyle": "solid",
+                                                    "borderColor": "rgb(45, 127, 249)"
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "Item Text",
+                                          "type": "FRAME",
+                                          "styles": {
+                                            "gap": "4px",
+                                            "display": "flex",
+                                            "flexDirection": "column"
+                                          },
+                                          "children": [
+                                            {
+                                              "name": "Item Title",
+                                              "type": "TEXT",
+                                              "styles": {
+                                                "width": "248px",
+                                                "height": "24px",
+                                                "fontSize": "16px",
+                                                "fontWeight": "600",
+                                                "fontFamily": "Pretendard",
+                                                "letterSpacing": "0px",
+                                                "lineHeight": "24px",
+                                                "textAlign": "left",
+                                                "color": "rgb(51, 51, 51)"
+                                              },
+                                              "text": "국내 도매가격 예측"
+                                            },
+                                            {
+                                              "name": "Item Description",
+                                              "type": "TEXT",
+                                              "styles": {
+                                                "width": "248px",
+                                                "height": "20px",
+                                                "fontSize": "14px",
+                                                "fontWeight": "500",
+                                                "fontFamily": "Pretendard",
+                                                "letterSpacing": "0px",
+                                                "lineHeight": "20px",
+                                                "textAlign": "left",
+                                                "color": "rgb(128, 128, 128)"
+                                              },
+                                              "text": "향후 3개월 예상 가격 범위 제공"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Feature Item",
+                                      "type": "FRAME",
+                                      "styles": {
+                                        "gap": "12px",
+                                        "display": "flex",
+                                        "flexDirection": "row",
+                                        "minWidth": "280px"
+                                      },
+                                      "children": [
+                                        {
+                                          "name": "Item Icon",
+                                          "type": "FRAME",
+                                          "styles": {
+                                            "paddingTop": "2px",
+                                            "display": "flex",
+                                            "flexDirection": "row",
+                                            "alignItems": "center"
+                                          },
+                                          "svg": "[SVG]",
+                                          "children": [
+                                            {
+                                              "name": "check",
+                                              "type": "INSTANCE",
+                                              "styles": {
+                                                "width": "20px",
+                                                "height": "20px",
+                                                "overflow": "hidden",
+                                                "backgroundColor": "rgb(255, 255, 255)"
+                                              },
+                                              "children": [
+                                                {
+                                                  "name": "Icon",
+                                                  "type": "VECTOR",
+                                                  "styles": {
+                                                    "width": "10.83px",
+                                                    "height": "6.67px",
+                                                    "borderWidth": "3px",
+                                                    "borderStyle": "solid",
+                                                    "borderColor": "rgb(45, 127, 249)"
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "Item Text",
+                                          "type": "FRAME",
+                                          "styles": {
+                                            "gap": "4px",
+                                            "display": "flex",
+                                            "flexDirection": "column"
+                                          },
+                                          "children": [
+                                            {
+                                              "name": "Item Title",
+                                              "type": "TEXT",
+                                              "styles": {
+                                                "width": "248px",
+                                                "height": "24px",
+                                                "fontSize": "16px",
+                                                "fontWeight": "600",
+                                                "fontFamily": "Pretendard",
+                                                "letterSpacing": "0px",
+                                                "lineHeight": "24px",
+                                                "textAlign": "left",
+                                                "color": "rgb(51, 51, 51)"
+                                              },
+                                              "text": "원산지 시세 분석"
+                                            },
+                                            {
+                                              "name": "Item Description",
+                                              "type": "TEXT",
+                                              "styles": {
+                                                "width": "248px",
+                                                "height": "20px",
+                                                "fontSize": "14px",
+                                                "fontWeight": "500",
+                                                "fontFamily": "Pretendard",
+                                                "letterSpacing": "0px",
+                                                "lineHeight": "20px",
+                                                "textAlign": "left",
+                                                "color": "rgb(128, 128, 128)"
+                                              },
+                                              "text": "현지 가격 · 환율 실시간 제공"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Feature Item",
+                                      "type": "FRAME",
+                                      "styles": {
+                                        "gap": "12px",
+                                        "display": "flex",
+                                        "flexDirection": "row",
+                                        "minWidth": "280px"
+                                      },
+                                      "children": [
+                                        {
+                                          "name": "Item Icon",
+                                          "type": "FRAME",
+                                          "styles": {
+                                            "paddingTop": "2px",
+                                            "display": "flex",
+                                            "flexDirection": "row",
+                                            "alignItems": "center"
+                                          },
+                                          "svg": "[SVG]",
+                                          "children": [
+                                            {
+                                              "name": "check",
+                                              "type": "INSTANCE",
+                                              "styles": {
+                                                "width": "20px",
+                                                "height": "20px",
+                                                "overflow": "hidden",
+                                                "backgroundColor": "rgb(255, 255, 255)"
+                                              },
+                                              "children": [
+                                                {
+                                                  "name": "Icon",
+                                                  "type": "VECTOR",
+                                                  "styles": {
+                                                    "width": "10.83px",
+                                                    "height": "6.67px",
+                                                    "borderWidth": "3px",
+                                                    "borderStyle": "solid",
+                                                    "borderColor": "rgb(45, 127, 249)"
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "name": "Item Text",
+                                          "type": "FRAME",
+                                          "styles": {
+                                            "gap": "4px",
+                                            "display": "flex",
+                                            "flexDirection": "column"
+                                          },
+                                          "children": [
+                                            {
+                                              "name": "Item Title",
+                                              "type": "TEXT",
+                                              "styles": {
+                                                "width": "248px",
+                                                "height": "24px",
+                                                "fontSize": "16px",
+                                                "fontWeight": "600",
+                                                "fontFamily": "Pretendard",
+                                                "letterSpacing": "0px",
+                                                "lineHeight": "24px",
+                                                "textAlign": "left",
+                                                "color": "rgb(51, 51, 51)"
+                                              },
+                                              "text": "외부 리스크"
+                                            },
+                                            {
+                                              "name": "Item Description",
+                                              "type": "TEXT",
+                                              "styles": {
+                                                "width": "248px",
+                                                "height": "20px",
+                                                "fontSize": "14px",
+                                                "fontWeight": "500",
+                                                "fontFamily": "Pretendard",
+                                                "letterSpacing": "0px",
+                                                "lineHeight": "20px",
+                                                "textAlign": "left",
+                                                "color": "rgb(128, 128, 128)"
+                                              },
+                                              "text": "원유 · 운임 · 곡물 변동 영향 확인"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "FAQ Section",
+                      "type": "FRAME",
+                      "styles": {
+                        "gap": "20px",
+                        "display": "flex",
+                        "flexDirection": "column"
+                      },
+                      "children": [
+                        {
+                          "name": "title/subtitle",
+                          "type": "FRAME",
+                          "styles": {
+                            "gap": "20px",
+                            "display": "flex",
+                            "flexDirection": "row",
+                            "alignItems": "center"
+                          },
+                          "children": [
+                            {
+                              "name": "Title",
+                              "type": "TEXT",
+                              "styles": {
+                                "width": "113px",
+                                "height": "28px",
+                                "fontSize": "20px",
+                                "fontWeight": "700",
+                                "fontFamily": "Pretendard",
+                                "letterSpacing": "0px",
+                                "lineHeight": "28px",
+                                "textAlign": "center",
+                                "color": "rgb(51, 51, 51)"
+                              },
+                              "text": "자주 묻는 질문"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "List&Group",
+                          "type": "FRAME",
+                          "styles": {
+                            "paddingTop": "4px",
+                            "paddingBottom": "4px",
+                            "borderRadius": "8px",
+                            "display": "flex",
+                            "flexDirection": "column",
+                            "backgroundColor": "rgb(255, 255, 255)",
+                            "borderWidth": "1px",
+                            "borderStyle": "solid",
+                            "borderColor": "rgb(230, 230, 230)"
+                          },
+                          "children": [
+                            {
+                              "name": "List&Group",
+                              "type": "FRAME",
+                              "styles": {
+                                "paddingTop": "16px",
+                                "paddingRight": "16px",
+                                "paddingBottom": "16px",
+                                "paddingLeft": "16px",
+                                "gap": "8px",
+                                "display": "flex",
+                                "flexDirection": "row",
+                                "alignItems": "center",
+                                "borderWidth": "1px",
+                                "borderStyle": "solid",
+                                "borderColor": "rgb(230, 230, 230)"
+                              },
+                              "children": [
+                                {
+                                  "name": "Question Row",
+                                  "type": "FRAME",
+                                  "styles": {
+                                    "gap": "8px",
+                                    "display": "flex",
+                                    "flexDirection": "row",
+                                    "justifyContent": "space-between",
+                                    "alignItems": "center",
+                                    "overflow": "hidden"
+                                  },
+                                  "children": [
+                                    {
+                                      "name": "Question Text",
+                                      "type": "TEXT",
+                                      "styles": {
+                                        "width": "264px",
+                                        "height": "20px",
+                                        "fontSize": "14px",
+                                        "fontWeight": "500",
+                                        "fontFamily": "Pretendard",
+                                        "letterSpacing": "0px",
+                                        "lineHeight": "20px",
+                                        "textAlign": "left",
+                                        "color": "rgb(51, 51, 51)"
+                                      },
+                                      "text": "구독 신청은 어떻게 하나요?"
+                                    },
+                                    {
+                                      "name": "Question Arrow",
+                                      "type": "INSTANCE",
+                                      "styles": {
+                                        "width": "24px",
+                                        "height": "24px"
+                                      },
+                                      "svg": "[SVG]",
+                                      "children": [
+                                        {
+                                          "name": "Vector 87",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "12px",
+                                            "height": "6px",
+                                            "borderRadius": "0.5px",
+                                            "borderWidth": "1px",
+                                            "borderStyle": "solid",
+                                            "borderColor": "rgb(51, 51, 51)"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "List&Group",
+                              "type": "FRAME",
+                              "styles": {
+                                "paddingTop": "16px",
+                                "paddingRight": "16px",
+                                "paddingBottom": "16px",
+                                "paddingLeft": "16px",
+                                "gap": "8px",
+                                "display": "flex",
+                                "flexDirection": "row",
+                                "alignItems": "center",
+                                "borderWidth": "1px",
+                                "borderStyle": "solid",
+                                "borderColor": "rgb(230, 230, 230)"
+                              },
+                              "children": [
+                                {
+                                  "name": "Question Row",
+                                  "type": "FRAME",
+                                  "styles": {
+                                    "gap": "8px",
+                                    "display": "flex",
+                                    "flexDirection": "row",
+                                    "justifyContent": "space-between",
+                                    "alignItems": "center",
+                                    "overflow": "hidden"
+                                  },
+                                  "children": [
+                                    {
+                                      "name": "Question Text",
+                                      "type": "TEXT",
+                                      "styles": {
+                                        "width": "264px",
+                                        "height": "20px",
+                                        "fontSize": "14px",
+                                        "fontWeight": "500",
+                                        "fontFamily": "Pretendard",
+                                        "letterSpacing": "0px",
+                                        "lineHeight": "20px",
+                                        "textAlign": "left",
+                                        "color": "rgb(51, 51, 51)"
+                                      },
+                                      "text": "여러 요금제를 구독할 수 있나요?"
+                                    },
+                                    {
+                                      "name": "Question Arrow",
+                                      "type": "INSTANCE",
+                                      "styles": {
+                                        "width": "24px",
+                                        "height": "24px"
+                                      },
+                                      "svg": "[SVG]",
+                                      "children": [
+                                        {
+                                          "name": "Vector 87",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "12px",
+                                            "height": "6px",
+                                            "borderRadius": "0.5px",
+                                            "borderWidth": "1px",
+                                            "borderStyle": "solid",
+                                            "borderColor": "rgb(51, 51, 51)"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "List&Group",
+                              "type": "FRAME",
+                              "styles": {
+                                "paddingTop": "16px",
+                                "paddingRight": "16px",
+                                "paddingBottom": "16px",
+                                "paddingLeft": "16px",
+                                "gap": "8px",
+                                "display": "flex",
+                                "flexDirection": "row",
+                                "alignItems": "center",
+                                "borderWidth": "1px",
+                                "borderStyle": "solid",
+                                "borderColor": "rgb(230, 230, 230)"
+                              },
+                              "children": [
+                                {
+                                  "name": "Question Row",
+                                  "type": "FRAME",
+                                  "styles": {
+                                    "gap": "8px",
+                                    "display": "flex",
+                                    "flexDirection": "row",
+                                    "justifyContent": "space-between",
+                                    "alignItems": "center",
+                                    "overflow": "hidden"
+                                  },
+                                  "children": [
+                                    {
+                                      "name": "Question Text",
+                                      "type": "TEXT",
+                                      "styles": {
+                                        "width": "264px",
+                                        "height": "20px",
+                                        "fontSize": "14px",
+                                        "fontWeight": "500",
+                                        "fontFamily": "Pretendard",
+                                        "letterSpacing": "0px",
+                                        "lineHeight": "20px",
+                                        "textAlign": "left",
+                                        "color": "rgb(51, 51, 51)"
+                                      },
+                                      "text": "구독 중인 요금제를 변경하고 싶어요."
+                                    },
+                                    {
+                                      "name": "Question Arrow",
+                                      "type": "INSTANCE",
+                                      "styles": {
+                                        "width": "24px",
+                                        "height": "24px"
+                                      },
+                                      "svg": "[SVG]",
+                                      "children": [
+                                        {
+                                          "name": "Vector 87",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "12px",
+                                            "height": "6px",
+                                            "borderRadius": "0.5px",
+                                            "borderWidth": "1px",
+                                            "borderStyle": "solid",
+                                            "borderColor": "rgb(51, 51, 51)"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "List&Group",
+                              "type": "FRAME",
+                              "styles": {
+                                "paddingTop": "16px",
+                                "paddingRight": "16px",
+                                "paddingBottom": "16px",
+                                "paddingLeft": "16px",
+                                "gap": "8px",
+                                "display": "flex",
+                                "flexDirection": "row",
+                                "alignItems": "center"
+                              },
+                              "children": [
+                                {
+                                  "name": "Question Row",
+                                  "type": "FRAME",
+                                  "styles": {
+                                    "gap": "8px",
+                                    "display": "flex",
+                                    "flexDirection": "row",
+                                    "justifyContent": "space-between",
+                                    "alignItems": "center",
+                                    "overflow": "hidden"
+                                  },
+                                  "children": [
+                                    {
+                                      "name": "Question Text",
+                                      "type": "TEXT",
+                                      "styles": {
+                                        "width": "264px",
+                                        "height": "20px",
+                                        "fontSize": "14px",
+                                        "fontWeight": "500",
+                                        "fontFamily": "Pretendard",
+                                        "letterSpacing": "0px",
+                                        "lineHeight": "20px",
+                                        "textAlign": "left",
+                                        "color": "rgb(51, 51, 51)"
+                                      },
+                                      "text": "구독 신청 시 의무 사용기간이 있나요?"
+                                    },
+                                    {
+                                      "name": "Question Arrow",
+                                      "type": "INSTANCE",
+                                      "styles": {
+                                        "width": "24px",
+                                        "height": "24px"
+                                      },
+                                      "svg": "[SVG]",
+                                      "children": [
+                                        {
+                                          "name": "Vector 87",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "12px",
+                                            "height": "6px",
+                                            "borderRadius": "0.5px",
+                                            "borderWidth": "1px",
+                                            "borderStyle": "solid",
+                                            "borderColor": "rgb(51, 51, 51)"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "footer",
+          "type": "INSTANCE",
+          "styles": {
+            "paddingTop": "48px",
+            "paddingRight": "20px",
+            "paddingBottom": "80px",
+            "paddingLeft": "20px",
+            "display": "flex",
+            "flexDirection": "column",
+            "backgroundColor": "rgb(51, 51, 51)"
+          },
+          "children": [
+            {
+              "name": "container",
+              "type": "FRAME",
+              "styles": {
+                "gap": "60px",
+                "display": "flex",
+                "flexDirection": "row",
+                "justifyContent": "center"
+              },
+              "children": [
+                {
+                  "name": "logo/description",
+                  "type": "FRAME",
+                  "styles": {
+                    "gap": "6px",
+                    "display": "flex",
+                    "flexDirection": "column",
+                    "alignItems": "center",
+                    "minWidth": "320px"
+                  },
+                  "children": [
+                    {
+                      "name": "logo",
+                      "type": "FRAME",
+                      "styles": {
+                        "gap": "8px",
+                        "display": "flex",
+                        "flexDirection": "row",
+                        "alignItems": "center"
+                      },
+                      "children": [
+                        {
+                          "name": "logo/combined-full/horizontal",
+                          "type": "INSTANCE",
+                          "styles": {
+                            "width": "93px",
+                            "height": "32px",
+                            "overflow": "hidden"
+                          },
+                          "svg": "[SVG]",
+                          "children": [
+                            {
+                              "name": "logo",
+                              "type": "FRAME",
+                              "styles": {
+                                "width": "92.83px",
+                                "height": "28.56px",
+                                "overflow": "hidden"
+                              },
+                              "children": [
+                                {
+                                  "name": "Group",
+                                  "type": "GROUP",
+                                  "styles": {
+                                    "width": "59.3px",
+                                    "height": "21.92px"
+                                  },
+                                  "children": [
+                                    {
+                                      "name": "Group",
+                                      "type": "GROUP",
+                                      "styles": {
+                                        "width": "59.29px",
+                                        "height": "15.2px"
+                                      },
+                                      "children": [
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "17.11px",
+                                            "height": "15.19px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        },
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "3.52px",
+                                            "height": "15.19px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        },
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "13.23px",
+                                            "height": "15.19px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        },
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "13.23px",
+                                            "height": "15.19px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        },
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "3.52px",
+                                            "height": "15.19px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "Group",
+                                      "type": "GROUP",
+                                      "styles": {
+                                        "width": "59.29px",
+                                        "height": "3.84px"
+                                      },
+                                      "children": [
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "3.06px",
+                                            "height": "3.69px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        },
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "3.31px",
+                                            "height": "3.82px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        },
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "3.42px",
+                                            "height": "3.71px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        },
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "3.21px",
+                                            "height": "3.8px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        },
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "2.74px",
+                                            "height": "3.7px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        },
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "0.76px",
+                                            "height": "3.69px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        },
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "3.06px",
+                                            "height": "3.71px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        },
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "3.06px",
+                                            "height": "3.69px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        },
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "2.74px",
+                                            "height": "3.7px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        },
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "2.52px",
+                                            "height": "3.69px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        },
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "2.52px",
+                                            "height": "3.69px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        },
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "0.76px",
+                                            "height": "3.69px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        },
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "3.12px",
+                                            "height": "3.8px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        },
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "2.74px",
+                                            "height": "3.7px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        },
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "3.06px",
+                                            "height": "3.71px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        },
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "3.02px",
+                                            "height": "3.81px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        },
+                                        {
+                                          "name": "Vector",
+                                          "type": "VECTOR",
+                                          "styles": {
+                                            "width": "2.74px",
+                                            "height": "3.7px",
+                                            "backgroundColor": "rgb(128, 128, 128)"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "Vector",
+                                  "type": "VECTOR",
+                                  "styles": {
+                                    "width": "25.56px",
+                                    "height": "28.57px",
+                                    "backgroundColor": "rgb(128, 128, 128)"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Footer Slogan",
+                      "type": "TEXT",
+                      "styles": {
+                        "width": "320px",
+                        "height": "20px",
+                        "fontSize": "14px",
+                        "fontWeight": "700",
+                        "fontFamily": "Pretendard",
+                        "letterSpacing": "0px",
+                        "lineHeight": "20px",
+                        "textAlign": "left",
+                        "color": "rgb(128, 128, 128)"
+                      },
+                      "text": "축산물 수입 데이터의 새로운 기준"
+                    }
+                  ]
+                },
+                {
+                  "name": "text",
+                  "type": "FRAME",
+                  "styles": {
+                    "gap": "12px",
+                    "display": "flex",
+                    "flexDirection": "column",
+                    "justifyContent": "center",
+                    "alignItems": "center"
+                  },
+                  "children": [
+                    {
+                      "name": "Legal Links",
+                      "type": "FRAME",
+                      "styles": {
+                        "gap": "12px",
+                        "display": "flex",
+                        "flexDirection": "row",
+                        "alignItems": "center"
+                      },
+                      "children": [
+                        {
+                          "name": "Terms of Service",
+                          "type": "TEXT",
+                          "styles": {
+                            "width": "88px",
+                            "height": "20px",
+                            "fontSize": "14px",
+                            "fontWeight": "700",
+                            "fontFamily": "Pretendard",
+                            "letterSpacing": "0px",
+                            "lineHeight": "20px",
+                            "textAlign": "center",
+                            "color": "rgb(255, 255, 255)"
+                          },
+                          "text": "서비스 이용약관"
+                        },
+                        {
+                          "name": "Privacy Policy",
+                          "type": "TEXT",
+                          "styles": {
+                            "width": "101px",
+                            "height": "20px",
+                            "fontSize": "14px",
+                            "fontWeight": "700",
+                            "fontFamily": "Pretendard",
+                            "letterSpacing": "0px",
+                            "lineHeight": "20px",
+                            "textAlign": "center",
+                            "color": "rgb(255, 255, 255)"
+                          },
+                          "text": " 개인정보처리방침"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Company Information",
+                      "type": "FRAME",
+                      "styles": {
+                        "gap": "4px",
+                        "display": "flex",
+                        "flexDirection": "column"
+                      },
+                      "children": [
+                        {
+                          "name": "Address and Representative Info",
+                          "type": "FRAME",
+                          "styles": {
+                            "gap": "4px",
+                            "display": "flex",
+                            "flexDirection": "column",
+                            "justifyContent": "center"
+                          },
+                          "children": [
+                            {
+                              "name": "Address",
+                              "type": "TEXT",
+                              "styles": {
+                                "width": "176px",
+                                "height": "18px",
+                                "fontSize": "12px",
+                                "fontWeight": "400",
+                                "fontFamily": "Pretendard",
+                                "letterSpacing": "0px",
+                                "lineHeight": "18px",
+                                "textAlign": "center",
+                                "minWidth": "176px",
+                                "color": "rgb(128, 128, 128)"
+                              },
+                              "text": "서울특별시 강남구 테헤란로 34길 22"
+                            },
+                            {
+                              "name": "Representative Info",
+                              "type": "FRAME",
+                              "styles": {
+                                "gap": "8px",
+                                "display": "flex",
+                                "flexDirection": "row",
+                                "alignItems": "center"
+                              },
+                              "children": [
+                                {
+                                  "name": "Representative Name",
+                                  "type": "TEXT",
+                                  "styles": {
+                                    "width": "79px",
+                                    "height": "18px",
+                                    "fontSize": "12px",
+                                    "fontWeight": "400",
+                                    "fontFamily": "Pretendard",
+                                    "letterSpacing": "0px",
+                                    "lineHeight": "18px",
+                                    "textAlign": "left",
+                                    "color": "rgb(128, 128, 128)"
+                                  },
+                                  "text": "대표이사: 김기봉"
+                                },
+                                {
+                                  "name": "Business Registration Number",
+                                  "type": "TEXT",
+                                  "styles": {
+                                    "width": "233px",
+                                    "height": "18px",
+                                    "fontSize": "12px",
+                                    "fontWeight": "400",
+                                    "fontFamily": "Pretendard",
+                                    "letterSpacing": "0px",
+                                    "lineHeight": "18px",
+                                    "textAlign": "left",
+                                    "color": "rgb(128, 128, 128)"
+                                  },
+                                  "text": "사업자등록번호: 129-86-87864"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Copyright Info",
+                          "type": "TEXT",
+                          "styles": {
+                            "width": "320px",
+                            "height": "18px",
+                            "fontSize": "12px",
+                            "fontWeight": "400",
+                            "fontFamily": "Pretendard",
+                            "letterSpacing": "0px",
+                            "lineHeight": "18px",
+                            "textAlign": "left",
+                            "color": "rgb(128, 128, 128)"
+                          },
+                          "text": "© 2026 MEATBOX. All rights reserved."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
