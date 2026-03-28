@@ -34,6 +34,7 @@ program.command("extract <figma-url>")
   .description("Extract raw Figma values normalized to CSS units")
   .option("--format <type>", "Output format: table or json", "table")
   .option("--refresh", "Bypass cache", false)
+  .option("--svgs-only", "Output only SVGs with metadata (lightweight for AI agents)", false)
   .action(extractCommand);
 
 program.command("cache <action> [page]")

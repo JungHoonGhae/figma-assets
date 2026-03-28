@@ -4,6 +4,7 @@ import { formatJson } from "../formatters/json.js";
 interface ExtractCommandOptions {
   format?: "table" | "json";
   refresh?: boolean;
+  svgsOnly?: boolean;
 }
 
 export async function extractCommand(figmaUrl: string, options: ExtractCommandOptions): Promise<void> {
@@ -20,6 +21,15 @@ export async function extractCommand(figmaUrl: string, options: ExtractCommandOp
   }
 
   const result = await extract({ fileKey, nodeId, token, cacheDir, refresh: options.refresh });
+
+  // --svgs-only: output only SVGs with node metadata (small output for AI agents)
+  if (options.svgsOnly) {
+    const svgEntries = result.nodes
+      .filter(n => n.svg)
+      .map(n => ({ id: n.id, name: n.name, type: n.type, width: n.styles.width, height: n.styles.height, svg: n.svg }));
+    console.log(formatJson(svgEntries));
+    return;
+  }
 
   if (options.format === "json") {
     console.log(formatJson(result));
