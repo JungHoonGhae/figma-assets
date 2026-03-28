@@ -1,10 +1,33 @@
-# figma-assets
+<div align="center">
+  <h1>figma-assets</h1>
+  <p>Extract production-ready SVG and raster assets from Figma.</p>
+</div>
 
-Figma MCP gives you expiring URLs and cropped SVG fragments.
+<p align="center">
+  <a href="#quick-start"><strong>Quick Start</strong></a> ·
+  <a href="#use-with-ai-agents"><strong>AI Agents</strong></a> ·
+  <a href="#options"><strong>Options</strong></a> ·
+  <a href="#why"><strong>Why</strong></a>
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/figma-assets"><img src="https://img.shields.io/npm/v/figma-assets.svg" alt="npm" /></a>
+  <a href="https://github.com/JungHoonGhae/figma-assets/stargazers"><img src="https://img.shields.io/github/stars/JungHoonGhae/figma-assets" alt="GitHub stars" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License" /></a>
+  <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-18+-339933.svg?logo=node.js&logoColor=white" alt="Node.js" /></a>
+</p>
+
+<p align="center">
+  <a href="README.ko.md">한국어</a>
+</p>
+
+---
+
+Figma's official MCP gives you expiring URLs and cropped SVG fragments.
 This gives you actual files.
 
 ```bash
-export FIGMA_TOKEN=figd_...    # from figma.com/settings
+export FIGMA_TOKEN=figd_...
 npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
 ```
 
@@ -16,8 +39,6 @@ npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
 ├── Plan_Icon@2x.png          raster auto-detected (1.1MB SVG → 13KB PNG)
 └── ...
 ```
-
-[한국어](README.ko.md)
 
 ## Setup
 
@@ -31,11 +52,17 @@ export FIGMA_TOKEN=figd_xxxxxxxx
 
 **3.** Node.js 18+.
 
+## Quick Start
+
+```bash
+npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
+```
+
 ## Use with AI agents
 
-### MCP server (recommended)
+### As an MCP server (recommended)
 
-Add to Claude Code or Cursor settings — the agent gets an `extract_assets` tool automatically:
+Add to your Claude Code or Cursor MCP settings — the agent gets an `extract_assets` tool automatically:
 
 ```json
 {
@@ -73,7 +100,7 @@ Paste to your agent:
 
 ## Config file
 
-Optional `.figma-assets.json` for repeated use:
+Optional `.figma-assets.json`:
 
 ```json
 {
@@ -83,15 +110,13 @@ Optional `.figma-assets.json` for repeated use:
 }
 ```
 
-Then just: `figma-assets "https://figma.com/design/..."`
-
-Cache goes to `.figma-assets/cache/` — second run is instant. `--refresh` when the design changes.
+Cache goes to `.figma-assets/cache/`. Second run is instant. `--refresh` when the design changes.
 
 ---
 
 ## Why
 
-MCP asset URLs return this:
+Figma's official MCP asset URLs return this:
 
 ```xml
 <svg preserveAspectRatio="none" width="100%" height="100%"
@@ -116,7 +141,7 @@ SVGs with embedded bitmaps (1.1MB) auto-export as PNG @2x (13KB). LLMs corrupt b
 
 ### Why not call the REST API yourself?
 
-You can. But a real frame needs: container grouping (3 vectors → 1 SVG), logo detection (20 nested vectors → 1 SVG), deduplication (9 checkmarks → 1 API call), raster detection, batching (max 50/request), parallel downloads, caching. That's what this does.
+You can. But a real frame needs: container grouping (3 vectors → 1 SVG), logo detection (20 nested vectors → 1 SVG), deduplication (9 checkmarks → 1 API call), raster detection, batching (max 50/request), parallel downloads, caching.
 
 ## API
 
@@ -128,10 +153,19 @@ const result = await extract({
   token: process.env.FIGMA_TOKEN,
   outDir: "./assets",
 });
-// result.assets: [{ id, name, fileName, type }, ...]
-// result.stats: { total: 20, svgs: 19, rasters: 1, deduplicated: 10 }
 ```
+
+## Contributing
+
+Issues and PRs welcome. See [CHANGELOG.md](CHANGELOG.md) for release history.
 
 ## License
 
-MIT
+[MIT](LICENSE)
+
+---
+
+<p align="center">
+  <sub>Made by <a href="https://github.com/JungHoonGhae">@JungHoonGhae</a></sub><br/>
+  <sub><a href="https://x.com/lucas_ghae">@lucas_ghae</a> on X</sub>
+</p>

@@ -1,10 +1,33 @@
-# figma-assets
+<div align="center">
+  <h1>figma-assets</h1>
+  <p>Figma 디자인에서 프로덕션용 SVG/PNG 에셋을 추출한다.</p>
+</div>
 
-Figma MCP는 만료 URL과 잘린 SVG 조각을 준다.
+<p align="center">
+  <a href="#빠른-시작"><strong>빠른 시작</strong></a> ·
+  <a href="#ai-에이전트와-사용"><strong>AI 에이전트</strong></a> ·
+  <a href="#옵션"><strong>옵션</strong></a> ·
+  <a href="#왜-필요한가"><strong>왜</strong></a>
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/figma-assets"><img src="https://img.shields.io/npm/v/figma-assets.svg" alt="npm" /></a>
+  <a href="https://github.com/JungHoonGhae/figma-assets/stargazers"><img src="https://img.shields.io/github/stars/JungHoonGhae/figma-assets" alt="GitHub stars" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License" /></a>
+  <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-18+-339933.svg?logo=node.js&logoColor=white" alt="Node.js" /></a>
+</p>
+
+<p align="center">
+  <a href="README.md">English</a>
+</p>
+
+---
+
+Figma 공식 MCP는 만료 URL과 잘린 SVG 조각을 준다.
 이건 실제 파일을 준다.
 
 ```bash
-export FIGMA_TOKEN=figd_...    # figma.com/settings에서 발급
+export FIGMA_TOKEN=figd_...
 npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
 ```
 
@@ -17,8 +40,6 @@ npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
 └── ...
 ```
 
-[English](README.md)
-
 ## 준비
 
 **1.** [Figma Personal Access Token](https://www.figma.com/settings) 발급 후 `FIGMA_TOKEN` 설정:
@@ -30,6 +51,12 @@ export FIGMA_TOKEN=figd_xxxxxxxx
 **2.** Figma URL 복사 — 프레임 선택 → 우클릭 → **Copy link**. URL에 `node-id` 필요.
 
 **3.** Node.js 18+.
+
+## 빠른 시작
+
+```bash
+npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
+```
 
 ## AI 에이전트와 사용
 
@@ -73,7 +100,7 @@ Claude Code 또는 Cursor 설정에 추가 — 에이전트가 `extract_assets` 
 
 ## 설정 파일
 
-반복 사용 시 `.figma-assets.json` (선택):
+`.figma-assets.json` (선택):
 
 ```json
 {
@@ -83,15 +110,13 @@ Claude Code 또는 Cursor 설정에 추가 — 에이전트가 `extract_assets` 
 }
 ```
 
-그러면: `figma-assets "https://figma.com/design/..."`
-
 캐시는 `.figma-assets/cache/`. 두 번째 실행은 즉시. 디자인 변경 시 `--refresh`.
 
 ---
 
 ## 왜 필요한가
 
-MCP 에셋 URL을 다운받으면 이게 나온다:
+Figma 공식 MCP 에셋 URL을 다운받으면 이게 나온다:
 
 ```xml
 <svg preserveAspectRatio="none" width="100%" height="100%"
@@ -116,7 +141,7 @@ figma-assets는 이걸 준다:
 
 ### REST API 직접 쓰면?
 
-된다. 하지만 실제 프레임에서는: 컨테이너 그룹핑 (벡터 3개 → SVG 1개), 로고 감지 (벡터 20개 → SVG 1개), 중복 제거 (체크 9개 → API 1회), 래스터 감지, 배치 (최대 50/요청), 병렬 다운로드, 캐싱이 필요. 이걸 다 한다.
+된다. 하지만 실제 프레임에서는: 컨테이너 그룹핑 (벡터 3개 → SVG 1개), 로고 감지 (벡터 20개 → SVG 1개), 중복 제거 (체크 9개 → API 1회), 래스터 감지, 배치 (최대 50/요청), 병렬 다운로드, 캐싱이 필요.
 
 ## API
 
@@ -128,10 +153,19 @@ const result = await extract({
   token: process.env.FIGMA_TOKEN,
   outDir: "./assets",
 });
-// result.assets: [{ id, name, fileName, type }, ...]
-// result.stats: { total: 20, svgs: 19, rasters: 1, deduplicated: 10 }
 ```
+
+## 기여
+
+이슈와 PR 환영. [CHANGELOG.md](CHANGELOG.md)에서 릴리즈 히스토리 확인.
 
 ## License
 
-MIT
+[MIT](LICENSE)
+
+---
+
+<p align="center">
+  <sub>Made by <a href="https://github.com/JungHoonGhae">@JungHoonGhae</a></sub><br/>
+  <sub><a href="https://x.com/lucas_ghae">@lucas_ghae</a> on X</sub>
+</p>
