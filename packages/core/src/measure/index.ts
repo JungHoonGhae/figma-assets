@@ -28,7 +28,8 @@ export async function measure(options: MeasureOptions): Promise<MeasureResult> {
     }
   } finally {
     await page.close();
-    await closeBrowser();
+    // Browser is kept alive for reuse across multiple measure() calls.
+    // Callers must invoke closeBrowser() when fully done.
   }
 
   return { elements, matched: elements.length, total: selectors.length };
