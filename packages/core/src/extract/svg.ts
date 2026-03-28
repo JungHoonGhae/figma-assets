@@ -237,20 +237,20 @@ export function classifySvgs(
 
 /**
  * Fetch raster images (PNG/JPG) from Figma's image export API.
- * Returns nodeId → base64 data URL.
+ * Returns nodeId → { format, scale, buffer }.
  */
 export async function fetchRasterImages(
   fileKey: string,
   nodeIds: string[],
   token: string,
   options: { format?: "png" | "jpg"; scale?: number } = {}
-): Promise<Record<string, { format: "png" | "jpg"; scale: number; dataUrl: string }>> {
+): Promise<Record<string, { format: "png" | "jpg"; scale: number; buffer: Buffer }>> {
   if (nodeIds.length === 0) return {};
 
   const format = options.format ?? "png";
   const scale = options.scale ?? 2;
   const BATCH_SIZE = 50;
-  const result: Record<string, { format: "png" | "jpg"; scale: number; dataUrl: string }> = {};
+  const result: Record<string, { format: "png" | "jpg"; scale: number; buffer: Buffer }> = {};
 
   for (let i = 0; i < nodeIds.length; i += BATCH_SIZE) {
     const batch = nodeIds.slice(i, i + BATCH_SIZE);
@@ -279,14 +279,8 @@ export async function fetchRasterImages(
         chunk.map(async ([nodeId, imageUrl]) => {
           const imgResponse = await fetch(imageUrl);
           if (imgResponse.ok) {
-            const buffer = await imgResponse.arrayBuffer();
-            const base64 = Buffer.from(buffer).toString("base64");
-            const mime = format === "jpg" ? "image/jpeg" : "image/png";
-            result[nodeId] = {
-              format,
-              scale,
-              dataUrl: `data:${mime};base64,${base64}`,
-            };
+            const buffer = Buffer.from(await imgResponse.arrayBuffer());
+            result[nodeId] = { format, scale, buffer };
           }
         })
       );

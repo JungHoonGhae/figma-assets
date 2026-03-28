@@ -60,16 +60,16 @@ export class NodeCache {
     writeFileSync(join(this.cacheDir, `${fileKey}.lastmodified`), lastModified);
   }
 
-  getRaster(nodeId: string, format: string, scale: number): string | null {
+  getRasterPath(nodeId: string, format: string, scale: number): string | null {
     const filePath = this.rasterFilePath(nodeId, format, scale);
     if (!existsSync(filePath)) return null;
-    return readFileSync(filePath, "utf-8");
+    return filePath;
   }
 
-  setRaster(nodeId: string, format: string, scale: number, dataUrl: string): void {
+  setRaster(nodeId: string, format: string, scale: number, buffer: Buffer): void {
     const dir = join(this.cacheDir, "rasters");
     mkdirSync(dir, { recursive: true });
-    writeFileSync(this.rasterFilePath(nodeId, format, scale), dataUrl);
+    writeFileSync(this.rasterFilePath(nodeId, format, scale), buffer);
   }
 
   private svgFilePath(nodeId: string): string {

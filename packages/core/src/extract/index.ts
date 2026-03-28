@@ -156,13 +156,12 @@ async function buildResult(
   // Fetch raster images for raster-embedded nodes
   const rasters: Record<string, RasterImage> = {};
   if (rasterNodeIds.length > 0) {
-    // Check cache first
     const missingRasterIds: string[] = [];
     for (const id of rasterNodeIds) {
       if (cache) {
-        const cached = cache.getRaster(id, rasterFormat, rasterScale);
-        if (cached) {
-          rasters[id] = { format: rasterFormat, scale: rasterScale, dataUrl: cached };
+        const cachedPath = cache.getRasterPath(id, rasterFormat, rasterScale);
+        if (cachedPath) {
+          rasters[id] = { format: rasterFormat, scale: rasterScale, filePath: cachedPath };
           continue;
         }
       }
@@ -172,8 +171,16 @@ async function buildResult(
     if (missingRasterIds.length > 0) {
       const fetched = await fetchRasterImages(fileKey, missingRasterIds, token, { format: rasterFormat, scale: rasterScale });
       for (const [id, img] of Object.entries(fetched)) {
-        rasters[id] = img;
-        if (cache) cache.setRaster(id, rasterFormat, rasterScale, img.dataUrl);
+        if (cache) {
+          cache.setRaster(id, rasterFormat, rasterScale, img.buffer);
+          const filePath = cache.getRasterPath(id, rasterFormat, rasterScale)!;
+          rasters[id] = { format: rasterFormat, scale: rasterScale, filePath };
+        } else {
+          // No cache — create data URL as fallback
+          const mime = rasterFormat === "jpg" ? "image/jpeg" : "image/png";
+          const dataUrl = `data:${mime};base64,${img.buffer.toString("base64")}`;
+          rasters[id] = { format: rasterFormat, scale: rasterScale, filePath: "", dataUrl };
+        }
       }
     }
   }

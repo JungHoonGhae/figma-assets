@@ -53,7 +53,8 @@ export interface FigmaNode {
 export interface RasterImage {
   format: "png" | "jpg";
   scale: number;
-  dataUrl: string; // data:image/png;base64,...
+  filePath: string; // cached file path (.figma-doctor/cache/rasters/...)
+  dataUrl?: string; // data:image/png;base64,... (lazy, only when --inline requested)
 }
 
 export type SVGMap = Record<string, string>; // nodeId → SVG string
