@@ -1,10 +1,4 @@
 <div align="center">
-  <img src="assets/banner-dark.png" alt="figma-assets" width="100%" />
-</div>
-
-<br/>
-
-<div align="center">
   <h1>figma-assets</h1>
   <p>Extract production-ready SVG and raster assets from Figma.</p>
 </div>
@@ -21,10 +15,15 @@
   <a href="https://github.com/JungHoonGhae/figma-assets/stargazers"><img src="https://img.shields.io/github/stars/JungHoonGhae/figma-assets" alt="GitHub stars" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License" /></a>
   <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-18+-339933.svg?logo=node.js&logoColor=white" alt="Node.js" /></a>
+  <a href="https://github.com/JungHoonGhae/figma-assets/actions/workflows/ci.yml"><img src="https://github.com/JungHoonGhae/figma-assets/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
 </p>
 
 <p align="center">
   <a href="README.ko.md">한국어</a>
+</p>
+
+<p align="center">
+  <img src="assets/banner-dark.png" alt="figma-assets overview" width="720" />
 </p>
 
 ---
@@ -172,6 +171,14 @@ const result = await extract({
 ## Contributing
 
 Issues and PRs welcome. See [CHANGELOG.md](CHANGELOG.md) for release history.
+
+## Support
+
+If this is useful, help keep it maintained.
+
+<a href="https://www.buymeacoffee.com/lucas.ghae">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="50">
+</a>
 
 ## License
 
