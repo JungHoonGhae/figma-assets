@@ -1,8 +1,10 @@
 # figma-assets
 
-Figma MCP gives you expiring URLs and cropped SVG fragments. This tool gives you actual files.
+AI coding agents (Cursor, Claude Code, etc.) use Figma MCP to implement designs. The code comes out fine. The icons don't.
 
-One command. Complete SVGs. Auto-detected rasters. No AI approximation.
+MCP returns icons as **expiring URLs** (7 days) or **cropped SVG fragments** — missing viewBox, no fixed dimensions, CSS variable colors. AI agents then either link to dead URLs or "approximate" the icons by guessing SVG paths.
+
+figma-assets extracts icons and images from Figma as **actual files** — complete SVGs with proper viewBox, resolved colors, and auto-detected raster fallback for bitmap-embedded nodes. It deduplicates identical components, batches API calls, parallelizes downloads, and caches results to minimize Figma API usage.
 
 ```bash
 npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
@@ -10,7 +12,7 @@ npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
 
 [한국어](README.ko.md)
 
-## The Problem
+## The Problem in Detail
 
 When you implement a Figma design with MCP, icons come back like this:
 

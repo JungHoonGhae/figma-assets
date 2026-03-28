@@ -1,8 +1,10 @@
 # figma-assets
 
-Figma MCP는 만료되는 URL과 잘린 SVG 조각을 준다. 이 도구는 실제 파일을 준다.
+AI 코딩 에이전트 (Cursor, Claude Code 등)는 Figma MCP로 디자인을 구현한다. 코드는 잘 나온다. 아이콘은 안 나온다.
 
-한 줄 명령. 완결된 SVG. 래스터 자동 감지. AI 추측 없음.
+MCP는 아이콘을 **7일 만료 URL**이나 **잘린 SVG 조각**으로 반환한다 — viewBox 누락, 고정 크기 없음, CSS 변수 색상. AI 에이전트는 죽은 URL을 링크하거나 SVG path를 "비슷하게" 추측해서 다시 그린다.
+
+figma-assets는 아이콘과 이미지를 **실제 파일**로 추출한다 — 올바른 viewBox의 완결된 SVG, 확정된 색상, 비트맵 임베딩 노드의 래스터 자동 변환. 동일 컴포넌트 중복 제거, API 배치 호출, 병렬 다운로드, 캐싱으로 Figma API 사용을 최소화한다.
 
 ```bash
 npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
@@ -10,7 +12,7 @@ npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
 
 [English](README.md)
 
-## 문제
+## 구체적인 문제
 
 Figma MCP로 디자인을 구현하면 아이콘이 이렇게 온다.
 
