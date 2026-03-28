@@ -54,6 +54,7 @@ export interface RawFigmaNode {
   strokeAlign?: string;
   blendMode?: string;
   opacity?: number;
+  visible?: boolean;
   componentId?: string;
   // Layout (Auto Layout)
   layoutMode?: "HORIZONTAL" | "VERTICAL" | "NONE";

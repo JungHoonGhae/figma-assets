@@ -15,7 +15,10 @@ export function normalizeNode(raw: RawFigmaNode): FigmaNode {
   }
 
   if (raw.children?.length) {
-    node.children = raw.children.map(normalizeNode);
+    node.children = raw.children
+      .filter(child => child.visible !== false)
+      .map(normalizeNode);
+    if (node.children.length === 0) delete node.children;
   }
 
   return node;

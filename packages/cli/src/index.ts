@@ -35,6 +35,7 @@ program.command("extract <figma-url>")
   .option("--format <type>", "Output format: table or json", "table")
   .option("--refresh", "Bypass cache", false)
   .option("--svgs-only", "Output only SVGs/rasters with metadata (lightweight for AI agents)", false)
+  .option("--compact", "Compact tree for AI agents — prunes empty nodes, collapses pass-throughs", false)
   .option("--raster-scale <n>", "Scale for raster-embedded SVGs (default: 2)", "2")
   .option("--raster-format <fmt>", "Format for raster exports: png or jpg (default: png)", "png")
   .action(extractCommand);
