@@ -116,20 +116,30 @@ Optional `.figma-assets.json`:
 }
 ```
 
-Cache goes to `.figma-assets/cache/`. Second run is instant — no API calls. When the Figma file is updated, the cache is invalidated automatically (checks `lastModified` via a lightweight API call). `--refresh` forces a full re-download if needed.
+Cache goes to `.figma-assets/cache/`. When the Figma file is updated, the cache invalidates automatically — the `lastModified` timestamp comes from the same API call used to fetch the node tree, so there's no extra overhead. If nothing changed, SVG downloads are skipped entirely. `--refresh` forces a full re-download if needed.
 
 ---
 
 ## How it works
 
-1. Walks the Figma node tree to find vector/icon nodes
-2. Groups small containers (≤48px) as single SVGs — not individual paths
-3. Exports logos (INSTANCE with all-vector children) as single SVGs
-4. Deduplicates identical components — same componentId = one API call
-5. Detects raster-embedded SVGs (>50KB or base64 bitmaps) → re-exports as PNG
-6. Batches API calls (max 50/request), parallelizes downloads (20 concurrent), caches results
-
-SVGs with embedded bitmaps (1.1MB) auto-export as PNG @2x (13KB). LLMs corrupt base64 when copying — actual files avoid that entirely.
+```mermaid
+flowchart TD
+    A[Figma URL] --> B[Fetch node tree]
+    B --> C{lastModified changed?}
+    C -->|No| D[Use cached SVGs]
+    C -->|Yes| E[Walk tree → find icon nodes]
+    E --> F[Group containers ≤48px as single SVG]
+    F --> G[Detect logos: all-vector INSTANCE → single SVG]
+    G --> H[Deduplicate: same componentId → 1 API call]
+    H --> I[Batch fetch SVGs: max 50/request, 20 parallel]
+    I --> J{SVG > 50KB or has base64?}
+    J -->|Yes| K[Re-export as PNG @2x]
+    J -->|No| L[Save SVG file]
+    K --> M[Save PNG file]
+    D --> N[./assets/]
+    L --> N
+    M --> N
+```
 
 ## API
 
