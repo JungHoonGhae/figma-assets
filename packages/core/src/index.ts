@@ -18,3 +18,7 @@ export type {
   DiffEntry,
   DiffResult,
 } from "./types.js";
+
+export { extract, parseFigmaUrl, NodeCache } from "./extract/index.js";
+export { fetchFigmaNode } from "./extract/client.js";
+export type { ExtractOptions, ExtractResult } from "./extract/index.js";
