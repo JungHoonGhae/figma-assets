@@ -4,9 +4,9 @@
  * detects raster-embedded SVGs, and saves everything as files.
  */
 
-import { mkdirSync, writeFileSync, copyFileSync, existsSync, readFileSync, rmSync } from "node:fs";
+import { mkdirSync, writeFileSync, copyFileSync, existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { fetchNode, fetchImageUrls, parseFigmaUrl } from "./figma.js";
+import { fetchNode, fetchImageUrls, parseFigmaUrl, type FigmaNode } from "./figma.js";
 import { collectAssetIds, isRasterSvg } from "./collect.js";
 
 export interface ExtractOptions {
@@ -238,5 +238,3 @@ function writeCacheBinary(cacheDir: string, format: string, id: string, scale: n
 // Re-export for library usage
 export { parseFigmaUrl } from "./figma.js";
 export type { FigmaNode } from "./figma.js";
-
-import type { FigmaNode } from "./figma.js";

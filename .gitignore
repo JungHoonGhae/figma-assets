@@ -1,6 +1,4 @@
 node_modules/
 dist/
-.figma-doctor/
-.turbo/
+.figma-assets/
 *.tsbuildinfo
-.superpowers/
