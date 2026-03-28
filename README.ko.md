@@ -159,6 +159,50 @@ figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets --j
 | `--refresh` | `false` | 캐시 무시 |
 | `--json` | `false` | JSON 매니페스트 출력 |
 
+## 설정
+
+모든 옵션은 CLI 플래그로 전달할 수 있다. 반복 사용 시 프로젝트 루트에 `.figma-assets.json`을 만든다:
+
+```json
+{
+  "token": "$FIGMA_TOKEN",
+  "outDir": "./src/assets",
+  "rasterScale": 2,
+  "rasterFormat": "png",
+  "rasterThreshold": 50000,
+  "cacheDir": ".figma-assets/cache"
+}
+```
+
+그러면 URL만 넘기면 된다:
+
+```bash
+figma-assets "https://figma.com/design/abc/File?node-id=123-456"
+```
+
+### 토큰
+
+토큰은 이 순서로 찾는다:
+1. `--token` CLI 플래그 (비추천 — 셸 히스토리에 남음)
+2. `.figma-assets.json`의 `token` 필드 — `$환경변수` 문법 지원
+3. `FIGMA_TOKEN` 환경 변수
+
+### 캐시
+
+Figma API 응답과 다운로드된 SVG는 `.figma-assets/cache/`에 캐싱된다:
+- 두 번째 실행부터 API 호출 없이 즉시 완료
+- `--refresh`로 디자인이 바뀌었을 때 캐시 무시
+- `.figma-assets/`를 `.gitignore`에 추가할 것
+
+### 래스터 감지
+
+SVG 내보내기가 `--threshold` (기본 50KB)를 초과하거나 `data:image/` (base64 비트맵)을 포함하면 자동으로:
+1. 비대한 SVG를 건너뜀
+2. `/v1/images?format=png&scale=N`으로 해당 노드를 다시 요청
+3. PNG를 실제 바이너리 파일로 저장
+
+배수는 `--scale` (1-4), 포맷은 `--format` (png/jpg)으로 설정.
+
 ## 라이브러리로 사용
 
 ```typescript

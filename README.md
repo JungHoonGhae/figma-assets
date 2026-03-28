@@ -159,6 +159,50 @@ figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets --j
 | `--refresh` | `false` | Bypass cache |
 | `--json` | `false` | Output JSON asset manifest |
 
+## Configuration
+
+All options can be passed as CLI flags. For repeated use, create a `.figma-assets.json` in your project root:
+
+```json
+{
+  "token": "$FIGMA_TOKEN",
+  "outDir": "./src/assets",
+  "rasterScale": 2,
+  "rasterFormat": "png",
+  "rasterThreshold": 50000,
+  "cacheDir": ".figma-assets/cache"
+}
+```
+
+Then just pass the URL:
+
+```bash
+figma-assets "https://figma.com/design/abc/File?node-id=123-456"
+```
+
+### Token
+
+The token is resolved in this order:
+1. `--token` CLI flag (not recommended — visible in shell history)
+2. `token` field in `.figma-assets.json` — supports `$ENV_VAR` syntax
+3. `FIGMA_TOKEN` environment variable
+
+### Cache
+
+Figma API responses and downloaded SVGs are cached in `.figma-assets/cache/` by default. This means:
+- Second run is instant (no API calls)
+- `--refresh` bypasses cache when the design has changed
+- Add `.figma-assets/` to `.gitignore`
+
+### Raster detection
+
+When an SVG export exceeds `--threshold` bytes (default 50KB) or contains `data:image/` (base64 embedded bitmap), figma-assets automatically:
+1. Skips the bloated SVG
+2. Re-requests the node as PNG via `/v1/images?format=png&scale=N`
+3. Saves the PNG as an actual binary file
+
+Configure the scale with `--scale` (1-4) and format with `--format` (png/jpg).
+
 ## Programmatic Usage
 
 ```typescript
