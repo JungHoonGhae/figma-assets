@@ -104,6 +104,22 @@ https://www.figma.com/design/hlN4c1rV2dQCzyEMbowCHX/MyProject?node-id=2912-13356
 
 Node.js 18+ (내장 `fetch` 사용).
 
+## 빠른 시작 (AI 에이전트용)
+
+AI 에이전트 (Claude Code, Cursor 등)에 이걸 복사해서 붙여넣는다:
+
+```
+Figma 에셋을 ./assets로 추출해:
+
+1. 실행: FIGMA_TOKEN=figd_xxx npx figma-assets "여기에_FIGMA_URL_붙여넣기" -o ./assets
+2. SVG 참조: <img src="./assets/아이콘이름.svg" />
+3. PNG 참조: <img src="./assets/이미지이름@2x.png" />
+
+SVG 아이콘을 직접 다시 그리지 마. 추출된 파일을 써.
+```
+
+`figd_xxx`를 토큰으로, URL을 `node-id`가 포함된 Figma 프레임 URL로 교체.
+
 ## 설치
 
 ```bash

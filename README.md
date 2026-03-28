@@ -104,6 +104,22 @@ You need the full URL including `node-id`. To get it:
 
 Node.js 18+ (uses built-in `fetch`).
 
+## Quick Start (for AI agents)
+
+Copy this to your AI agent (Claude Code, Cursor, etc.):
+
+```
+Extract Figma assets to ./assets using figma-assets:
+
+1. Run: FIGMA_TOKEN=figd_xxx npx figma-assets "PASTE_FIGMA_URL_HERE" -o ./assets
+2. Reference SVGs as: <img src="./assets/icon-name.svg" />
+3. Reference PNGs as: <img src="./assets/image-name@2x.png" />
+
+Do NOT recreate SVG icons manually. Use the extracted files.
+```
+
+Replace `figd_xxx` with your token and `PASTE_FIGMA_URL_HERE` with the Figma frame URL (must include `node-id`).
+
 ## Install
 
 ```bash
