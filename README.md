@@ -60,6 +60,19 @@ Hand this to an AI agent and it tries to paste 17,212 characters of base64 into 
 
 figma-assets detects this automatically and re-exports as PNG @2x (13KB). As an actual file.
 
+## Why Not Just Use the REST API Directly?
+
+You can. `/v1/images?format=svg` is a public endpoint. But for a typical Figma frame:
+
+- You need to walk the node tree to find which nodes are icons (not every FRAME is an SVG)
+- A 24×24 INSTANCE with 3 VECTOR children should export as 1 SVG, not 3
+- A logo (93×32 INSTANCE with 20 nested vectors) should export as 1 SVG, not 20
+- 9 identical checkmarks (same componentId) should be 1 API call, not 9
+- A 1.1MB SVG with an embedded bitmap should become a 13KB PNG
+- You need to batch API calls (max 50 per request), parallelize downloads, and cache results
+
+figma-assets handles all of this. One command instead of a script you'll rewrite every project.
+
 ## Install
 
 ```bash
