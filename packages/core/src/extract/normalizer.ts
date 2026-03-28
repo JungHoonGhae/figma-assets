@@ -71,9 +71,45 @@ function extractStyles(raw: RawFigmaNode): NormalizedStyles {
     }
   }
 
+  // Layout (Auto Layout → Flexbox)
+  if (raw.layoutMode && raw.layoutMode !== "NONE") {
+    styles.display = "flex";
+    styles.flexDirection = raw.layoutMode === "HORIZONTAL" ? "row" : "column";
+
+    if (raw.primaryAxisAlignItems) {
+      const justifyMap: Record<string, string> = {
+        MIN: "flex-start", CENTER: "center", MAX: "flex-end", SPACE_BETWEEN: "space-between",
+      };
+      styles.justifyContent = justifyMap[raw.primaryAxisAlignItems] ?? "flex-start";
+    }
+
+    if (raw.counterAxisAlignItems) {
+      const alignMap: Record<string, string> = {
+        MIN: "flex-start", CENTER: "center", MAX: "flex-end", BASELINE: "baseline",
+      };
+      styles.alignItems = alignMap[raw.counterAxisAlignItems] ?? "flex-start";
+    }
+  }
+
+  // Overflow
+  if (raw.clipsContent) {
+    styles.overflow = "hidden";
+  }
+
+  // Position
+  if (raw.layoutPositioning === "ABSOLUTE") {
+    styles.position = "absolute";
+  }
+
+  // Sizing constraints
+  if (raw.minWidth !== undefined) styles.minWidth = px(raw.minWidth);
+  if (raw.maxWidth !== undefined) styles.maxWidth = px(raw.maxWidth);
+  if (raw.minHeight !== undefined) styles.minHeight = px(raw.minHeight);
+  if (raw.maxHeight !== undefined) styles.maxHeight = px(raw.maxHeight);
+
   // Colors (from fills)
   if (raw.fills?.length) {
-    const fill = raw.fills[0] as { type: string; color?: FigmaColor };
+    const fill = raw.fills[0] as { type: string; color?: FigmaColor; gradientHandlePositions?: unknown[]; gradientStops?: GradientStop[] };
     if (fill.type === "SOLID" && fill.color) {
       const colorStr = rgbString(fill.color);
       if (raw.type === "TEXT") {
@@ -81,6 +117,8 @@ function extractStyles(raw: RawFigmaNode): NormalizedStyles {
       } else {
         styles.backgroundColor = colorStr;
       }
+    } else if (fill.type === "GRADIENT_LINEAR" && fill.gradientStops) {
+      styles.background = linearGradientString(fill.gradientStops);
     }
   }
 
@@ -99,6 +137,31 @@ function extractStyles(raw: RawFigmaNode): NormalizedStyles {
     styles.opacity = String(raw.opacity);
   }
 
+  // Box shadow (from effects)
+  if (raw.effects?.length) {
+    const shadows = (raw.effects as FigmaEffect[])
+      .filter(e => (e.type === "DROP_SHADOW" || e.type === "INNER_SHADOW") && e.visible !== false)
+      .map(e => {
+        const x = px(e.offset?.x ?? 0);
+        const y = px(e.offset?.y ?? 0);
+        const blur = px(e.radius ?? 0);
+        const spread = px(e.spread ?? 0);
+        const color = e.color ? rgbString(e.color) : "rgba(0, 0, 0, 0.25)";
+        const inset = e.type === "INNER_SHADOW" ? "inset " : "";
+        return `${inset}${x} ${y} ${blur} ${spread} ${color}`;
+      });
+    if (shadows.length > 0) {
+      styles.boxShadow = shadows.join(", ");
+    }
+  }
+
+  // Text decoration
+  if (raw.style) {
+    const s = raw.style as Record<string, unknown>;
+    if (s.textDecoration === "UNDERLINE") styles.textDecoration = "underline";
+    else if (s.textDecoration === "STRIKETHROUGH") styles.textDecoration = "line-through";
+  }
+
   return styles;
 }
 
@@ -109,8 +172,29 @@ interface FigmaColor {
   a: number;
 }
 
+interface GradientStop {
+  position: number;
+  color: FigmaColor;
+}
+
+interface FigmaEffect {
+  type: string;
+  visible?: boolean;
+  radius?: number;
+  spread?: number;
+  offset?: { x: number; y: number };
+  color?: FigmaColor;
+}
+
 function px(value: number): string {
   return `${Math.round(value * 100) / 100}px`;
+}
+
+function linearGradientString(stops: GradientStop[]): string {
+  const colorStops = stops
+    .map(s => `${rgbString(s.color)} ${Math.round(s.position * 100)}%`)
+    .join(", ");
+  return `linear-gradient(180deg, ${colorStops})`;
 }
 
 function rgbString(color: FigmaColor): string {

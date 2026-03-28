@@ -80,6 +80,24 @@ export interface NormalizedStyles {
   borderStyle?: string;
   opacity?: string;
   textAlign?: string;
+  // Layout
+  display?: string;
+  flexDirection?: string;
+  alignItems?: string;
+  justifyContent?: string;
+  overflow?: string;
+  position?: string;
+  // Effects
+  boxShadow?: string;
+  // Sizing constraints
+  minWidth?: string;
+  maxWidth?: string;
+  minHeight?: string;
+  maxHeight?: string;
+  // Background (gradient)
+  background?: string; // linear-gradient(...) — used instead of backgroundColor for gradients
+  // Text
+  textDecoration?: string;
 }
 
 // --- Audit ---

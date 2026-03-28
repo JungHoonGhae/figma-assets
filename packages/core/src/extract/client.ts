@@ -55,6 +55,17 @@ export interface RawFigmaNode {
   blendMode?: string;
   opacity?: number;
   componentId?: string;
+  // Layout (Auto Layout)
+  layoutMode?: "HORIZONTAL" | "VERTICAL" | "NONE";
+  primaryAxisAlignItems?: "MIN" | "CENTER" | "MAX" | "SPACE_BETWEEN";
+  counterAxisAlignItems?: "MIN" | "CENTER" | "MAX" | "BASELINE";
+  layoutPositioning?: "AUTO" | "ABSOLUTE";
+  clipsContent?: boolean;
+  // Sizing
+  minWidth?: number;
+  maxWidth?: number;
+  minHeight?: number;
+  maxHeight?: number;
   children?: RawFigmaNode[];
 }
 
