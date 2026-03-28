@@ -29,3 +29,6 @@ export type { AuditOptions } from "./audit/index.js";
 
 export { measure, closeBrowser } from "./measure/index.js";
 export type { MeasureOptions, MeasureResult } from "./measure/index.js";
+
+export { diff } from "./diff/index.js";
+export type { DiffOptions } from "./diff/index.js";
