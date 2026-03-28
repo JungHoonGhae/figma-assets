@@ -70,17 +70,22 @@ export async function fetchSvgs(
 
     const data = await response.json() as { images: Record<string, string | null> };
 
-    // data.images contains { nodeId: svgUrl } - we need to fetch each SVG URL
-    for (const [nodeId, svgUrl] of Object.entries(data.images ?? {})) {
-      if (!svgUrl) continue;
-      try {
-        const svgResponse = await fetch(svgUrl);
-        if (svgResponse.ok) {
-          result[nodeId] = await svgResponse.text();
-        }
-      } catch {
-        // Skip failed SVG fetches
-      }
+    // Fetch all SVG URLs in parallel (concurrency limited to 10)
+    const entries = Object.entries(data.images ?? {}).filter(
+      (e): e is [string, string] => e[1] !== null
+    );
+
+    const CONCURRENCY = 10;
+    for (let j = 0; j < entries.length; j += CONCURRENCY) {
+      const chunk = entries.slice(j, j + CONCURRENCY);
+      const settled = await Promise.allSettled(
+        chunk.map(async ([nodeId, svgUrl]) => {
+          const svgResponse = await fetch(svgUrl);
+          if (svgResponse.ok) {
+            result[nodeId] = await svgResponse.text();
+          }
+        })
+      );
     }
   }
 
