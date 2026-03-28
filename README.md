@@ -1,55 +1,84 @@
-# figma-doctor
+# figma-assets
 
-Diagnose the gap between Figma's rendering engine and browser CSS engine.
+Extract production-ready SVG and raster assets from Figma.
 
-Figma runs inside a browser, but its design canvas uses a custom C++/WebAssembly rendering engine — not the browser's CSS engine. This means values from Figma don't always match what CSS produces. `figma-doctor` catches these discrepancies.
+One command. Real files. No expiring URLs, no AI approximation.
+
+## Why
+
+Figma MCP returns icons as temporary URLs that expire in 7 days, or as cropped SVG fragments with `preserveAspectRatio="none"` and CSS variables. AI agents then "approximate" the icons by regenerating similar paths.
+
+`figma-assets` calls Figma's REST API directly to export complete, self-contained SVG files and auto-detects raster-embedded SVGs for PNG export.
 
 ## Install
 
 ```bash
-npx figma-doctor init
+npx figma-assets <figma-url> --out-dir ./assets
 ```
 
-## Commands
+## Usage
 
 ```bash
-# Audit — check for CSS-incompatible Figma properties before implementation
-npx figma-doctor audit <figma-url>
+# Set your Figma token
+export FIGMA_TOKEN=figd_...
 
-# Diff — compare Figma values with actual browser-rendered values
-npx figma-doctor diff <page-name>
+# Extract all assets from a Figma frame
+figma-assets "https://figma.com/design/abc/File?node-id=123-456" --out-dir ./assets
 
-# Extract — get raw Figma values normalized to CSS units
-npx figma-doctor extract <figma-url>
+# Custom raster scale
+figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets --scale 3
 
-# Cache — manage cached Figma API responses
-npx figma-doctor cache clear
+# JSON manifest (for scripting)
+figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets --json
 ```
 
-## How It Works
+## What it does
 
-1. **audit** — Reads Figma nodes via REST API, checks each property against a lookup table of CSS-incompatible values (OUTSIDE strokes, LINEAR_BURN blend, etc.)
-2. **extract** — Fetches raw values from Figma REST API and normalizes them to CSS units (px, rgb, %)
-3. **measure** — Opens your page in a headless browser, finds matching DOM elements, reads `getComputedStyle` values
-4. **diff** — Compares Figma values with browser values, reports mismatches with configurable tolerance
+1. Walks the Figma node tree and finds icon/vector nodes
+2. Groups small containers (≤48px) as single SVGs instead of individual paths
+3. Exports INSTANCE/COMPONENT with all-vector children as single SVGs (logos)
+4. Deduplicates identical components (same componentId = one API call)
+5. Detects raster-embedded SVGs (>50KB or base64 images) → exports as PNG
+6. Saves everything as actual files to your project directory
 
-## Config
+## Output
 
-`.figma-doctor.json`:
+```
+./assets/
+├── arrow-narrow-left.svg    # nav back button
+├── menu-01.svg              # hamburger menu
+├── check.svg                # feature checkmark
+├── check-1.svg              # (deduplicated, same content)
+├── logo.svg                 # complete logo SVG
+├── Plan_Icon@2x.png         # auto-detected raster (was 1.1MB SVG → 13KB PNG)
+└── ...
+```
 
-```json
-{
-  "figma": {
-    "fileKey": "your-file-key",
-    "token": "$FIGMA_TOKEN"
-  },
-  "pages": {
-    "login": {
-      "figmaNodeId": "2784:11151",
-      "url": "http://localhost:3000/login"
-    }
-  }
-}
+## Options
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `-o, --out-dir` | (required) | Output directory |
+| `--scale` | `2` | Raster export scale (1-4) |
+| `--format` | `png` | Raster format: `png` or `jpg` |
+| `--threshold` | `50000` | SVG bytes threshold for raster detection |
+| `--cache-dir` | `.figma-assets/cache` | Cache directory |
+| `--refresh` | `false` | Bypass cache |
+| `--json` | `false` | Output JSON manifest |
+
+## Programmatic usage
+
+```typescript
+import { extract } from "figma-assets";
+
+const result = await extract({
+  figmaUrl: "https://figma.com/design/abc/File?node-id=123-456",
+  token: process.env.FIGMA_TOKEN,
+  outDir: "./assets",
+  rasterScale: 2,
+});
+
+console.log(result.assets); // [{ id, name, fileName, type }, ...]
 ```
 
 ## License

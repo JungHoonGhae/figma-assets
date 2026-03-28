@@ -1,15 +1,30 @@
 {
-  "name": "figma-doctor-monorepo",
-  "private": true,
+  "name": "figma-assets",
+  "version": "0.1.0",
+  "description": "Extract production-ready SVG and raster assets from Figma",
+  "type": "module",
+  "bin": {
+    "figma-assets": "./dist/index.js"
+  },
+  "main": "./dist/extract.js",
+  "types": "./dist/extract.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/extract.d.ts",
+      "default": "./dist/extract.js"
+    }
+  },
   "scripts": {
-    "build": "turbo build",
-    "test": "turbo test",
-    "lint": "turbo lint",
-    "clean": "turbo clean"
+    "build": "tsc",
+    "test": "vitest run",
+    "clean": "rm -rf dist"
   },
   "devDependencies": {
-    "turbo": "^2",
-    "typescript": "^5.7"
+    "typescript": "^5.7",
+    "vitest": "^3",
+    "@types/node": "^22"
   },
+  "keywords": ["figma", "svg", "assets", "icons", "design-to-code"],
+  "license": "MIT",
   "packageManager": "pnpm@9.15.0"
 }
