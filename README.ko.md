@@ -23,8 +23,27 @@
 
 ---
 
-Figma 공식 MCP는 만료 URL과 잘린 SVG 조각을 준다.
-이건 실제 파일을 준다.
+AI 에이전트(Cursor, Claude Code 등)가 Figma 공식 MCP로 디자인을 구현하면, 아이콘이 7일 뒤 만료되는 임시 URL로 오거나, 이런 SVG 조각으로 온다:
+
+```xml
+<!-- Figma 공식 MCP가 주는 것 -->
+<svg preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 13.83 9.67">
+  <path stroke="var(--stroke-0, #2D7FF9)" .../>
+</svg>
+```
+
+고정 크기 없음. 잘린 캔버스. 색상이 CSS 변수. 쓸 수 없다.
+
+**figma-assets**는 이걸 준다:
+
+```xml
+<!-- figma-assets가 주는 것 -->
+<svg width="24" height="24" viewBox="0 0 24 24">
+  <path stroke="#2D7FF9" .../>
+</svg>
+```
+
+완결된 아이콘. 고정 크기. 실제 색상. 프로젝트에 파일로 저장.
 
 ```bash
 export FIGMA_TOKEN=figd_...
@@ -114,34 +133,16 @@ Claude Code 또는 Cursor 설정에 추가 — 에이전트가 `extract_assets` 
 
 ---
 
-## 왜 필요한가
+## 동작 방식
 
-Figma 공식 MCP 에셋 URL을 다운받으면 이게 나온다:
+1. Figma 노드 트리를 순회하면서 벡터/아이콘 노드를 찾는다
+2. 작은 컨테이너(≤48px)는 개별 path가 아닌 단일 SVG로 내보낸다
+3. 로고(INSTANCE의 모든 자식이 벡터)는 통째로 내보낸다
+4. 같은 componentId는 한 번만 API 호출한다 (중복 제거)
+5. 래스터 임베딩 SVG(>50KB 또는 base64 비트맵)를 감지하면 PNG로 대체한다
+6. API 배치(최대 50/요청), 병렬 다운로드(20 동시), 캐싱
 
-```xml
-<svg preserveAspectRatio="none" width="100%" height="100%"
-     viewBox="0 0 13.83 9.67">
-  <path stroke="var(--stroke-0, #2D7FF9)" .../>
-</svg>
-```
-
-잘린 viewBox. 크기 없음. `preserveAspectRatio="none"`. CSS 변수 색상.
-
-figma-assets는 이걸 준다:
-
-```xml
-<svg width="24" height="24" viewBox="0 0 24 24">
-  <path stroke="#2D7FF9" .../>
-</svg>
-```
-
-완결. 고정 크기. 확정 색상. 어디서든 동작.
-
-비트맵 임베딩 SVG (1.1MB)는 PNG @2x (13KB)로 자동 변환. LLM이 base64를 복사하면 깨지는데 — 이걸 원천 차단.
-
-### REST API 직접 쓰면?
-
-된다. 하지만 실제 프레임에서는: 컨테이너 그룹핑 (벡터 3개 → SVG 1개), 로고 감지 (벡터 20개 → SVG 1개), 중복 제거 (체크 9개 → API 1회), 래스터 감지, 배치 (최대 50/요청), 병렬 다운로드, 캐싱이 필요.
+비트맵 임베딩 SVG(1.1MB)는 PNG @2x(13KB)로 자동 변환. LLM이 base64를 복사하면 깨지는데 — 실제 파일로 원천 차단.
 
 ## API
 

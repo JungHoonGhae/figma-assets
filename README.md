@@ -23,8 +23,27 @@
 
 ---
 
-Figma's official MCP gives you expiring URLs and cropped SVG fragments.
-This gives you actual files.
+When AI agents (Cursor, Claude Code, etc.) implement Figma designs via the official MCP, icons come back as temporary URLs that expire in 7 days — or as SVG fragments like this:
+
+```xml
+<!-- What Figma's official MCP gives you -->
+<svg preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 13.83 9.67">
+  <path stroke="var(--stroke-0, #2D7FF9)" .../>
+</svg>
+```
+
+No fixed size. Cropped canvas. CSS variable instead of an actual color. Breaks when you use it.
+
+**figma-assets** gives you this instead:
+
+```xml
+<!-- What figma-assets gives you -->
+<svg width="24" height="24" viewBox="0 0 24 24">
+  <path stroke="#2D7FF9" .../>
+</svg>
+```
+
+Complete icon. Fixed dimensions. Real color. Saved as an actual file in your project.
 
 ```bash
 export FIGMA_TOKEN=figd_...
@@ -114,34 +133,16 @@ Cache goes to `.figma-assets/cache/`. Second run is instant. `--refresh` when th
 
 ---
 
-## Why
+## How it works
 
-Figma's official MCP asset URLs return this:
+1. Walks the Figma node tree to find vector/icon nodes
+2. Groups small containers (≤48px) as single SVGs — not individual paths
+3. Exports logos (INSTANCE with all-vector children) as single SVGs
+4. Deduplicates identical components — same componentId = one API call
+5. Detects raster-embedded SVGs (>50KB or base64 bitmaps) → re-exports as PNG
+6. Batches API calls (max 50/request), parallelizes downloads (20 concurrent), caches results
 
-```xml
-<svg preserveAspectRatio="none" width="100%" height="100%"
-     viewBox="0 0 13.83 9.67">
-  <path stroke="var(--stroke-0, #2D7FF9)" .../>
-</svg>
-```
-
-Cropped viewBox. No size. `preserveAspectRatio="none"`. CSS variable color.
-
-figma-assets returns this:
-
-```xml
-<svg width="24" height="24" viewBox="0 0 24 24">
-  <path stroke="#2D7FF9" .../>
-</svg>
-```
-
-Complete. Fixed size. Resolved color. Works anywhere.
-
-SVGs with embedded bitmaps (1.1MB) auto-export as PNG @2x (13KB). LLMs corrupt base64 when copying — this avoids that entirely.
-
-### Why not call the REST API yourself?
-
-You can. But a real frame needs: container grouping (3 vectors → 1 SVG), logo detection (20 nested vectors → 1 SVG), deduplication (9 checkmarks → 1 API call), raster detection, batching (max 50/request), parallel downloads, caching.
+SVGs with embedded bitmaps (1.1MB) auto-export as PNG @2x (13KB). LLMs corrupt base64 when copying — actual files avoid that entirely.
 
 ## API
 
