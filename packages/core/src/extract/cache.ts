@@ -60,8 +60,25 @@ export class NodeCache {
     writeFileSync(join(this.cacheDir, `${fileKey}.lastmodified`), lastModified);
   }
 
+  getRaster(nodeId: string, format: string, scale: number): string | null {
+    const filePath = this.rasterFilePath(nodeId, format, scale);
+    if (!existsSync(filePath)) return null;
+    return readFileSync(filePath, "utf-8");
+  }
+
+  setRaster(nodeId: string, format: string, scale: number, dataUrl: string): void {
+    const dir = join(this.cacheDir, "rasters");
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(this.rasterFilePath(nodeId, format, scale), dataUrl);
+  }
+
   private svgFilePath(nodeId: string): string {
     const safeName = nodeId.replace(/:/g, "-");
     return join(this.cacheDir, "icons", `${safeName}.svg`);
+  }
+
+  private rasterFilePath(nodeId: string, format: string, scale: number): string {
+    const safeName = nodeId.replace(/:/g, "-");
+    return join(this.cacheDir, "rasters", `${safeName}@${scale}x.${format}`);
   }
 }

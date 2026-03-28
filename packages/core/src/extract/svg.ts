@@ -203,3 +203,95 @@ export async function fetchSvgs(
 
   return result;
 }
+
+const DEFAULT_RASTER_THRESHOLD = 50_000; // 50KB
+
+/**
+ * Check if an SVG contains embedded raster data (base64 images).
+ */
+export function isRasterSvg(svg: string, threshold = DEFAULT_RASTER_THRESHOLD): boolean {
+  if (svg.length > threshold) return true;
+  return svg.includes("data:image/") || svg.includes("xlink:href=\"data:");
+}
+
+/**
+ * Separate SVGs into pure vector and raster-embedded.
+ */
+export function classifySvgs(
+  svgs: Record<string, string>,
+  threshold = DEFAULT_RASTER_THRESHOLD
+): { vector: Record<string, string>; rasterNodeIds: string[] } {
+  const vector: Record<string, string> = {};
+  const rasterNodeIds: string[] = [];
+
+  for (const [nodeId, svg] of Object.entries(svgs)) {
+    if (isRasterSvg(svg, threshold)) {
+      rasterNodeIds.push(nodeId);
+    } else {
+      vector[nodeId] = svg;
+    }
+  }
+
+  return { vector, rasterNodeIds };
+}
+
+/**
+ * Fetch raster images (PNG/JPG) from Figma's image export API.
+ * Returns nodeId → base64 data URL.
+ */
+export async function fetchRasterImages(
+  fileKey: string,
+  nodeIds: string[],
+  token: string,
+  options: { format?: "png" | "jpg"; scale?: number } = {}
+): Promise<Record<string, { format: "png" | "jpg"; scale: number; dataUrl: string }>> {
+  if (nodeIds.length === 0) return {};
+
+  const format = options.format ?? "png";
+  const scale = options.scale ?? 2;
+  const BATCH_SIZE = 50;
+  const result: Record<string, { format: "png" | "jpg"; scale: number; dataUrl: string }> = {};
+
+  for (let i = 0; i < nodeIds.length; i += BATCH_SIZE) {
+    const batch = nodeIds.slice(i, i + BATCH_SIZE);
+    const ids = batch.join(",");
+    const url = `https://api.figma.com/v1/images/${fileKey}?ids=${ids}&format=${format}&scale=${scale}`;
+
+    const response = await fetch(url, {
+      headers: { "X-Figma-Token": token },
+    });
+
+    if (!response.ok) {
+      console.error(`Raster fetch error: ${response.status} ${response.statusText}`);
+      continue;
+    }
+
+    const data = await response.json() as { images: Record<string, string | null> };
+
+    const entries = Object.entries(data.images ?? {}).filter(
+      (e): e is [string, string] => e[1] !== null
+    );
+
+    const CONCURRENCY = 20;
+    for (let j = 0; j < entries.length; j += CONCURRENCY) {
+      const chunk = entries.slice(j, j + CONCURRENCY);
+      await Promise.allSettled(
+        chunk.map(async ([nodeId, imageUrl]) => {
+          const imgResponse = await fetch(imageUrl);
+          if (imgResponse.ok) {
+            const buffer = await imgResponse.arrayBuffer();
+            const base64 = Buffer.from(buffer).toString("base64");
+            const mime = format === "jpg" ? "image/jpeg" : "image/png";
+            result[nodeId] = {
+              format,
+              scale,
+              dataUrl: `data:${mime};base64,${base64}`,
+            };
+          }
+        })
+      );
+    }
+  }
+
+  return result;
+}

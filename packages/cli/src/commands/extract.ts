@@ -5,6 +5,8 @@ interface ExtractCommandOptions {
   format?: "table" | "json";
   refresh?: boolean;
   svgsOnly?: boolean;
+  rasterScale?: string;
+  rasterFormat?: string;
 }
 
 export async function extractCommand(figmaUrl: string, options: ExtractCommandOptions): Promise<void> {
@@ -20,27 +22,47 @@ export async function extractCommand(figmaUrl: string, options: ExtractCommandOp
     if (!token) { console.error("Error: FIGMA_TOKEN not set."); process.exit(1); }
   }
 
-  const result = await extract({ fileKey, nodeId, token, cacheDir, refresh: options.refresh });
+  const rasterScale = options.rasterScale ? parseInt(options.rasterScale) : undefined;
+  const rasterFormat = options.rasterFormat as "png" | "jpg" | undefined;
 
-  // --svgs-only: output only SVGs with node metadata (small output for AI agents)
+  const result = await extract({
+    fileKey, nodeId, token, cacheDir,
+    refresh: options.refresh,
+    rasterScale,
+    rasterFormat,
+  });
+
+  // --svgs-only: output SVGs + rasters with node metadata
   if (options.svgsOnly) {
-    const svgEntries = result.nodes
-      .filter(n => n.svg)
-      .map(n => ({ id: n.id, name: n.name, type: n.type, width: n.styles.width, height: n.styles.height, svg: n.svg }));
-    console.log(formatJson(svgEntries));
+    const entries = result.nodes
+      .filter(n => n.svg || n.raster)
+      .map(n => ({
+        id: n.id,
+        name: n.name,
+        type: n.type,
+        width: n.styles.width,
+        height: n.styles.height,
+        ...(n.svg ? { svg: n.svg } : {}),
+        ...(n.raster ? { raster: n.raster } : {}),
+      }));
+    console.log(formatJson(entries));
     return;
   }
 
   if (options.format === "json") {
     console.log(formatJson(result));
   } else {
-    const { total, unique, deduplicated } = result.svgStats;
+    const { total, unique, deduplicated, rasterConverted } = result.svgStats;
     console.log(`Extracted ${result.count} nodes from ${nodeId}`);
-    console.log(`SVGs: ${total} total (${unique} unique, ${deduplicated} deduplicated)\n`);
+    console.log(`SVGs: ${total} total (${unique} unique, ${deduplicated} deduplicated)`);
+    if (rasterConverted > 0) {
+      console.log(`Rasters: ${rasterConverted} raster-embedded SVGs → ${rasterFormat ?? "png"} @${rasterScale ?? 2}x`);
+    }
+    console.log();
     for (const node of result.nodes) {
       const label = node.characters ? `${node.type} "${node.characters}"` : `${node.type} ${node.name}`;
-      const svgTag = node.svg ? " [SVG]" : "";
-      console.log(`  ${node.id} ${label}${svgTag}`);
+      const tag = node.svg ? " [SVG]" : node.raster ? ` [${node.raster.format.toUpperCase()} @${node.raster.scale}x]` : "";
+      console.log(`  ${node.id} ${label}${tag}`);
       for (const [key, value] of Object.entries(node.styles)) {
         if (value) console.log(`    ${key}: ${value}`);
       }

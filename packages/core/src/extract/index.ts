@@ -1,8 +1,8 @@
-import type { FigmaNode } from "../types.js";
+import type { FigmaNode, RasterImage } from "../types.js";
 import { fetchFigmaNode, fetchFileLastModified, parseFigmaUrl } from "./client.js";
 import { normalizeNode } from "./normalizer.js";
 import { NodeCache } from "./cache.js";
-import { collectSvgNodeIds, collectSvgNodeIdsWithDedup, fetchSvgs } from "./svg.js";
+import { collectSvgNodeIdsWithDedup, fetchSvgs, classifySvgs, fetchRasterImages } from "./svg.js";
 
 export interface ExtractOptions {
   figmaUrl?: string;
@@ -11,16 +11,21 @@ export interface ExtractOptions {
   token: string;
   cacheDir?: string;
   refresh?: boolean;
+  rasterScale?: number;   // default 2
+  rasterFormat?: "png" | "jpg"; // default "png"
+  rasterThreshold?: number; // SVG size in bytes to trigger raster export (default 50000)
 }
 
 export interface ExtractResult {
   nodes: FigmaNode[];
-  svgs: Record<string, string>;  // nodeId → SVG string
+  svgs: Record<string, string>;
+  rasters: Record<string, RasterImage>;
   count: number;
   svgStats: {
-    total: number;       // 전체 SVG 엔트리 수
-    unique: number;      // 유니크 SVG 수 (실제 API 호출 수)
-    deduplicated: number; // 중복 제거로 절약한 수
+    total: number;
+    unique: number;
+    deduplicated: number;
+    rasterConverted: number; // raster-embedded SVGs converted to PNG
   };
 }
 
@@ -39,9 +44,13 @@ export async function extract(options: ExtractOptions): Promise<ExtractResult> {
     throw new Error("Provide either figmaUrl or both fileKey and nodeId");
   }
 
+  const rasterScale = options.rasterScale ?? 2;
+  const rasterFormat = options.rasterFormat ?? "png";
+  const rasterThreshold = options.rasterThreshold ?? 50_000;
+
   const cache = options.cacheDir ? new NodeCache(options.cacheDir) : null;
 
-  // Check file version cache: if lastModified matches, skip heavy API calls
+  // Check file version cache
   if (cache && !options.refresh) {
     const cachedLastModified = cache.getLastModified(fileKey);
     if (cachedLastModified) {
@@ -50,7 +59,6 @@ export async function extract(options: ExtractOptions): Promise<ExtractResult> {
         const cached = cache.get(nodeId);
         if (cached) {
           const { uniqueIds, duplicateMap } = collectSvgNodeIdsWithDedup(cached as any);
-          const allIds = [...uniqueIds, ...Object.keys(duplicateMap)];
           const svgs: Record<string, string> = {};
           let allCached = true;
           for (const id of uniqueIds) {
@@ -63,46 +71,32 @@ export async function extract(options: ExtractOptions): Promise<ExtractResult> {
             }
           }
           if (allCached) {
-            // Copy duplicate SVGs from their originals
             for (const [dupId, origId] of Object.entries(duplicateMap)) {
-              if (svgs[origId]) {
-                svgs[dupId] = svgs[origId];
-              }
+              if (svgs[origId]) svgs[dupId] = svgs[origId];
             }
-            const node = normalizeNode(cached as any);
-            attachSvgs(node, svgs);
-            const nodes = flattenNodes(node);
-            const dupCount = Object.keys(duplicateMap).length;
-            return { nodes, svgs, count: nodes.length, svgStats: { total: Object.keys(svgs).length, unique: uniqueIds.length, deduplicated: dupCount } };
+            return buildResult(cached as any, svgs, uniqueIds.length, Object.keys(duplicateMap).length, rasterThreshold, fileKey, options.token, cache, rasterScale, rasterFormat);
           }
         }
       }
     }
   }
 
-  // Check node data cache (when no version cache available or version changed)
+  // Fetch or use cached node data
   let raw: any;
   if (cache && !options.refresh) {
     const cached = cache.get(nodeId);
-    if (cached) {
-      raw = cached;
-    }
+    if (cached) raw = cached;
   }
 
   if (!raw) {
-    // Fetch from API
     raw = await fetchFigmaNode(fileKey, nodeId, options.token);
-
-    // Cache the raw response
-    if (cache) {
-      cache.set(nodeId, raw);
-    }
+    if (cache) cache.set(nodeId, raw);
   }
 
-  // Collect SVG node IDs with deduplication
+  // Collect SVG node IDs with dedup
   const { uniqueIds, duplicateMap } = collectSvgNodeIdsWithDedup(raw);
 
-  // Resolve SVGs from cache or fetch (only unique IDs)
+  // Fetch SVGs (unique only)
   const svgs: Record<string, string> = {};
   const missingIds: string[] = [];
 
@@ -121,49 +115,106 @@ export async function extract(options: ExtractOptions): Promise<ExtractResult> {
     const fetched = await fetchSvgs(fileKey, missingIds, options.token);
     for (const [id, svg] of Object.entries(fetched)) {
       svgs[id] = svg;
-      if (cache) {
-        cache.setSvg(id, svg);
-      }
+      if (cache) cache.setSvg(id, svg);
     }
   }
 
-  // Copy duplicate SVGs from their originals (no extra fetch needed)
+  // Copy duplicates
   for (const [dupId, origId] of Object.entries(duplicateMap)) {
-    if (svgs[origId]) {
-      svgs[dupId] = svgs[origId];
-    }
+    if (svgs[origId]) svgs[dupId] = svgs[origId];
   }
 
-  // Save lastModified for future warm runs
+  // Save lastModified
   if (cache) {
     const lastModified = await fetchFileLastModified(fileKey, options.token);
     cache.setLastModified(fileKey, lastModified);
   }
 
+  return buildResult(raw, svgs, uniqueIds.length, Object.keys(duplicateMap).length, rasterThreshold, fileKey, options.token, cache, rasterScale, rasterFormat);
+}
+
+async function buildResult(
+  raw: any,
+  allSvgs: Record<string, string>,
+  uniqueCount: number,
+  dupCount: number,
+  rasterThreshold: number,
+  fileKey: string,
+  token: string,
+  cache: NodeCache | null,
+  rasterScale: number,
+  rasterFormat: "png" | "jpg"
+): Promise<ExtractResult> {
+  // Classify SVGs: vector vs raster-embedded
+  const { vector, rasterNodeIds } = classifySvgs(allSvgs, rasterThreshold);
+
+  // Warn about raster-embedded SVGs
+  if (rasterNodeIds.length > 0) {
+    console.error(`⚠ ${rasterNodeIds.length} SVG(s) contain embedded raster data — exporting as ${rasterFormat.toUpperCase()} @${rasterScale}x`);
+  }
+
+  // Fetch raster images for raster-embedded nodes
+  const rasters: Record<string, RasterImage> = {};
+  if (rasterNodeIds.length > 0) {
+    // Check cache first
+    const missingRasterIds: string[] = [];
+    for (const id of rasterNodeIds) {
+      if (cache) {
+        const cached = cache.getRaster(id, rasterFormat, rasterScale);
+        if (cached) {
+          rasters[id] = { format: rasterFormat, scale: rasterScale, dataUrl: cached };
+          continue;
+        }
+      }
+      missingRasterIds.push(id);
+    }
+
+    if (missingRasterIds.length > 0) {
+      const fetched = await fetchRasterImages(fileKey, missingRasterIds, token, { format: rasterFormat, scale: rasterScale });
+      for (const [id, img] of Object.entries(fetched)) {
+        rasters[id] = img;
+        if (cache) cache.setRaster(id, rasterFormat, rasterScale, img.dataUrl);
+      }
+    }
+  }
+
   const node = normalizeNode(raw);
-  attachSvgs(node, svgs);
+  attachSvgs(node, vector);
+  attachRasters(node, rasters);
   const nodes = flattenNodes(node);
-  const dupCount = Object.keys(duplicateMap).length;
-  return { nodes, svgs, count: nodes.length, svgStats: { total: Object.keys(svgs).length, unique: uniqueIds.length, deduplicated: dupCount } };
+
+  return {
+    nodes,
+    svgs: vector,
+    rasters,
+    count: nodes.length,
+    svgStats: {
+      total: Object.keys(vector).length + rasterNodeIds.length,
+      unique: uniqueCount,
+      deduplicated: dupCount,
+      rasterConverted: rasterNodeIds.length,
+    },
+  };
 }
 
 function attachSvgs(node: FigmaNode, svgs: Record<string, string>): void {
-  if (svgs[node.id]) {
-    node.svg = svgs[node.id];
-  }
+  if (svgs[node.id]) node.svg = svgs[node.id];
   if (node.children) {
-    for (const child of node.children) {
-      attachSvgs(child, svgs);
-    }
+    for (const child of node.children) attachSvgs(child, svgs);
+  }
+}
+
+function attachRasters(node: FigmaNode, rasters: Record<string, RasterImage>): void {
+  if (rasters[node.id]) node.raster = rasters[node.id];
+  if (node.children) {
+    for (const child of node.children) attachRasters(child, rasters);
   }
 }
 
 function flattenNodes(node: FigmaNode): FigmaNode[] {
   const result: FigmaNode[] = [node];
   if (node.children) {
-    for (const child of node.children) {
-      result.push(...flattenNodes(child));
-    }
+    for (const child of node.children) result.push(...flattenNodes(child));
   }
   return result;
 }

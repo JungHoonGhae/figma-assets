@@ -34,7 +34,9 @@ program.command("extract <figma-url>")
   .description("Extract raw Figma values normalized to CSS units")
   .option("--format <type>", "Output format: table or json", "table")
   .option("--refresh", "Bypass cache", false)
-  .option("--svgs-only", "Output only SVGs with metadata (lightweight for AI agents)", false)
+  .option("--svgs-only", "Output only SVGs/rasters with metadata (lightweight for AI agents)", false)
+  .option("--raster-scale <n>", "Scale for raster-embedded SVGs (default: 2)", "2")
+  .option("--raster-format <fmt>", "Format for raster exports: png or jpg (default: png)", "png")
   .action(extractCommand);
 
 program.command("cache <action> [page]")

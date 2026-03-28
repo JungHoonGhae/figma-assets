@@ -16,6 +16,8 @@ export type {
   AuditIssue,
   AuditResult,
   DOMElement,
+  RasterImage,
+  RasterConfig,
   DiffEntry,
   DiffResult,
 } from "./types.js";

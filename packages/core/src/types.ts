@@ -8,6 +8,13 @@ export interface FigmaDoctorConfig {
   pages: Record<string, PageConfig>;
   diff?: DiffConfig;
   cache?: CacheConfig;
+  raster?: RasterConfig;
+}
+
+export interface RasterConfig {
+  scale?: number;        // export scale: 1, 2, 3, 4 (default 2)
+  format?: "png" | "jpg"; // default "png"
+  threshold?: number;     // SVG size threshold in bytes to trigger raster (default 50000)
 }
 
 export interface PageConfig {
@@ -36,10 +43,17 @@ export interface FigmaNode {
   id: string;
   name: string;
   type: "TEXT" | "FRAME" | "INSTANCE" | "COMPONENT" | "GROUP" | "RECTANGLE" | "VECTOR" | "ELLIPSE" | "BOOLEAN_OPERATION" | "LINE";
-  characters?: string; // TEXT 노드의 텍스트 내용
-  svg?: string;        // SVG markup for icon nodes
+  characters?: string;
+  svg?: string;         // SVG markup for vector icons
+  raster?: RasterImage; // PNG/JPG for raster-embedded nodes
   styles: NormalizedStyles;
   children?: FigmaNode[];
+}
+
+export interface RasterImage {
+  format: "png" | "jpg";
+  scale: number;
+  dataUrl: string; // data:image/png;base64,...
 }
 
 export type SVGMap = Record<string, string>; // nodeId → SVG string
