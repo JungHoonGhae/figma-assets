@@ -3,3 +3,4 @@ dist/
 .figma-doctor/
 .turbo/
 *.tsbuildinfo
+.superpowers/

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>요금제 - MCP Only</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+    /* Pretendard fallback via system fonts */
+    body {
+      font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'gray-900': '#333333',
+            'gray-800': '#808080',
+            'gray-500': '#CACCCF',
+            'gray-300': '#E6E6E6',
+            'blue-500': '#2D7FF9',
+          },
+          fontFamily: {
+            'pretendard': ['Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#fafbfc] flex justify-center">
+  <!-- Mobile container 360px -->
+  <div class="relative w-[360px] bg-[#fafbfc]" data-name="{💠 › Ready to Dev} 요금제-구독O">
+    <!-- Contents -->
+    <div class="flex flex-col items-start w-[360px]">
+
+      <!-- Header / Section -->
+      <div class="flex flex-col items-start w-[360px]">
+        <!-- Status Bar -->
+        <div class="bg-white h-[44px] relative w-[360px] shrink-0">
+          <div class="absolute left-[30px] top-1/2 -translate-y-1/2 flex flex-col justify-center">
+            <p class="text-[#333] text-[16px] font-medium leading-[16px]" style="font-family: Inter, sans-serif;">9:41</p>
+          </div>
+          <!-- Mobile Signal -->
+          <img
+            alt="Mobile Signal"
+            class="absolute h-[10px] w-[18px] right-[69px]"
+            style="top: calc(50% + 3.5px); transform: translateY(-50%);"
+            src="https://www.figma.com/api/mcp/asset/93f43fac-5bc7-403c-899d-e762238d4c7a"
+          />
+          <!-- Wifi -->
+          <img
+            alt="Wifi"
+            class="absolute h-[10.966px] w-[15.272px] right-[48.73px]"
+            style="top: calc(50% + 2.48px); transform: translateY(-50%);"
+            src="https://www.figma.com/api/mcp/asset/ea481b17-936e-428c-8632-b704d9a0fc93"
+          />
+          <!-- Battery -->
+          <img
+            alt="Battery"
+            class="absolute h-[13px] w-[25px] right-[18px]"
+            style="top: calc(50% + 2.5px); transform: translateY(-50%);"
+            src="https://www.figma.com/api/mcp/asset/5014de67-18ce-469f-9fe9-a30937e03ebc"
+          />
+        </div>
+
+        <!-- Header Center - Navigation Bar -->
+        <div class="h-[56px] relative w-[360px] shrink-0">
+          <div class="absolute bg-white inset-0"></div>
+          <!-- Back arrow -->
+          <div class="absolute left-[18px] top-[16px] overflow-clip w-[24px] h-[24px]">
+            <img
+              alt="Back"
+              class="absolute block max-w-none w-full h-full"
+              src="https://www.figma.com/api/mcp/asset/692e644b-c95c-4541-9232-0ad552aa2199"
+            />
+          </div>
+          <!-- Page Title -->
+          <div class="absolute inset-x-0 top-0 h-full flex items-center justify-center">
+            <p class="text-[#333] text-[16px] font-bold leading-[1.2] tracking-[-0.32px] text-center whitespace-nowrap" style="font-family: 'Pretendard', sans-serif;">요금제</p>
+          </div>
+          <!-- Menu icon -->
+          <div class="absolute right-[18px] top-[16px] overflow-clip w-[24px] h-[24px]">
+            <img
+              alt="Menu"
+              class="absolute block max-w-none w-full h-full"
+              src="https://www.figma.com/api/mcp/asset/c0948091-59bf-466d-bc54-9c05e2d7726c"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Container -->
+      <div class="flex flex-col items-center pb-[100px] pt-[40px] px-[20px] w-full shrink-0">
+        <div class="flex flex-col gap-[20px] items-start w-full shrink-0">
+
+          <!-- Page Header -->
+          <div class="flex flex-col items-start w-full shrink-0">
+            <div class="flex items-center w-full shrink-0">
+              <p class="font-bold leading-[28px] text-[#333] text-[20px] text-center whitespace-nowrap shrink-0" style="font-family: 'Pretendard', sans-serif;">요금제 보기</p>
+            </div>
+          </div>
+
+          <!-- Plans Section -->
+          <div class="flex flex-col gap-[80px] items-start w-full shrink-0">
+
+            <!-- Plan Card Container -->
+            <div class="bg-white border border-[#e6e6e6] border-solid flex flex-col items-start px-[20px] py-[32px] rounded-[24px] w-full shrink-0">
+              <div class="flex flex-col gap-[48px] items-start w-full shrink-0">
+
+                <!-- Plan Card -->
+                <div class="flex flex-col items-center w-full shrink-0">
+                  <div class="flex flex-col gap-[32px] items-center w-full shrink-0">
+
+                    <!-- Plan Info -->
+                    <div class="flex flex-col gap-[20px] items-center justify-center w-full shrink-0">
+                      <!-- Membership Icon -->
+                      <div class="border border-[#e6e6e6] border-solid flex items-center justify-center pb-[4px] rounded-[14px] w-[64px] h-[64px] shrink-0 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-white rounded-[14px]"></div>
+                        <img
+                          alt="Membership"
+                          class="absolute inset-0 w-full h-full object-cover rounded-[14px]"
+                          src="https://www.figma.com/api/mcp/asset/932b7477-cb73-4c6e-a8a0-8733cfa66cd5"
+                        />
+                        <img
+                          alt="A"
+                          class="relative w-[22px] h-[22px]"
+                          src="https://www.figma.com/api/mcp/asset/24d46e50-ab64-4715-873f-a651bbbb5902"
+                        />
+                      </div>
+
+                      <!-- Plan Details -->
+                      <div class="flex flex-col items-center justify-center w-full shrink-0">
+                        <div class="flex flex-col gap-[8px] items-start justify-center w-full shrink-0">
+                          <!-- Plan Title Row -->
+                          <div class="flex items-center justify-center w-full shrink-0">
+                            <p class="flex-1 font-bold leading-[32px] text-[#333] text-[24px] text-center overflow-hidden text-ellipsis whitespace-nowrap" style="font-family: 'Pretendard', sans-serif;">
+                              올인원 패스
+                            </p>
+                          </div>
+                          <!-- Plan Description -->
+                          <div class="flex flex-col justify-center w-full shrink-0 text-center">
+                            <p class="text-[#808080] text-[14px] leading-[1.5] text-center" style="font-family: 'Pretendard', sans-serif; font-weight: 400;">AI 구매 타이밍 분석부터</p>
+                            <p class="text-[#808080] text-[14px] leading-[1.5] text-center" style="font-family: 'Pretendard', sans-serif; font-weight: 400;">수익률 계산까지, 축산물 수입에 필요한</p>
+                            <p class="text-[#808080] text-[14px] leading-[1.5] text-center" style="font-family: 'Pretendard', sans-serif; font-weight: 400;">모든 데이터를 패스권 하나로 이용하세요.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Price Row -->
+                    <div class="flex gap-[4px] items-end justify-center w-full shrink-0 whitespace-nowrap text-[#333]">
+                      <p class="font-bold leading-[44px] text-[32px] shrink-0" style="font-family: 'Pretendard', sans-serif;">50,000원</p>
+                      <p class="leading-[24px] text-[16px] shrink-0" style="font-family: 'Pretendard', sans-serif; font-weight: 400;">/월</p>
+                    </div>
+
+                    <!-- Subscribe Button (currently subscribed state - gray) -->
+                    <div class="bg-[#cacccf] border border-[#cacccf] border-solid flex gap-[4px] items-center justify-center px-[20px] py-[12px] rounded-[8px] w-full shrink-0">
+                      <p class="font-bold leading-[24px] text-[16px] text-center text-white whitespace-nowrap" style="font-family: 'Pretendard', sans-serif;">구독중</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Features Column -->
+                <div class="flex flex-col gap-[12px] items-start w-full shrink-0">
+                  <!-- Features Header -->
+                  <div class="flex items-center w-full shrink-0">
+                    <p class="leading-[20px] text-[#808080] text-[14px] whitespace-nowrap shrink-0" style="font-family: 'Pretendard', sans-serif; font-weight: 500;">포함된 기능</p>
+                  </div>
+
+                  <!-- Features List -->
+                  <div class="flex flex-wrap gap-[12px_20px] items-start w-full shrink-0">
+
+                    <!-- Feature Item: AI 구매 타이밍 분석 -->
+                    <div class="flex gap-[12px] items-start min-w-[280px] w-full shrink-0">
+                      <div class="flex items-center pt-[2px] shrink-0 w-[24px] h-[24px]">
+                        <div class="overflow-clip w-[20px] h-[20px] shrink-0 relative">
+                          <img alt="check" class="absolute block max-w-none w-full h-full" src="https://www.figma.com/api/mcp/asset/2eecffdf-6364-4780-a6ac-db087f71f9fb" />
+                        </div>
+                      </div>
+                      <div class="flex flex-1 flex-col gap-[4px] items-start min-w-0">
+                        <p class="font-semibold leading-[24px] text-[#333] text-[16px] w-full" style="font-family: 'Pretendard', sans-serif;">AI 구매 타이밍 분석</p>
+                        <p class="leading-[20px] text-[#808080] text-[14px] w-full" style="font-family: 'Pretendard', sans-serif; font-weight: 500;">AI 종합 매수 점수 제공</p>
+                      </div>
+                    </div>
+
+                    <!-- Feature Item: 현지 공급 분석 -->
+                    <div class="flex gap-[12px] items-start min-w-[280px] w-full shrink-0">
+                      <div class="flex items-center pt-[2px] shrink-0 w-[24px] h-[24px]">
+                        <div class="overflow-clip w-[20px] h-[20px] shrink-0 relative">
+                          <img alt="check" class="absolute block max-w-none w-full h-full" src="https://www.figma.com/api/mcp/asset/2eecffdf-6364-4780-a6ac-db087f71f9fb" />
+                        </div>
+                      </div>
+                      <div class="flex flex-1 flex-col gap-[4px] items-start min-w-0">
+                        <p class="font-semibold leading-[24px] text-[#333] text-[16px] w-full" style="font-family: 'Pretendard', sans-serif;">현지 공급 분석</p>
+                        <p class="leading-[20px] text-[#808080] text-[14px] w-full" style="font-family: 'Pretendard', sans-serif; font-weight: 500;">부위별 가격 추세 · 공급 점수 제공</p>
+                      </div>
+                    </div>
+
+                    <!-- Feature Item: 수익률 계산기 -->
+                    <div class="flex gap-[12px] items-start min-w-[280px] w-full shrink-0">
+                      <div class="flex items-center pt-[2px] shrink-0 w-[24px] h-[24px]">
+                        <div class="overflow-clip w-[20px] h-[20px] shrink-0 relative">
+                          <img alt="check" class="absolute block max-w-none w-full h-full" src="https://www.figma.com/api/mcp/asset/2eecffdf-6364-4780-a6ac-db087f71f9fb" />
+                        </div>
+                      </div>
+                      <div class="flex flex-1 flex-col gap-[4px] items-start min-w-0">
+                        <p class="font-semibold leading-[24px] text-[#333] text-[16px] w-full" style="font-family: 'Pretendard', sans-serif;">수익률 계산기</p>
+                        <p class="leading-[20px] text-[#808080] text-[14px] w-full" style="font-family: 'Pretendard', sans-serif; font-weight: 500;">오퍼가를 통한 예상 마진 확인</p>
+                      </div>
+                    </div>
+
+                    <!-- Feature Item: 대체 품목 분석 -->
+                    <div class="flex gap-[12px] items-start min-w-[280px] w-full shrink-0">
+                      <div class="flex items-center pt-[2px] shrink-0 w-[24px] h-[24px]">
+                        <div class="overflow-clip w-[20px] h-[20px] shrink-0 relative">
+                          <img alt="check" class="absolute block max-w-none w-full h-full" src="https://www.figma.com/api/mcp/asset/2eecffdf-6364-4780-a6ac-db087f71f9fb" />
+                        </div>
+                      </div>
+                      <div class="flex flex-1 flex-col gap-[4px] items-start min-w-0">
+                        <p class="font-semibold leading-[24px] text-[#333] text-[16px] w-full" style="font-family: 'Pretendard', sans-serif;">대체 품목 분석</p>
+                        <p class="leading-[20px] text-[#808080] text-[14px] w-full" style="font-family: 'Pretendard', sans-serif; font-weight: 500;">유사 품목 가격 비교</p>
+                      </div>
+                    </div>
+
+                    <!-- Feature Item: 미트박스 지수 -->
+                    <div class="flex gap-[12px] items-start min-w-[280px] w-full shrink-0">
+                      <div class="flex items-center pt-[2px] shrink-0 w-[24px] h-[24px]">
+                        <div class="overflow-clip w-[20px] h-[20px] shrink-0 relative">
+                          <img alt="check" class="absolute block max-w-none w-full h-full" src="https://www.figma.com/api/mcp/asset/2eecffdf-6364-4780-a6ac-db087f71f9fb" />
+                        </div>
+                      </div>
+                      <div class="flex flex-1 flex-col gap-[4px] items-start min-w-0">
+                        <p class="font-semibold leading-[24px] text-[#333] text-[16px] w-full" style="font-family: 'Pretendard', sans-serif;">미트박스 지수</p>
+                        <p class="leading-[20px] text-[#808080] text-[14px] w-full" style="font-family: 'Pretendard', sans-serif; font-weight: 500;">10년 실거래 기반 수요 강도 지수</p>
+                      </div>
+                    </div>
+
+                    <!-- Feature Item: 국내 공급 분석 -->
+                    <div class="flex gap-[12px] items-start min-w-[280px] w-full shrink-0">
+                      <div class="flex items-center pt-[2px] shrink-0 w-[24px] h-[24px]">
+                        <div class="overflow-clip w-[20px] h-[20px] shrink-0 relative">
+                          <img alt="check" class="absolute block max-w-none w-full h-full" src="https://www.figma.com/api/mcp/asset/2eecffdf-6364-4780-a6ac-db087f71f9fb" />
+                        </div>
+                      </div>
+                      <div class="flex flex-1 flex-col gap-[4px] items-start min-w-0">
+                        <p class="font-semibold leading-[24px] text-[#333] text-[16px] w-full" style="font-family: 'Pretendard', sans-serif;">국내 공급 분석</p>
+                        <p class="leading-[20px] text-[#808080] text-[14px] w-full" style="font-family: 'Pretendard', sans-serif; font-weight: 500;">보세 창고 재고 · 검역 · 통관 흐름 확인</p>
+                      </div>
+                    </div>
+
+                    <!-- Feature Item: 국내 도매가격 예측 -->
+                    <div class="flex gap-[12px] items-start min-w-[280px] w-full shrink-0">
+                      <div class="flex items-center pt-[2px] shrink-0 w-[24px] h-[24px]">
+                        <div class="overflow-clip w-[20px] h-[20px] shrink-0 relative">
+                          <img alt="check" class="absolute block max-w-none w-full h-full" src="https://www.figma.com/api/mcp/asset/2eecffdf-6364-4780-a6ac-db087f71f9fb" />
+                        </div>
+                      </div>
+                      <div class="flex flex-1 flex-col gap-[4px] items-start min-w-0">
+                        <p class="font-semibold leading-[24px] text-[#333] text-[16px] w-full" style="font-family: 'Pretendard', sans-serif;">국내 도매가격 예측</p>
+                        <p class="leading-[20px] text-[#808080] text-[14px] w-full" style="font-family: 'Pretendard', sans-serif; font-weight: 500;">향후 3개월 예상 가격 범위 제공</p>
+                      </div>
+                    </div>
+
+                    <!-- Feature Item: 원산지 시세 분석 -->
+                    <div class="flex gap-[12px] items-start min-w-[280px] w-full shrink-0">
+                      <div class="flex items-center pt-[2px] shrink-0 w-[24px] h-[24px]">
+                        <div class="overflow-clip w-[20px] h-[20px] shrink-0 relative">
+                          <img alt="check" class="absolute block max-w-none w-full h-full" src="https://www.figma.com/api/mcp/asset/2eecffdf-6364-4780-a6ac-db087f71f9fb" />
+                        </div>
+                      </div>
+                      <div class="flex flex-1 flex-col gap-[4px] items-start min-w-0">
+                        <p class="font-semibold leading-[24px] text-[#333] text-[16px] w-full" style="font-family: 'Pretendard', sans-serif;">원산지 시세 분석</p>
+                        <p class="leading-[20px] text-[#808080] text-[14px] w-full" style="font-family: 'Pretendard', sans-serif; font-weight: 500;">현지 가격 · 환율 실시간 제공</p>
+                      </div>
+                    </div>
+
+                    <!-- Feature Item: 외부 리스크 -->
+                    <div class="flex gap-[12px] items-start min-w-[280px] w-full shrink-0">
+                      <div class="flex items-center pt-[2px] shrink-0 w-[24px] h-[24px]">
+                        <div class="overflow-clip w-[20px] h-[20px] shrink-0 relative">
+                          <img alt="check" class="absolute block max-w-none w-full h-full" src="https://www.figma.com/api/mcp/asset/2eecffdf-6364-4780-a6ac-db087f71f9fb" />
+                        </div>
+                      </div>
+                      <div class="flex flex-1 flex-col gap-[4px] items-start min-w-0">
+                        <p class="font-semibold leading-[24px] text-[#333] text-[16px] w-full" style="font-family: 'Pretendard', sans-serif;">외부 리스크</p>
+                        <p class="leading-[20px] text-[#808080] text-[14px] w-full" style="font-family: 'Pretendard', sans-serif; font-weight: 500;">원유 · 운임 · 곡물 변동 영향 확인</p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="flex flex-col gap-[20px] items-start w-full shrink-0">
+              <!-- FAQ Title -->
+              <div class="flex items-center w-full shrink-0">
+                <p class="font-bold leading-[28px] text-[#333] text-[20px] text-center whitespace-nowrap shrink-0" style="font-family: 'Pretendard', sans-serif;">자주 묻는 질문</p>
+              </div>
+
+              <!-- FAQ List -->
+              <div class="bg-white border border-[#e6e6e6] border-solid flex flex-col items-start py-[4px] rounded-[8px] w-full shrink-0">
+
+                <!-- FAQ Item 1 -->
+                <div class="border-[#e6e6e6] border-b border-solid flex items-center p-[16px] w-full shrink-0">
+                  <div class="flex flex-1 items-center justify-between overflow-clip">
+                    <p class="flex-1 leading-[20px] text-[#333] text-[14px] min-w-0" style="font-family: 'Pretendard', sans-serif; font-weight: 500;">구독 신청은 어떻게 하나요?</p>
+                    <!-- Arrow Down Icon -->
+                    <div class="relative w-[24px] h-[24px] shrink-0">
+                      <img alt="expand" class="absolute block max-w-none w-full h-full" src="https://www.figma.com/api/mcp/asset/e548d8b0-aa50-4d0c-a14f-83b5f643f617" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="border-[#e6e6e6] border-b border-solid flex items-center p-[16px] w-full shrink-0">
+                  <div class="flex flex-1 items-center justify-between overflow-clip">
+                    <p class="flex-1 leading-[20px] text-[#333] text-[14px] min-w-0" style="font-family: 'Pretendard', sans-serif; font-weight: 500;">여러 요금제를 구독할 수 있나요?</p>
+                    <div class="relative w-[24px] h-[24px] shrink-0">
+                      <img alt="expand" class="absolute block max-w-none w-full h-full" src="https://www.figma.com/api/mcp/asset/e548d8b0-aa50-4d0c-a14f-83b5f643f617" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="border-[#e6e6e6] border-b border-solid flex items-center p-[16px] w-full shrink-0">
+                  <div class="flex flex-1 items-center justify-between overflow-clip">
+                    <p class="flex-1 leading-[20px] text-[#333] text-[14px] min-w-0" style="font-family: 'Pretendard', sans-serif; font-weight: 500;">구독 중인 요금제를 변경하고 싶어요.</p>
+                    <div class="relative w-[24px] h-[24px] shrink-0">
+                      <img alt="expand" class="absolute block max-w-none w-full h-full" src="https://www.figma.com/api/mcp/asset/e548d8b0-aa50-4d0c-a14f-83b5f643f617" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="flex items-center p-[16px] w-full shrink-0">
+                  <div class="flex flex-1 items-center justify-between overflow-clip">
+                    <p class="flex-1 leading-[20px] text-[#333] text-[14px] min-w-0" style="font-family: 'Pretendard', sans-serif; font-weight: 500;">구독 신청 시 의무 사용기간이 있나요?</p>
+                    <div class="relative w-[24px] h-[24px] shrink-0">
+                      <img alt="expand" class="absolute block max-w-none w-full h-full" src="https://www.figma.com/api/mcp/asset/e548d8b0-aa50-4d0c-a14f-83b5f643f617" />
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="bg-[#333] flex flex-col items-start pb-[80px] pt-[48px] px-[20px] w-[360px] shrink-0">
+        <div class="flex flex-wrap gap-[60px] items-start justify-center w-full">
+
+          <!-- Logo / Description -->
+          <div class="flex flex-col gap-[6px] items-center min-w-[320px] w-[320px] shrink-0">
+            <!-- Logo -->
+            <div class="flex items-center w-full shrink-0">
+              <div class="h-[32px] overflow-clip w-[93px] shrink-0 relative">
+                <img alt="MITTI Logo" class="absolute block max-w-none h-full" src="https://www.figma.com/api/mcp/asset/9086695c-1a5b-40d0-bc35-f5f72a352571" style="top: 50%; transform: translateY(-50%);" />
+              </div>
+            </div>
+            <p class="font-bold leading-[20px] text-[#808080] text-[14px] w-full" style="font-family: 'Pretendard', sans-serif;">
+              축산물 수입 데이터의 새로운 기준
+            </p>
+          </div>
+
+          <!-- Footer Text / Links -->
+          <div class="flex flex-1 flex-col gap-[12px] items-center justify-center min-w-0">
+            <!-- Legal Links -->
+            <div class="flex font-bold gap-[12px] items-center leading-[20px] text-[14px] text-center text-white w-full whitespace-nowrap" style="font-family: 'Pretendard', sans-serif;">
+              <p class="shrink-0">서비스 이용약관</p>
+              <p class="shrink-0">개인정보처리방침</p>
+            </div>
+
+            <!-- Company Information -->
+            <div class="flex flex-col gap-[4px] items-start leading-[18px] text-[#808080] text-[12px] w-full" style="font-family: 'Pretendard', sans-serif; font-weight: 400;">
+              <!-- Address and Representative Info -->
+              <div class="flex flex-col gap-[4px] items-start justify-center w-full shrink-0">
+                <p class="min-w-[176px] text-center whitespace-nowrap shrink-0">서울특별시 강남구 테헤란로 34길 22</p>
+                <div class="flex gap-[8px] items-center w-full shrink-0">
+                  <p class="whitespace-nowrap shrink-0">대표이사: 김기봉</p>
+                  <p class="flex-1 min-w-0">사업자등록번호: 129-86-87864</p>
+                </div>
+              </div>
+              <p class="w-full shrink-0">© 2026 MEATBOX. All rights reserved.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
