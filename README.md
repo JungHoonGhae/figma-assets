@@ -30,10 +30,20 @@ https://www.figma.com/design/hlN4c1rV2dQCzyEMbowCHX/MyProject?node-id=2912-13356
 
 Uses built-in `fetch`. No additional dependencies.
 
+## Install
+
+```bash
+# Use without installing
+npx figma-assets <figma-url> -o ./assets
+
+# Or install globally
+npm install -g figma-assets
+```
+
 ## Quick Start
 
 ```bash
-npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
+figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
 ```
 
 Done. Your assets are in `./assets/`.

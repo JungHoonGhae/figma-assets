@@ -30,10 +30,20 @@ https://www.figma.com/design/hlN4c1rV2dQCzyEMbowCHX/MyProject?node-id=2912-13356
 
 내장 `fetch` 사용. 추가 의존성 없음.
 
+## 설치
+
+```bash
+# 설치 없이 실행
+npx figma-assets <figma-url> -o ./assets
+
+# 또는 글로벌 설치
+npm install -g figma-assets
+```
+
 ## 빠른 시작
 
 ```bash
-npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
+figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
 ```
 
 끝. 에셋이 `./assets/`에 들어간다.
