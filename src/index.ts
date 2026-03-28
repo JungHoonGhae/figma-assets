@@ -12,7 +12,12 @@ import { extract } from "./extract.js";
 
 const args = process.argv.slice(2);
 
-if (args.length === 0 || args.includes("--help") || args.includes("-h")) {
+// MCP server mode
+if (args.includes("--serve")) {
+  const { startServer } = await import("./serve.js");
+  await startServer();
+  // Server runs until process is killed
+} else if (args.length === 0 || args.includes("--help") || args.includes("-h")) {
   console.log(`
 figma-assets — Extract production-ready SVG and raster assets from Figma
 
@@ -20,13 +25,14 @@ Usage:
   figma-assets <figma-url> --out-dir <dir> [options]
 
 Options:
-  -o, --out-dir <dir>     Output directory (required)
+  -o, --out-dir <dir>     Output directory (required for CLI mode)
   --scale <n>             Raster export scale: 1, 2, 3, 4 (default: 2)
   --format <fmt>          Raster format: png or jpg (default: png)
   --threshold <bytes>     SVG size threshold for raster detection (default: 50000)
   --cache-dir <dir>       Cache directory (default: .figma-assets/cache)
   --refresh               Bypass cache
   --json                  Output asset manifest as JSON
+  --serve                 Start as MCP server (for Claude Code, Cursor, etc.)
   -h, --help              Show this help
 
 Environment:

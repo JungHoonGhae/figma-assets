@@ -20,11 +20,21 @@
     "clean": "rm -rf dist"
   },
   "devDependencies": {
+    "@types/node": "^22",
     "typescript": "^5.7",
-    "vitest": "^3",
-    "@types/node": "^22"
+    "vitest": "^3"
   },
-  "keywords": ["figma", "svg", "assets", "icons", "design-to-code"],
+  "keywords": [
+    "figma",
+    "svg",
+    "assets",
+    "icons",
+    "design-to-code"
+  ],
   "license": "MIT",
-  "packageManager": "pnpm@9.15.0"
+  "packageManager": "pnpm@9.15.0",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.28.0",
+    "zod": "^4.3.6"
+  }
 }

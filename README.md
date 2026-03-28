@@ -48,17 +48,33 @@ figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
 
 Done. Your assets are in `./assets/`.
 
-### For AI agents
+### For AI agents (MCP server — zero friction)
 
-Paste this to your agent (Claude Code, Cursor, etc.):
+Add to your Claude Code or Cursor MCP settings:
+
+```json
+{
+  "mcpServers": {
+    "figma-assets": {
+      "command": "npx",
+      "args": ["figma-assets", "--serve"],
+      "env": { "FIGMA_TOKEN": "figd_..." }
+    }
+  }
+}
+```
+
+Once configured, the agent automatically gets an `extract_assets` tool. When implementing a Figma design, the agent calls it instead of using MCP's broken asset URLs. No manual commands needed.
+
+### For AI agents (manual)
+
+Or paste this to your agent:
 
 ```
-Extract Figma assets to ./assets using figma-assets:
-
+Extract Figma assets to ./assets:
 1. Run: npx figma-assets "PASTE_FIGMA_URL_HERE" -o ./assets
-2. Reference SVGs as: <img src="./assets/icon-name.svg" />
-3. Reference PNGs as: <img src="./assets/image-name@2x.png" />
-
+2. SVGs: <img src="./assets/icon-name.svg" />
+3. PNGs: <img src="./assets/image-name@2x.png" />
 Do NOT recreate SVG icons manually. Use the extracted files.
 ```
 
