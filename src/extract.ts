@@ -6,7 +6,7 @@
 
 import { mkdirSync, writeFileSync, copyFileSync, existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { fetchNode, fetchImageUrls, fetchLastModified, parseFigmaUrl, type FigmaNode } from "./figma.js";
+import { fetchNode, fetchImageUrls, parseFigmaUrl, type FigmaNode } from "./figma.js";
 import { collectAssetIds, isRasterSvg } from "./collect.js";
 
 export interface ExtractOptions {
@@ -57,24 +57,22 @@ export async function extract(options: ExtractOptions): Promise<ExtractResult> {
 
   mkdirSync(options.outDir, { recursive: true });
 
-  // 0. Auto-invalidate cache if Figma file has changed
+  // 1. Fetch node tree (also returns lastModified — no extra API call)
+  const { node: root, lastModified } = await fetchNode(fileKey, nodeId, options.token);
+
+  // 2. Auto-invalidate cache if Figma file has changed
   let useCache = !options.refresh;
   if (useCache) {
     const cachedTimestamp = readCache(cacheDir, "meta", fileKey);
-    const currentTimestamp = await fetchLastModified(fileKey, options.token);
-    if (cachedTimestamp !== currentTimestamp) {
-      useCache = false; // file changed — bypass cache
-      writeCache(cacheDir, "meta", fileKey, currentTimestamp);
+    if (cachedTimestamp !== lastModified) {
+      useCache = false;
     }
   }
 
-  // 1. Fetch node tree
-  const root = await fetchNode(fileKey, nodeId, options.token);
-
-  // 2. Collect asset IDs with dedup
+  // 3. Collect asset IDs with dedup
   const { uniqueIds, duplicateMap, allIds } = collectAssetIds(root);
 
-  // 3. Fetch SVGs (unique only, with cache)
+  // 4. Fetch SVGs (unique only, with cache)
   const svgs: Record<string, string> = {};
   const uncachedIds: string[] = [];
 
@@ -194,9 +192,8 @@ export async function extract(options: ExtractOptions): Promise<ExtractResult> {
   }
 
   // Save timestamp for future cache checks
-  if (!options.refresh) {
-    const ts = await fetchLastModified(fileKey, options.token).catch(() => "");
-    if (ts) writeCache(cacheDir, "meta", fileKey, ts);
+  if (lastModified) {
+    writeCache(cacheDir, "meta", fileKey, lastModified);
   }
 
   return {

@@ -43,22 +43,19 @@ export interface FigmaNode {
   children?: FigmaNode[];
 }
 
-export async function fetchNode(fileKey: string, nodeId: string, token: string): Promise<FigmaNode> {
+export interface FetchNodeResult {
+  node: FigmaNode;
+  lastModified: string;
+}
+
+export async function fetchNode(fileKey: string, nodeId: string, token: string): Promise<FetchNodeResult> {
   const url = `https://api.figma.com/v1/files/${fileKey}/nodes?ids=${nodeId}`;
   const res = await fetch(url, { headers: { "X-Figma-Token": token } });
   if (!res.ok) throw new Error(`Figma API error: ${res.status} ${res.statusText}`);
   const data = await res.json();
   const node = data.nodes?.[nodeId]?.document;
   if (!node) throw new Error(`Node ${nodeId} not found`);
-  return node;
-}
-
-export async function fetchLastModified(fileKey: string, token: string): Promise<string> {
-  const url = `https://api.figma.com/v1/files/${fileKey}/versions?page_size=1`;
-  const res = await fetch(url, { headers: { "X-Figma-Token": token } });
-  if (!res.ok) throw new Error(`Figma API error: ${res.status}`);
-  const data = await res.json() as { versions?: { created_at: string }[] };
-  return data.versions?.[0]?.created_at ?? "";
+  return { node, lastModified: data.lastModified ?? "" };
 }
 
 export async function fetchImageUrls(
