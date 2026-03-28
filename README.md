@@ -75,6 +75,35 @@ You can. `/v1/images?format=svg` is a public endpoint. But for a typical Figma f
 
 figma-assets handles all of this. One command instead of a script you'll rewrite every project.
 
+## Prerequisites
+
+### 1. Figma Personal Access Token
+
+Generate a token at [Figma Settings → Personal Access Tokens](https://www.figma.com/settings) (Account → Security → Personal access tokens → Generate new token).
+
+Set it as an environment variable:
+
+```bash
+export FIGMA_TOKEN=figd_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+### 2. Figma URL with node-id
+
+Open the frame you want to extract in Figma. The URL looks like:
+
+```
+https://www.figma.com/design/hlN4c1rV2dQCzyEMbowCHX/MyProject?node-id=2912-13356
+```
+
+You need the full URL including `node-id`. To get it:
+1. Select the frame in Figma
+2. Right-click → **Copy/Paste as** → **Copy link**
+3. Or check the URL bar — `node-id` is in the query string
+
+### 3. Node.js
+
+Node.js 18+ (uses built-in `fetch`).
+
 ## Install
 
 ```bash
