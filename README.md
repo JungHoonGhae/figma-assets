@@ -1,6 +1,12 @@
 # figma-assets
 
-Extract production-ready SVG and raster assets from Figma.
+Figma MCP gives you expiring URLs and cropped SVG fragments. This tool gives you actual files.
+
+One command. Complete SVGs. Auto-detected rasters. No AI approximation.
+
+```bash
+npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
+```
 
 [한국어](README.ko.md)
 

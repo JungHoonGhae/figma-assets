@@ -1,6 +1,14 @@
 # figma-assets
 
-Figma 디자인에서 프로덕션용 SVG/PNG 에셋을 추출한다.
+Figma MCP는 만료되는 URL과 잘린 SVG 조각을 준다. 이 도구는 실제 파일을 준다.
+
+한 줄 명령. 완결된 SVG. 래스터 자동 감지. AI 추측 없음.
+
+```bash
+npx figma-assets "https://figma.com/design/abc/File?node-id=123-456" -o ./assets
+```
+
+[English](README.md)
 
 ## 문제
 
