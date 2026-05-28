@@ -25,9 +25,8 @@ jobs:
       - run: pnpm build
       - run: pnpm test
 
-      - run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish to npm (OIDC trusted publishing)
+        run: npm publish --provenance --access public
 
       - name: Extract changelog for this version
         id: changelog
